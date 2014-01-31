@@ -91,7 +91,7 @@ public class Equipment
      * @param String
      * prints the details of an equipped item based on the equipment spot string
      */
-    public void equipDetails(String location)
+    private void equipDetails(String location)
     {
         if(gear.get(location) != null){
             gear.get(location).getDetails();
@@ -99,6 +99,36 @@ public class Equipment
         else{
             System.out.println("<none>");
         }
+    }
+    
+    /**
+     * prints the current equipment of the player
+     */
+    public void showEquip()
+    {
+        System.out.println("--------------------------------");
+        if(gear.containsKey("both hands")){
+            System.out.print("Both Hands: ");
+            equipDetails("both hands");
+        }
+        else{
+            System.out.print("Main Hand: ");
+            equipDetails("main hand");
+            System.out.print("Off Hand: ");
+            equipDetails("off hand");
+        }
+        System.out.print("Helm: ");
+        equipDetails("head");
+        System.out.print("Shoulders: ");
+        equipDetails("shoulders");
+        System.out.print("Chest: ");
+        equipDetails("chest");
+        System.out.print("Gloves: ");
+        equipDetails("hands");
+        System.out.print("Pants: ");
+        equipDetails("legs");
+        System.out.print("Boots: ");
+        equipDetails("feet");
     }
     
     /**

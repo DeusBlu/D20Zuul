@@ -1,4 +1,3 @@
-import java.util.HashMap;
 import java.util.ArrayList;
 /**
  * Write a description of class PlayerCharacter here.
@@ -532,29 +531,7 @@ public class PlayerCharacter
     public void showEquip()
     {
         System.out.println("Equipment: " + name);
-        System.out.println("--------------------------------");
-        if(gear.getGear("both hands") != null){
-            System.out.print("Both Hands: ");
-            gear.equipDetails("both hands");
-        }
-        else{
-            System.out.print("Main Hand: ");
-            gear.equipDetails("main hand");
-            System.out.print("Off Hand: ");
-            gear.equipDetails("off hand");
-        }
-        System.out.print("Helm: ");
-        gear.equipDetails("head");
-        System.out.print("Shoulders: ");
-        gear.equipDetails("shoulders");
-        System.out.print("Chest: ");
-        gear.equipDetails("chest");
-        System.out.print("Gloves: ");
-        gear.equipDetails("hands");
-        System.out.print("Pants: ");
-        gear.equipDetails("legs");
-        System.out.print("Boots: ");
-        gear.equipDetails("feet");
+        gear.showEquip();
     }
     
     /**
