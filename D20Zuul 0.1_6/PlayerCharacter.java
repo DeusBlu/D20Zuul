@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 /**
- * Write a description of class PlayerCharacter here.
+ * This class is used to create players, it can make NPC's, PC's, and can be stored in the party for
+ * controlling multiple characters
  * 
  * @author (DeusBlu) 
  * @version (0.1_3)
@@ -84,8 +85,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @param String
      * Sets the name for the PC
+     * @param String
      */
     private void setName(String name)
     {
@@ -98,8 +99,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @param int
      * Sets the age of the PC, uses a neutral non-altering age if the age is not acceptable
+     * @param int
      */
     private void setAge(int age)
     {
@@ -122,8 +123,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @param int
      * sets the Str for the PC class
+     * @param int
      */
     private void setStr(int str)
     {
@@ -137,8 +138,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @param int
      * set the dexterity for the character
+     * @param int
      */
     private void setDex(int dex)
     {
@@ -152,8 +153,8 @@ public class PlayerCharacter
     }
     
      /**
-     * @param int
      * set the constitution for the character
+     * @param int
      */
     private void setCon(int con)
     {
@@ -167,8 +168,8 @@ public class PlayerCharacter
     }
     
      /**
-     * @param int
      * set the intelligence for the character
+     * @param int
      */
     private void setIntel(int intel)
     {
@@ -182,8 +183,8 @@ public class PlayerCharacter
     }
     
      /**
-     * @param int 
      * set the wisdom for the character
+     * @param int 
      */
     private void setWis(int wis)
     {
@@ -197,8 +198,8 @@ public class PlayerCharacter
     }
     
      /**
-     * @param int
      * set the charisma for the character
+     * @param int
      */
     private void setChr(int chr)
     {
@@ -251,8 +252,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @return String
      * returns the characters name in a String format
+     * @return String
      */
     public String getName()
     {
@@ -260,8 +261,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @return String
      * returns the characters name in a String format
+     * @return String
      */
     private int getAge()
     {
@@ -269,8 +270,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @return int
      * returns the characters current level
+     * @return int
      */
     public int getLevel()
     {
@@ -278,8 +279,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @return int
      * returns the characters Strength as an int
+     * @return int
      */
     private int getStr()
     {
@@ -287,8 +288,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @return int
      * returns the characters Dexterity
+     * @return int
      */
     private int getDex()
     {
@@ -296,8 +297,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @return int
      * returns the characters Constitution
+     * @return int
      */
     private int getCon()
     {
@@ -305,8 +306,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @return int
      * returns the characters Intelligence
+     * @return int
      */
     private int getIntel()
     {
@@ -314,8 +315,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @return int
      * returns the characters Wisdom
+     * @return int
      */
     private int getWis()
     {
@@ -323,8 +324,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @return int
      * returns the characters Charisma
+     * @return int
      */
     private int getChr()
     {
@@ -340,8 +341,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @param int
      * takes the amount of XP earned and returns true if the player has leveled up
+     * @param int
      */
     public void addXP(int xp)
     {
@@ -371,8 +372,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @param Item
      * takes the item passed and makes sure that no 
+     * @param Item
      */
     private void checkWeapons(Item item)
     {
@@ -395,8 +396,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @param item
      * loots an item to the players inventory
+     * @param item
      */
     public void lootItem(Item item)
     {
@@ -422,8 +423,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @param int
      * Drops an item from the player onto the floor of the room, it is passed to the rooms Inventory item
+     * @param int
      */
     public void dropItem(int drop)
     {
@@ -455,10 +456,10 @@ public class PlayerCharacter
     }
     
     /**
-     * @param Item
      * takes the item passed and finds out what kind of item it is, performs the needed logic to make sure
      * there are no logic collissions between this item and any other item, returns previously equipped
      * item to the inventory
+     * @param Item
      */
     private void equipLogic(Item item)
     {
@@ -535,8 +536,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @return int[2]
      * returns the min and max damage for a combat round
+     * @return int[2]
      */
     public int[] getDamage()
     {
@@ -557,8 +558,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @return int
      * returns the ToHit modifier and Damage modifier for the attack round
+     * @return int
      */
     public int getAttackMod()
     {
@@ -566,8 +567,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @return int
      * returns the Defence modifier for when player is attacked
+     * @return int
      */
     public int getDefenseMod()
     {
@@ -575,8 +576,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @param int
      * deals damage to the player in the amount of the value passed
+     * @param int
      */
     public void damage(int change)
     {
@@ -589,8 +590,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @param int
      * heals the character for the amount of the value passed
+     * @param int
      */
     public void heal(int change)
     {
@@ -603,8 +604,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @return int
      * returns the characters armor class for use when being attacked
+     * @return int
      */
     public int getArmorClass()
     {
@@ -613,8 +614,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @return int
      * returns the characters attackBonus which will modify melee weapon damage and toHit
+     * @return int
      */
     public int getAttackBonus()
     {
@@ -622,8 +623,8 @@ public class PlayerCharacter
     }
     
     /**
-     * @return boolean
      * returns true if the character is dead
+     * @return boolean
      */
     public boolean isDead()
     {

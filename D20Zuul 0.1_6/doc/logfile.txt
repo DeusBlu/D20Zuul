@@ -1,0 +1,46 @@
+Class documentation
+<---- javadoc command: ---->
+C:\Program Files\Java\jdk1.7.0_40\bin\javadoc.exe
+-author
+-version
+-nodeprecated
+-package
+-noindex
+-notree
+-nohelp
+-nonavbar
+-source
+1.7
+-classpath
+C:\Program Files (x86)\BlueJ\lib\bluejcore.jar;C:\Program Files (x86)\BlueJ\lib\junit-4.8.2.jar;C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul
+-d
+C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\doc
+-encoding
+windows-1252
+-charset
+windows-1252
+-docletpath
+C:\Program Files (x86)\BlueJ\lib\bjdoclet.jar
+-doclet
+bluej.doclet.doclets.formats.html.HtmlDoclet
+C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\PlayerCharacter.java
+<---- end of javadoc command ---->
+Loading source file C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\PlayerCharacter.java...
+Constructing Javadoc information...
+Standard Doclet version 1.7.0_40
+Building tree for all the packages and classes...
+Generating C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\doc\PlayerCharacter.html...
+C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\PlayerCharacter.java:347: warning - @param argument "int" is not a parameter name.
+C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\PlayerCharacter.java:582: warning - @param argument "int" is not a parameter name.
+C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\PlayerCharacter.java:429: warning - @param argument "int" is not a parameter name.
+C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\PlayerCharacter.java:596: warning - @param argument "int" is not a parameter name.
+Generating C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\doc\package-frame.html...
+Generating C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\doc\package-summary.html...
+Generating C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\doc\constant-values.html...
+Building index for all the packages and classes...
+Building index for all classes...
+Generating C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\doc\allclasses-frame.html...
+Generating C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\doc\allclasses-noframe.html...
+Generating C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\doc\index.html...
+Generating C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\doc\stylesheet.css...
+4 warnings

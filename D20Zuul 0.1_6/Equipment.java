@@ -17,10 +17,10 @@ public class Equipment
     }
     
     /**
+     * equips Item into location String based on an array of possible answers
      * @param String the name of the person being equipped
      * @param Item the item being equipped
      * @param String the location the item is being equipped to
-     * equips Item into location String based on an array of possible answers
      */
     public void equipPlayer(String name, Item item, String spot)
     {
@@ -43,9 +43,9 @@ public class Equipment
     }
     
     /**
+     * equips the item to the appropriate location
      * @param String the name of the person being equipped
      * @param Item the item being equipped
-     * equips the item to the appropriate location
      */
     public void equipPlayer(String name, Item item)
     {
@@ -65,9 +65,9 @@ public class Equipment
     }
     
     /**
+     * a more simple equip method with no output for putting gear on a monster when battle starts
      * @param Item
      * @param String
-     * a more simple equip method with no output for putting gear on a monster when battle starts
      */
     public void equipMonster(Item item, String spot)
     {
@@ -77,8 +77,8 @@ public class Equipment
     }
     
     /**
-     * @param Item
      * an even more simple equip method for equipping monsters with items that go only to one place
+     * @param Item
      */
     public void equipMonster(Item item)
     {
@@ -88,8 +88,8 @@ public class Equipment
     }
     
     /**
-     * @param String
      * prints the details of an equipped item based on the equipment spot string
+     * @param String
      */
     private void equipDetails(String location)
     {
@@ -132,8 +132,8 @@ public class Equipment
     }
     
     /**
-     * @return boolean
      * returns true if the HashMap key contains the gear location
+     * @return boolean
      */
     public boolean hasGear(String key)
     {
@@ -145,9 +145,9 @@ public class Equipment
     }
     
     /**
+     * takes a String and searches for gear corresponding to the equip local and returns the item
      * @return Item
      * @param String
-     * takes a String and searches for gear corresponding to the equip local and returns the item
      */
     public Item getGear(String spot)
     {
@@ -155,9 +155,9 @@ public class Equipment
     }
     
     /**
+     * unequips the item from the given location and returns the item removed from the location
      * @param String
      * @return Item
-     * unequips the item from the given location and returns the item removed from the location
      */
     public Item unequip(String spot)
     {
@@ -165,8 +165,8 @@ public class Equipment
     }
     
     /**
-     * @return int[]
      * returns an int[2] where 0 is min damage and 1 is max damage of the items equipped
+     * @return int[]
      */
     public int[] getDamage()
     {
@@ -179,8 +179,8 @@ public class Equipment
     }
     
     /**
-     * @return int
      * returns the ToHit modifier and Damage modifier for the attack round
+     * @return int
      */
     public int getAttackMod()
     {
@@ -200,8 +200,8 @@ public class Equipment
     }
     
     /**
-     * @return int
      * returns the Defence modifier for when player is attacked
+     * @return int
      */
     public int getDefenseMod()
     {
