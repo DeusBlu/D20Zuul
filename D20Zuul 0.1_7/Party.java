@@ -67,4 +67,41 @@ public class Party
             }
         }
     }
+    
+    /**
+     * checks to see if the Party is empty and returns false if not empty
+     */
+    public boolean isEmpty()
+    {
+        if(players.length == 0 && monsters.length == 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    /**
+     * returns true all are dead, switch between players and monsters with string "player" "monster"
+     * @return boolean
+     */
+    public boolean isDefeated(String team)
+    {
+        boolean wiped = true;
+        if(team.equalsIgnoreCase("player")){
+            for(int i = 0; i < players.length; i++){
+                if(!players[i].isDead()){
+                    wiped = false;
+                }
+            }
+        }
+        else if(team.equalsIgnoreCase("monster")){
+            for(int i = 0; i < monsters.length; i++){
+                if(!monsters[i].isDead()){
+                    wiped = false;
+                }
+            }
+        }
+        return wiped;
+    }
 }

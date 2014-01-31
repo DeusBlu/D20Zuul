@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Encounter()
+comment0.text=\r\n\ default\ constructor\ for\ class\ Encounter\r\n
+comment1.params=players\ monsters
+comment1.target=Encounter(Party,\ Party)
+comment1.text=\r\n\ Created\ the\ encounter\ and\ loads\ the\ parties\ for\ the\ encounter/initializes\ the\ Combat\ object\r\n\ @param\ Party\ -\ the\ players\ party\r\n\ @param\ Party\ -\ the\ part\ of\ monsters\ to\ fight\r\n
+comment2.params=party
+comment2.target=void\ setPlayers(Party)
+comment2.text=\r\n\ loads\ the\ players\ party\ making\ sure\ that\ it\ is\ not\ a\ null\ object\ or\ an\ empty\ party\r\n\ @param\ Party\ -\ the\ party\ of\ players\r\n
+comment3.params=party
+comment3.target=void\ setMonsters(Party)
+comment3.text=\r\n\ loads\ the\ monsters\ party\ making\ sure\ that\ it\ is\ not\ a\ null\ object\ or\ an\ empty\ party\r\n\ @param\ Party\ -\ the\ monsters\ party\r\n
+numComments=4

@@ -11,6 +11,15 @@ public class Combat
     private Dice dice;
     private Monster monster;
     private PlayerCharacter player;
+    
+    /**
+     * default constructor for class Combat
+     */
+    public Combat()
+    {
+        rand = new Random();
+        dice = new Dice();
+    }
     /**
      * Constructor for Combat
      * @param Monster - the monster for the combat
