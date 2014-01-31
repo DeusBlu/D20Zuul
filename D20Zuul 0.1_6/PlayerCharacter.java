@@ -466,13 +466,13 @@ public class PlayerCharacter
         Inventory wasEquipped = new Inventory();
         if(backpack.bagSpace() <= 1 && item.getEquipString().equals("both hands")
         && gear.hasGear("main hand") && gear.hasGear("off hand")){
-            System.out.println(getName() + "'s" + " backpack is full");
-            wasEquipped.lootItem(item);
+              System.out.println(getName() + "'s" + " backpack is full");
+              wasEquipped.lootItem(item);
         }
         else if(item.getType().equals("misc") || item.getType().equals("key")){
-                System.out.println("You cannot equip that type of item");
-                wasEquipped.lootItem(item);
-            }
+              System.out.println("You cannot equip that type of item");
+              wasEquipped.lootItem(item);
+        }
         else{
             if(item.getType().equalsIgnoreCase("1hweapon")){
                 boolean ask = true;

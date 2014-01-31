@@ -13,8 +13,8 @@ public class Combat
     private PlayerCharacter player;
     /**
      * Constructor for Combat
-     * @param monster the monster for the combat
-     * @param character the character for the combat
+     * @param Monster - the monster for the combat
+     * @param PlayerCharacter - the character for the combat
      */
     public Combat(Monster monster, PlayerCharacter player)
     {
@@ -25,8 +25,8 @@ public class Combat
     }
     
     /**
-     * @param player - the player character to use for combat
      * loads a PlayerCharacter into the combat
+     * @param player - the player character to use for combat
      */
     private void usePlayer(PlayerCharacter player)
     {
@@ -39,8 +39,8 @@ public class Combat
     }
     
     /**
-     * @param monster - the monster to use for combat
      * load a Monster into the combat
+     * @param monster - the monster to use for combat
      */
     private void useMonster(Monster monster)
     {
@@ -53,8 +53,8 @@ public class Combat
     }
     
     /**
-     * @return PlayerCharacter
      * returns the player character that is being used for combat
+     * @return PlayerCharacter
      */
     public PlayerCharacter getPlayer()
     {
@@ -67,8 +67,8 @@ public class Combat
     }
     
     /**
-     * @return Monster
      * returns the monster that is being used for combat
+     * @return Monster
      */
     public Monster getMonster()
     {

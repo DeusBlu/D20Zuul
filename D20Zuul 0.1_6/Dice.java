@@ -18,9 +18,9 @@ public class Dice
     }
 
     /**
+     * rolls dice-D-sides (3d6, 5d12, 2d8) and outputs the results in console
      * @param int - # of dice
      * @param int - sides of dice
-     * rolls diceDsides (3d6, 5d12, 2d8)
      */
     public void rollDebug(int dice, int sides)
     {
@@ -34,9 +34,9 @@ public class Dice
     }
     
     /**
+     * rolls dice-D-sides (3d6, 5d12, 2d8)
      * @param int - # of dice
      * @param int - sides of dice
-     * rolls diceDsides (3d6, 5d12, 2d8)
      */
     public int roll(int dice, int sides)
     {

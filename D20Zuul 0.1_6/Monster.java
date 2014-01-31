@@ -45,6 +45,7 @@ public class Monster
     }
     
     /**
+     * This is the constructor for any type of monster, all values can be taken
      * @param String - monsters name
      * @param int - armor
      * @param int - level
@@ -54,7 +55,6 @@ public class Monster
      * @param int - difficulty
      * @param boolean - if the monster is a special mythic monster
      * @param boolean - can the monster use magic
-     * This is the constructor for any type of monster, all values can be taken
      */
     public Monster(String name, int armor, int level, int hpDie, int dmgMin, int dmgMax, 
     int xp, int hitBonus, boolean isMythic, boolean hasMagic)
@@ -76,8 +76,8 @@ public class Monster
     }
     
     /**
-     * @param String
      * sets the name of the monster
+     * @param String
      */
     private void setName(String name)
     {
@@ -90,9 +90,9 @@ public class Monster
     }
     
     /**
+     * sets the monsters HP based on their level and base HP
      * @param int - level
      * @param int - baseHP
-     * sets the monsters HP based on their level and base HP
      */
     private void setHP(int level, int hpDie)
     {
@@ -107,10 +107,10 @@ public class Monster
     }
     
     /**
-     * @param int
-     * @param boolean
      * checks if the monster has magic and if it does sets the MP randomly based on its level if it 
      * does not sets MP to 0
+     * @param int
+     * @param boolean
      */
     private void setMP(int level, boolean hasMagic)
     {
@@ -131,9 +131,9 @@ public class Monster
     }
     
     /**
+     * sets the damage range of the monster based on dmgMin and dmgMax and stores it in the damage array
      * @param int - dmgMin
      * @param int - dmgMax
-     * sets the damage range of the monster based on dmgMin and dmgMax and stores it in the damage array
      */
     private void setDamage(int dmgMin, int dmgMax)
     {
@@ -152,8 +152,8 @@ public class Monster
     }
     
     /**
-     * @param int
      * sets the armor value of the monster
+     * @param int
      */
     private void setArmor(int armor)
     {
@@ -166,8 +166,8 @@ public class Monster
     }
     
     /**
-     * @param int
      * sets the bonus to hit rating for the monster
+     * @param int
      */
     private void setHitBonus(int hitBonus)
     {
@@ -180,8 +180,8 @@ public class Monster
     }
     
     /**
-     * @param int - level
      * sets the level of the monster
+     * @param int - level
      */
     private void setLevel(int level)
     {
@@ -194,8 +194,8 @@ public class Monster
     }
     
     /**
-     * @param int - difficulty
      * sets the difficulty level of the monster with the parameters MIN_DIFF and MAX_DIFF
+     * @param int - difficulty
      */
     private void setXP(int XP)
     {
@@ -208,8 +208,8 @@ public class Monster
     }
     
     /**
-     * @param boolean
      * sets if the monster is a mythical monster
+     * @param boolean
      */
     private void setMythic(boolean mythic)
     {
@@ -217,8 +217,8 @@ public class Monster
     }
     
     /**
-     * @param boolean
      * sets if the monster can cast magic which is used for mp determination
+     * @param boolean
      */
     private void setMagic(boolean hasMagic)
     {
@@ -226,8 +226,8 @@ public class Monster
     }
     
     /**
-     * @return String
      * returns the name of the monster
+     * @return String
      */
     public String getName()
     {
@@ -235,8 +235,8 @@ public class Monster
     }
     
     /**
-     * @return int
      * returns the hit bonus for the monster
+     * @return int
      */
     public int getHitBonus()
     {
@@ -244,8 +244,8 @@ public class Monster
     }
     
     /**
-     * @return int
      * returns the current hp as an int ignoring the max HP
+     * @return int
      */
     public int getHP()
     {
@@ -253,8 +253,8 @@ public class Monster
     }
     
     /**
-     * @return int
      * returns the current mp as an int ignoring the max MP
+     * @return int
      */
     public int getMP()
     {
@@ -262,8 +262,8 @@ public class Monster
     }
     
     /**
-     * @return int[2]
      * returns the min and max damage of the mob respectively as int[0] and int[1]
+     * @return int[2]
      */
     public int[] getDamage()
     {
@@ -271,8 +271,8 @@ public class Monster
     }
     
     /**
-     * @return int
      * returns the armor class of the monster as an int
+     * @return int
      */
     public int getArmor()
     {
@@ -280,8 +280,8 @@ public class Monster
     }
     
     /**
-     * @return int
      * returns the level of the monster as an int
+     * @return int
      */
     public int getLevel()
     {
@@ -289,8 +289,8 @@ public class Monster
     }
     
     /**
+     * returns amount of XP awarded for killing the monster as an int
      * @return int
-     * returns the difficulty of the monster for its level
      */
     public int getXP()
     {
@@ -298,8 +298,8 @@ public class Monster
     }
     
     /**
-     * @return boolean
      * returns true if the monster is mythic
+     * @return boolean
      */
     public boolean getMythic()
     {
@@ -307,8 +307,8 @@ public class Monster
     }
     
     /**
-     * @return boolean
      * returns true if the monster has magic
+     * @return boolean
      */
     public boolean getHasMagic()
     {
@@ -316,8 +316,8 @@ public class Monster
     }
     
     /**
-     * @param int
      * deals damage to the monster in the amount of the value passed
+     * @param int
      */
     public void damage(int change)
     {
@@ -330,8 +330,8 @@ public class Monster
     }
     
     /**
-     * @param int
      * heals the character for the amount of the value passed
+     * @param int
      */
     public void heal(int change)
     {
@@ -344,8 +344,8 @@ public class Monster
     }
     
     /**
-     * @return boolean
      * returns true if the character is dead
+     * @return boolean
      */
     public boolean isDead()
     {

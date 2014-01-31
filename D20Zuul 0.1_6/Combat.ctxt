@@ -1,22 +1,22 @@
 #BlueJ class context
 comment0.params=monster\ player
 comment0.target=Combat(Monster,\ PlayerCharacter)
-comment0.text=\r\n\ Constructor\ for\ Combat\r\n\ @param\ monster\ the\ monster\ for\ the\ combat\r\n\ @param\ character\ the\ character\ for\ the\ combat\r\n
+comment0.text=\r\n\ Constructor\ for\ Combat\r\n\ @param\ Monster\ -\ the\ monster\ for\ the\ combat\r\n\ @param\ PlayerCharacter\ -\ the\ character\ for\ the\ combat\r\n
 comment1.params=player
 comment1.target=void\ usePlayer(PlayerCharacter)
-comment1.text=\r\n\ @param\ player\ -\ the\ player\ character\ to\ use\ for\ combat\r\n\ loads\ a\ PlayerCharacter\ into\ the\ combat\r\n
+comment1.text=\r\n\ loads\ a\ PlayerCharacter\ into\ the\ combat\r\n\ @param\ player\ -\ the\ player\ character\ to\ use\ for\ combat\r\n
 comment10.params=
 comment10.target=void\ monsterMiss()
 comment10.text=\r\n\ makes\ the\ monster\ miss\ the\ player\r\n
 comment2.params=monster
 comment2.target=void\ useMonster(Monster)
-comment2.text=\r\n\ @param\ monster\ -\ the\ monster\ to\ use\ for\ combat\r\n\ load\ a\ Monster\ into\ the\ combat\r\n
+comment2.text=\r\n\ load\ a\ Monster\ into\ the\ combat\r\n\ @param\ monster\ -\ the\ monster\ to\ use\ for\ combat\r\n
 comment3.params=
 comment3.target=PlayerCharacter\ getPlayer()
-comment3.text=\r\n\ @return\ PlayerCharacter\r\n\ returns\ the\ player\ character\ that\ is\ being\ used\ for\ combat\r\n
+comment3.text=\r\n\ returns\ the\ player\ character\ that\ is\ being\ used\ for\ combat\r\n\ @return\ PlayerCharacter\r\n
 comment4.params=
 comment4.target=Monster\ getMonster()
-comment4.text=\r\n\ @return\ Monster\r\n\ returns\ the\ monster\ that\ is\ being\ used\ for\ combat\r\n
+comment4.text=\r\n\ returns\ the\ monster\ that\ is\ being\ used\ for\ combat\r\n\ @return\ Monster\r\n
 comment5.params=
 comment5.target=void\ playerAttack()
 comment5.text=\r\n\ makes\ the\ object\ player\ melee\ attack\ the\ object\ monster\r\n

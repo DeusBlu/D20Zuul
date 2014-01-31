@@ -20,7 +20,8 @@ public class Party
     }
     
     /**
-     * constructor for Monsters
+     * constructor for Monsters, number of the monsters in the group set by int
+     * @param int
      */
     public Party(int monsters)
     {
@@ -28,8 +29,8 @@ public class Party
     }
 
     /**
-     * @param PlayerCharacter
      * adds the player to the party
+     * @param PlayerCharacter
      */
     public void joinParty(PlayerCharacter player)
     {
@@ -51,8 +52,8 @@ public class Party
     }
     
     /**
-     * @param Monster
      * adds a monster to a monster party for combat
+     * @param Monster
      */
     public void monsterGroup(Monster monster)
     {

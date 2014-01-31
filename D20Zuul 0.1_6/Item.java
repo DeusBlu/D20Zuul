@@ -2,8 +2,8 @@ import java.util.ArrayList;
 /**
  * Item objects to be equipped or used by players or monsters
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author (DeusBlu) 
+ * @version (0.1_6)
  */
 public class Item
 {
@@ -27,7 +27,7 @@ public class Item
     private String name;
 
     /**
-     * Constructor for objects of class Item
+     * default constructor for testing items
      */
     public Item()
     {
@@ -41,6 +41,16 @@ public class Item
         setName("unnamed");
     }
     
+    /**
+     * constructor that takes every value can be used to create a multitude of items
+     * @param int - damage min
+     * @param int - damage max
+     * @param int - defense of the item
+     * @param String - item type must be a value in ITEMTYPE if not set to "misc"
+     * @param String - effect the item has must be in EFFECT or set to "none"
+     * @param int - effect value, how much a potion heals for etc
+     * @param String - the name of this particular item "potion of healing"
+     */
     public Item(int damageMin, int damageMax, int def, String type, String effect,int effectValue, String name)
     {
         damage = new int[2];
@@ -54,7 +64,9 @@ public class Item
     }
 
     /**
-     * @param  damage the min and max damage of the item
+     * sets the minimum and maximum damage for the item, these will be stored in an array [0] min [1] max
+     * @param int - minimum damage
+     * @param int - maximum damage
      */
     private void setDamage(int damageMin, int damageMax)
     {
@@ -71,7 +83,8 @@ public class Item
     }
     
     /**
-     * @param def the defence value of the item
+     * sets the defense value of the item to int
+     * @param int - items defense
      */
     private void setDefense(int def)
     {
@@ -85,7 +98,8 @@ public class Item
     }
     
     /**
-     * @param slot the slot that the item can be equipped, it will be checked for validity
+     * Sets the places where an item can be equipped to based on the type of item it is
+     * @param String - the type of item it is must be a value within ITEMTYPE
      */
     private void setEquipSpots(String type)
     {
@@ -123,7 +137,8 @@ public class Item
     }
     
     /**
-     * @param effect represents any extra effect the item may have
+     * sets the effect if it is contained within EFFECT if not sets it to "none"
+     * @param String - the effect the item has when used
      */
     private void setEffect(String effect)
     {
@@ -138,7 +153,8 @@ public class Item
     }
     
     /**
-     * @param effect value the potency of the effect the item has
+     * sets the effect value, the potency of the item, 10 will heal for 10 hp etc
+     * @param int - the potency of the item
      */
     private void setEffectValue(int effectValue)
     {
@@ -151,7 +167,8 @@ public class Item
     }
     
     /**
-     * @param the location the item can be equipped as determined by its type
+     * sets the type of the item, if not contained within ITEMTYPE then type is set to "misc"
+     * @param String - the item type
      */
     private void setType(String type)
     {
@@ -167,7 +184,8 @@ public class Item
     }
     
     /**
-     * @param name the name the item will be known by eg potion of healing
+     * sets the name of the item, can be anything and is used for human interaction
+     * @param String - the items name
      */
     private void setName(String name)
     {
@@ -180,7 +198,8 @@ public class Item
     }
     
     /**
-     * @return the min-max damage of the item
+     * gets the minimum and maximum damage of the item returned as an int[2] for easy use
+     * @return int[2] - [0] min damage [1] max damage
      */
     public int[] getDamage()
     {
@@ -188,7 +207,8 @@ public class Item
     }
     
     /**
-     * @return the defence value of the item
+     * gets the defence value of the item
+     * @return int - the defense
      */
     public int getDefense()
     {
@@ -196,7 +216,8 @@ public class Item
     }
     
     /**
-     * @return the effect the item has when used
+     * gets the effect the item has
+     * @return String - the items effect
      */
     public String getEffect()
     {
@@ -204,7 +225,8 @@ public class Item
     }
     
     /**
-     * @return the value used for the effect such as healing done or increase to stats
+     * gets the effect potency returned as an int
+     * @return int - items effect potency
      */
     public int getEffectValue()
     {
@@ -212,8 +234,8 @@ public class Item
     }
     
     /**
-     * @return the type of item this is, this will determine where it can be equipped all items can be 
-     * stored in the backpack
+     * returns the type the item is as a string
+     * @return String - the items type
      */
     public String getType()
     {
@@ -221,7 +243,8 @@ public class Item
     }
     
     /**
-     * @return the name of the item
+     * returns the name of the item as a string
+     * @return String
      */
     public String getName()
     {
@@ -229,16 +252,9 @@ public class Item
     }
     
     /**
-     * @param ArrayList<String> this returns the entire array object with the places an item can
-     * be equipped
-     */
-    public ArrayList<String> getEquipSpots()
-    {
-        return equipSpots;
-    }
-    
-    /**
-     * @return String this method returns a string of the places that an item can be equipped
+     * returns a string containing all the places an item can be equipped, most items this is only 1 location some
+     * are more
+     * @return String
      */
     public String getEquipString()
     {
@@ -249,7 +265,7 @@ public class Item
         return loc;
     }
     
-     /**
+    /**
      * shows the details of the item
      */
     public void getDetails()
@@ -271,7 +287,7 @@ public class Item
     }
     
     /**
-     * this method prints the places that an item can be equipped
+     * prints the places that an item can be equipped
      */
     public void equipWhere()
     {
@@ -285,7 +301,7 @@ public class Item
     /**
      * This method attempts to use the item
      */
-    public void use(Item item)
+    public void use()
     {
         if(getEffect().equalsIgnoreCase("attack")){
         }

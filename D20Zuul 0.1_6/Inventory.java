@@ -24,9 +24,9 @@ public class Inventory
     }
     
     /**
-     * @param int - the number of items you want the inventory to hold
      * for creating larger inventory items that can be used to store items for monster loot tables and 
      * rooms for items dropped on the floor can
+     * @param int - the number of items you want the inventory to hold
      */
     public Inventory(int size)
     {
@@ -39,7 +39,8 @@ public class Inventory
     }
 
     /**
-     * @param Item loots the item and puts it into your backpack
+     * loots an item into your inventory
+     * @param Item - the item to loot
      */
     public boolean lootItem(Item item)
     {
@@ -71,6 +72,7 @@ public class Inventory
     
     /**
      * shows the details of the item at requested bag index
+     * @param int - the item #
      */
     public void showBagItem(int spot)
     {
@@ -110,8 +112,8 @@ public class Inventory
     }
     
     /**
-     * @return int
      * returns the total size of your backpack
+     * @return int
      */
     public int length()
     {
@@ -119,9 +121,9 @@ public class Inventory
     }
     
     /**
+     * removes an item from the bag and returns it, returns null if no item found
      * @param int
      * @return Item
-     * removes an item from the bag and returns it, returns null if no item found
      */
     public Item removeItem(int spot)
     {
@@ -134,9 +136,9 @@ public class Inventory
     }
     
     /**
+     * querries the inventory for the item at its position and returns the item at that location else returns null
      * @param int
      * @return item
-     * querries the inventory for the item at its position and returns the item at that location
      */
     public Item getItem(int spot)
     {
@@ -149,10 +151,10 @@ public class Inventory
     }
     
     /**
-     * @param Inventory
-     * @param int
      * takes an item from one inventory and transfers it to this inventory based on its location in
      * the originating inventory and returns true if it was able to be moved
+     * @param Inventory
+     * @param int
      */
     public boolean transfer(int spot, Inventory from)
     {
@@ -164,8 +166,7 @@ public class Inventory
     }
     
     /**
-     * Sorts the inventory to be "2hweapon", "mhweapon", "1hweapon", "shield", "helm", "shoulders", "chest", 
-     * "gloves", "pants", "boots","misc"
+     * Sorts the inventory to be the same order as set by Item.ITEMTYPE
      */
     public void sort()
     {
