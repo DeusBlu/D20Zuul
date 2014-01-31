@@ -12,11 +12,11 @@ public class Item
     //    "head", "chest", "hands", "legs", "feet", "main hand", "off hand", "both hands", "backpack"
     //};
     private static final String[] EFFECT = {
-        "attack", "healing", "buff", "misc", "key", "none"
+        "attack", "healing", "buff", "misc", "none"
     };
     public static final String[] ITEMTYPE = {
         "2hweapon", "mhweapon", "1hweapon", "shield", "helm", "shoulders", "chest", "gloves", "pants",
-        "boots","misc"
+        "boots","misc", "key"
     }; //showEquip in PlayerCharacter and setEquipSpots below must be updated with this list!!!!!!
     private int[] damage;
     private int def;

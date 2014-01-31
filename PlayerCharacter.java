@@ -33,7 +33,7 @@ public class PlayerCharacter
     private int[] hp;
     private int[] mp;
     private int[] xp;
-    private HashMap<String, Item> gear;
+    private Equipment gear;
     private Inventory backpack;
     private InputReader reader;
     /**
@@ -45,7 +45,7 @@ public class PlayerCharacter
         hp = new int[2];
         mp = new int[2];
         xp = new int[2];
-        gear = new HashMap<String, Item>();
+        gear = new Equipment();
         backpack = new Inventory();
         setName("");
         setLevel();
@@ -69,7 +69,7 @@ public class PlayerCharacter
         hp = new int[2];
         mp = new int[2];
         xp = new int[2];
-        gear = new HashMap<String, Item>();
+        gear = new Equipment();
         backpack = new Inventory();
         setLevel();
         setName(name);
@@ -377,20 +377,20 @@ public class PlayerCharacter
      */
     private void checkWeapons(Item item)
     {
-        if(gear.containsKey("both hands") && item.getType().equalsIgnoreCase("1hweapon")){
-            System.out.println(getName() + "'s " + gear.get("both hands").getName() + " has been removed");
+        if(gear.hasGear("both hands") && item.getType().equalsIgnoreCase("1hweapon")){
+            System.out.println(getName() + "'s " + gear.getGear("both hands").getName() + " has been removed");
         }
-        if(gear.containsKey("both hands") && item.getType().equalsIgnoreCase("mhweapon")){
-            System.out.println(getName() + "'s " + gear.get("both hands").getName() + " has been removed");
+        if(gear.hasGear("both hands") && item.getType().equalsIgnoreCase("mhweapon")){
+            System.out.println(getName() + "'s " + gear.getGear("both hands").getName() + " has been removed");
         }
-        if(gear.containsKey("off hand") && item.getType().equalsIgnoreCase("2hweapon")){
-            System.out.println(getName() + "'s " + gear.get("off hand").getName() + " has been removed");
+        if(gear.hasGear("off hand") && item.getType().equalsIgnoreCase("2hweapon")){
+            System.out.println(getName() + "'s " + gear.getGear("off hand").getName() + " has been removed");
         }
-        if(gear.containsKey("main hand") && item.getType().equalsIgnoreCase("2hweapon")){
-            System.out.println(getName() + "'s " + gear.get("main hand").getName() + " has been removed");
+        if(gear.hasGear("main hand") && item.getType().equalsIgnoreCase("2hweapon")){
+            System.out.println(getName() + "'s " + gear.getGear("main hand").getName() + " has been removed");
         }
-        if(gear.containsKey(item.getEquipString())){
-            System.out.println(getName() + "'s " + gear.get(item.getEquipString()).getName() + 
+        if(gear.hasGear(item.getEquipString())){
+            System.out.println(getName() + "'s " + gear.getGear(item.getEquipString()).getName() + 
             " has been removed");
         }
     }
@@ -465,7 +465,7 @@ public class PlayerCharacter
     {
         Inventory wasEquipped = new Inventory();
         if(backpack.bagSpace() <= 1 && item.getEquipString().equals("both hands")
-        && gear.containsKey("main hand") && gear.containsKey("off hand")){
+        && gear.hasGear("main hand") && gear.hasGear("off hand")){
             System.out.println(getName() + "'s" + " backpack is full");
             wasEquipped.lootItem(item);
         }
@@ -482,25 +482,25 @@ public class PlayerCharacter
                     String input = reader.readString();
                     for(int i=0; i < MAINHAND_OPTIONS.length; i++){
                         if(input.equalsIgnoreCase(MAINHAND_OPTIONS[i])){
-                            if(gear.containsKey("main hand")){
-                                System.out.println(getName() + "'s " + gear.get("main hand").getName() + " has been removed");
+                            if(gear.hasGear("main hand")){
+                                System.out.println(getName() + "'s " + gear.getGear("main hand").getName() + " has been removed");
                             }
                             checkWeapons(item);
-                            wasEquipped.lootItem(gear.remove("main hand"));
-                            wasEquipped.lootItem(gear.remove("both hands"));
-                            equip1Hand("main hand", item);
+                            wasEquipped.lootItem(gear.unequip("main hand"));
+                            wasEquipped.lootItem(gear.unequip("both hands"));
+                            gear.equipPlayer(getName(), item, "main hand");
                             ask = false;
                         }
                     }
                     for(int i=0; i < OFFHAND_OPTIONS.length; i++){
                         if(input.equalsIgnoreCase(OFFHAND_OPTIONS[i])){
-                            if(gear.containsKey("off hand")){
-                                System.out.println(getName() + "'s " + gear.get("off hand").getName() + " has been removed");
+                            if(gear.hasGear("off hand")){
+                                System.out.println(getName() + "'s " + gear.getGear("off hand").getName() + " has been removed");
                             }
                             checkWeapons(item);
-                            wasEquipped.lootItem(gear.remove("off hand"));
-                            wasEquipped.lootItem(gear.remove("both hands"));
-                            equip1Hand("off hand", item);
+                            wasEquipped.lootItem(gear.unequip("off hand"));
+                            wasEquipped.lootItem(gear.unequip("both hands"));
+                            gear.equipPlayer(getName(), item, "off hand");
                             ask = false;
                         }
                     }
@@ -511,78 +511,18 @@ public class PlayerCharacter
             }
             else if(item.getEquipString().equals("both hands")){
                 checkWeapons(item);
-                wasEquipped.lootItem(gear.remove("both hands"));
-                wasEquipped.lootItem(gear.remove("main hand"));
-                wasEquipped.lootItem(gear.remove("off hand"));
-                equipOther(item);
+                wasEquipped.lootItem(gear.unequip("both hands"));
+                wasEquipped.lootItem(gear.unequip("main hand"));
+                wasEquipped.lootItem(gear.unequip("off hand"));
+                gear.equipPlayer(name, item);
             }
             else{
-                equipOther(item);
+                gear.equipPlayer(name, item);
             }
         }
         if(backpack.transfer(0, wasEquipped)){
         }
         if(backpack.transfer(1, wasEquipped)){
-        }
-    }
-    
-    /**
-     * @param String
-     * @param Item
-     * equips Item into location String based on an array of possible answers
-     */
-    private void equip1Hand(String spot, Item item)
-    {
-        if(item != null && spot != null){
-            if(item.getEquipString().contains(spot) && !item.getEquipString().isEmpty()){
-                if(gear.containsKey(spot)){
-                    System.out.println("Replaced " + getName() + "'s " + gear.get(spot).getName() + 
-                    " with " + item.getName());
-                }
-                else{
-                    System.out.println(item.getName() + " has been equipped to " + getName() + 
-                    "'s " + spot);
-                }
-                gear.put(spot, item);
-            }
-            else{
-                System.out.println("That item can only go to " + item.getEquipString());
-            }
-        }
-    }
-    
-    /**
-     * @param Item
-     * equips the item to the appropriate location
-     */
-    private void equipOther(Item item)
-    {
-        if(item != null){
-            if(gear.containsKey(item.getEquipString())){
-                System.out.println("Replaced " + getName() + "'s " 
-                + gear.get(item.getEquipString()).getName()  + " with " +  item.getName());
-                }
-            else{
-                System.out.println(item.getName() + " has been equipped to " + getName());
-            }
-            gear.put(item.getEquipString(), item);
-        }
-        else{
-            System.out.println("That item can only go to " + item.getEquipString());
-        }
-    }
-    
-    /**
-     * @param String
-     * prints the details of an equipped item based on the equipment spot string
-     */
-    private void equipDetails(String location)
-    {
-        if(gear.get(location) != null){
-            gear.get(location).getDetails();
-        }
-        else{
-            System.out.println("<none>");
         }
     }
     
@@ -593,28 +533,28 @@ public class PlayerCharacter
     {
         System.out.println("Equipment: " + name);
         System.out.println("--------------------------------");
-        if(gear.get("both hands") != null){
+        if(gear.getGear("both hands") != null){
             System.out.print("Both Hands: ");
-            equipDetails("both hands");
+            gear.equipDetails("both hands");
         }
         else{
             System.out.print("Main Hand: ");
-            equipDetails("main hand");
+            gear.equipDetails("main hand");
             System.out.print("Off Hand: ");
-            equipDetails("off hand");
+            gear.equipDetails("off hand");
         }
         System.out.print("Helm: ");
-        equipDetails("head");
+        gear.equipDetails("head");
         System.out.print("Shoulders: ");
-        equipDetails("shoulders");
+        gear.equipDetails("shoulders");
         System.out.print("Chest: ");
-        equipDetails("chest");
+        gear.equipDetails("chest");
         System.out.print("Gloves: ");
-        equipDetails("hands");
+        gear.equipDetails("hands");
         System.out.print("Pants: ");
-        equipDetails("legs");
+        gear.equipDetails("legs");
         System.out.print("Boots: ");
-        equipDetails("feet");
+        gear.equipDetails("feet");
     }
     
     /**
@@ -626,10 +566,8 @@ public class PlayerCharacter
         int[] mod = new int[2];
         mod[0] = getStatMod(str);
         mod[1] = getStatMod(str);
-        for(String item : gear.keySet()){
-            mod[0] += gear.get(item).getDamage()[0];
-            mod[1] += gear.get(item).getDamage()[1];
-        }
+        mod[0] += gear.getDamage()[0];
+        mod[1] += gear.getDamage()[1];
         if(mod[0] <= 0){
             mod[0] = 0;
         }
@@ -647,19 +585,7 @@ public class PlayerCharacter
      */
     public int getAttackMod()
     {
-        int mod = 0;
-        for(String item : gear.keySet()){
-            if(gear.get(item).getEffect().equals("buff") && gear.get(item).getType().equals("1hweapon")){
-                mod += gear.get(item).getEffectValue();
-            }
-            if(gear.get(item).getEffect().equals("buff") && gear.get(item).getType().equals("2hweapon")){
-                mod += gear.get(item).getEffectValue();
-            }
-            if(gear.get(item).getEffect().equals("buff") && gear.get(item).getType().equals("ohweapon")){
-                mod += gear.get(item).getEffectValue();
-            }
-        }
-        return mod;
+        return gear.getAttackMod();
     }
     
     /**
@@ -668,11 +594,7 @@ public class PlayerCharacter
      */
     public int getDefenseMod()
     {
-        int mod = 0;
-        for(String item : gear.keySet()){
-            mod += gear.get(item).getDefense();
-        }
-        return mod;
+        return gear.getDefenseMod();
     }
     
     /**
