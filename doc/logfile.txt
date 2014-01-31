@@ -1,0 +1,43 @@
+Class documentation
+<---- javadoc command: ---->
+C:\Program Files\Java\jdk1.7.0_40\bin\javadoc.exe
+-author
+-version
+-nodeprecated
+-package
+-noindex
+-notree
+-nohelp
+-nonavbar
+-source
+1.7
+-classpath
+C:\Program Files (x86)\BlueJ\lib\bluejcore.jar;C:\Program Files (x86)\BlueJ\lib\junit-4.8.2.jar;C:\Users\Deus\Desktop\Comp 1451 Lab 3-b forked player stats
+-d
+C:\Users\Deus\Desktop\Comp 1451 Lab 3-b forked player stats\doc
+-encoding
+windows-1252
+-charset
+windows-1252
+-docletpath
+C:\Program Files (x86)\BlueJ\lib\bjdoclet.jar
+-doclet
+bluej.doclet.doclets.formats.html.HtmlDoclet
+C:\Users\Deus\Desktop\Comp 1451 Lab 3-b forked player stats\Item.java
+<---- end of javadoc command ---->
+Loading source file C:\Users\Deus\Desktop\Comp 1451 Lab 3-b forked player stats\Item.java...
+Constructing Javadoc information...
+Standard Doclet version 1.7.0_40
+Building tree for all the packages and classes...
+Generating C:\Users\Deus\Desktop\Comp 1451 Lab 3-b forked player stats\doc\Item.html...
+C:\Users\Deus\Desktop\Comp 1451 Lab 3-b forked player stats\Item.java:236: warning - @param argument "ArrayList<String>" is not a parameter name.
+Generating C:\Users\Deus\Desktop\Comp 1451 Lab 3-b forked player stats\doc\package-frame.html...
+Generating C:\Users\Deus\Desktop\Comp 1451 Lab 3-b forked player stats\doc\package-summary.html...
+Generating C:\Users\Deus\Desktop\Comp 1451 Lab 3-b forked player stats\doc\constant-values.html...
+Building index for all the packages and classes...
+Building index for all classes...
+Generating C:\Users\Deus\Desktop\Comp 1451 Lab 3-b forked player stats\doc\allclasses-frame.html...
+Generating C:\Users\Deus\Desktop\Comp 1451 Lab 3-b forked player stats\doc\allclasses-noframe.html...
+Generating C:\Users\Deus\Desktop\Comp 1451 Lab 3-b forked player stats\doc\index.html...
+Generating C:\Users\Deus\Desktop\Comp 1451 Lab 3-b forked player stats\doc\stylesheet.css...
+1 warning

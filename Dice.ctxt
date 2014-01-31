@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Dice()
+comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ Dice\r\n
+comment1.params=dice\ sides
+comment1.target=void\ rollDebug(int,\ int)
+comment1.text=\r\n\ @param\ int\ -\ \#\ of\ dice\r\n\ @param\ int\ -\ sides\ of\ dice\r\n\ rolls\ diceDsides\ (3d6,\ 5d12,\ 2d8)\r\n
+comment2.params=dice\ sides
+comment2.target=int\ roll(int,\ int)
+comment2.text=\r\n\ @param\ int\ -\ \#\ of\ dice\r\n\ @param\ int\ -\ sides\ of\ dice\r\n\ rolls\ diceDsides\ (3d6,\ 5d12,\ 2d8)\r\n
+numComments=3
