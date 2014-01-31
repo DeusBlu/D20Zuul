@@ -1,0 +1,52 @@
+Class documentation
+<---- javadoc command: ---->
+C:\Program Files\Java\jdk1.7.0_40\bin\javadoc.exe
+-author
+-version
+-nodeprecated
+-package
+-noindex
+-notree
+-nohelp
+-nonavbar
+-source
+1.7
+-classpath
+C:\Program Files (x86)\BlueJ\lib\bluejcore.jar;C:\Program Files (x86)\BlueJ\lib\junit-4.8.2.jar;C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\D20Zuul 0.1_7
+-d
+C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\D20Zuul 0.1_7\doc
+-encoding
+windows-1252
+-charset
+windows-1252
+-docletpath
+C:\Program Files (x86)\BlueJ\lib\bjdoclet.jar
+-doclet
+bluej.doclet.doclets.formats.html.HtmlDoclet
+C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\D20Zuul 0.1_7\Equipment.java
+<---- end of javadoc command ---->
+Loading source file C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\D20Zuul 0.1_7\Equipment.java...
+Constructing Javadoc information...
+Standard Doclet version 1.7.0_40
+Building tree for all the packages and classes...
+Generating C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\D20Zuul 0.1_7\doc\Equipment.html...
+C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\D20Zuul 0.1_7\Equipment.java:83: warning - @param argument "Item" is not a parameter name.
+C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\D20Zuul 0.1_7\Equipment.java:72: warning - @param argument "Item" is not a parameter name.
+C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\D20Zuul 0.1_7\Equipment.java:72: warning - @param argument "String" is not a parameter name.
+C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\D20Zuul 0.1_7\Equipment.java:50: warning - @param argument "String" is not a parameter name.
+C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\D20Zuul 0.1_7\Equipment.java:50: warning - @param argument "Item" is not a parameter name.
+C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\D20Zuul 0.1_7\Equipment.java:25: warning - @param argument "String" is not a parameter name.
+C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\D20Zuul 0.1_7\Equipment.java:25: warning - @param argument "Item" is not a parameter name.
+C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\D20Zuul 0.1_7\Equipment.java:25: warning - @param argument "String" is not a parameter name.
+C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\D20Zuul 0.1_7\Equipment.java:152: warning - @param argument "String" is not a parameter name.
+C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\D20Zuul 0.1_7\Equipment.java:162: warning - @param argument "String" is not a parameter name.
+Generating C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\D20Zuul 0.1_7\doc\package-frame.html...
+Generating C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\D20Zuul 0.1_7\doc\package-summary.html...
+Generating C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\D20Zuul 0.1_7\doc\constant-values.html...
+Building index for all the packages and classes...
+Building index for all classes...
+Generating C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\D20Zuul 0.1_7\doc\allclasses-frame.html...
+Generating C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\D20Zuul 0.1_7\doc\allclasses-noframe.html...
+Generating C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\D20Zuul 0.1_7\doc\index.html...
+Generating C:\Users\desmond.jenkins\Documents\GitHub\D20Zuul\D20Zuul 0.1_7\doc\stylesheet.css...
+10 warnings
