@@ -27,6 +27,24 @@ public class PlayerCharacterTest
     private Item jockStrap;
     private Monster monster1;
     private Combat combat1;
+    private MonParty monParty1;
+    private Party party1;
+    private Encounter encounte1;
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     
     
@@ -120,6 +138,11 @@ public class PlayerCharacterTest
         playerCh1.lootItem(potion);
         monster1 = new Monster();
         combat1 = new Combat(monster1, playerCh1);
+        monParty1 = new MonParty();
+        party1 = new Party();
+        party1.join(playerCh1);
+        monParty1.join(monster1);
+        encounte1 = new Encounter(party1, monParty1);
     }
 
     /**

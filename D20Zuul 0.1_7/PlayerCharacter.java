@@ -48,6 +48,7 @@ public class PlayerCharacter
         gear = new Equipment();
         backpack = new Inventory();
         setName("");
+        setAge(MIN_AGE);
         setLevel();
         setStr(3);
         setDex(3);
@@ -63,7 +64,7 @@ public class PlayerCharacter
     /**
      * the constructor that is used to make valid player characters
      */
-    public PlayerCharacter(String name, int str, int dex, int con, int intel, int wis, int chr)
+    public PlayerCharacter(String name, int age, int str, int dex, int con, int intel, int wis, int chr)
     {
         reader = new InputReader();
         hp = new int[2];
@@ -73,6 +74,7 @@ public class PlayerCharacter
         backpack = new Inventory();
         setLevel();
         setName(name);
+        setAge(age);
         setStr(str);
         setDex(dex);
         setCon(con);
@@ -109,8 +111,8 @@ public class PlayerCharacter
         }
         else{
             System.out.println("Age was out of bounds of " + MIN_AGE + " and " + MAX_AGE + 
-            "age set to 20");
-            this.age = age;
+            "age set to 18");
+            this.age = MIN_AGE;
         }
     }
     
@@ -217,9 +219,9 @@ public class PlayerCharacter
      */
     private void setHp()
     {
-        if(STARTING_HP + getStatMod(getCon()) > 0){
-            this.hp[0] = STARTING_HP + (getStatMod(getCon()));
-            this.hp[1] = STARTING_HP + (getStatMod(getCon()));
+        if(STARTING_HP + getStatMod(con) > 0){
+            this.hp[0] = STARTING_HP + (getStatMod(con));
+            this.hp[1] = STARTING_HP + (getStatMod(con));
         }
         else{
             this.hp[0] = 1;
@@ -232,9 +234,9 @@ public class PlayerCharacter
      */
     private void setMp()
     {
-        if(STARTING_MP + getStatMod(getIntel()) >= 0){
-            this.mp[0] = STARTING_MP + getStatMod(getIntel());
-            this.mp[1] = STARTING_MP + getStatMod(getIntel());
+        if(STARTING_MP + getStatMod(intel) >= 0){
+            this.mp[0] = STARTING_MP + getStatMod(intel);
+            this.mp[1] = STARTING_MP + getStatMod(intel);
         }
         else{
             this.mp[0] = 0;
@@ -279,65 +281,20 @@ public class PlayerCharacter
     }
     
     /**
-     * returns the characters Strength as an int
-     * @return int
-     */
-    private int getStr()
-    {
-        return str;
-    }
-    
-    /**
-     * returns the characters Dexterity
-     * @return int
-     */
-    private int getDex()
-    {
-        return dex;
-    }
-    
-    /**
-     * returns the characters Constitution
-     * @return int
-     */
-    private int getCon()
-    {
-        return con;
-    }
-    
-    /**
-     * returns the characters Intelligence
-     * @return int
-     */
-    private int getIntel()
-    {
-        return intel;
-    }
-    
-    /**
-     * returns the characters Wisdom
-     * @return int
-     */
-    private int getWis()
-    {
-        return wis;
-    }
-    
-    /**
-     * returns the characters Charisma
-     * @return int
-     */
-    private int getChr()
-    {
-        return chr;
-    }
-    
-    /**
      * returns the stat mod value for the stat used for various effects
      */
     private int getStatMod(int stat)
     {
         return ((stat / 2) -5);
+    }
+    
+    /**
+     * returns the players HP as a string for status purposes
+     * @return String
+     */
+    public String showHP()
+    {
+        return "" + hp[0] + "/" + hp[1];
     }
     
     /**
@@ -634,5 +591,30 @@ public class PlayerCharacter
         else{
             return false;
         }
+    }
+    
+    /**
+     * prints the status of the player
+     */
+    public void status()
+    {
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Level: " + level);
+        System.out.println("HP: " + hp[0] + "/" + hp[1]);
+        System.out.println("MP: " + mp[0] + "/" + mp[1]);
+        System.out.println();
+        System.out.println("Strength: " + str);
+        System.out.println("Dexterity: " + dex);
+        System.out.println("Constitution: " + con);
+        System.out.println("Intelligence" + intel);
+        System.out.println("Wisdom: " + wis);
+        System.out.println("Charisma: " + chr);
+        System.out.println();
+        System.out.println("XP: " + xp[0] + "/" + xp[1]);
+        System.out.println();
+        System.out.println("Current Gear: ");
+        System.out.println("-------------------------");
+        gear.showEquip();
     }
 }

@@ -1,3 +1,4 @@
+import java.util.Stack;
 /**
  * Used for the battle, loads 2 parties (player and monster) and uses a combat object to simulate
  * the actual battle
@@ -8,31 +9,45 @@
 public class Encounter
 {
     private Party players;
-    private Party monsters;
+    private MonParty monsters;
     private Combat combat;
     private Parser parser;
-    
+    private Stack<Monster> monInit;
+    private Stack<PlayerCharacter> pcInit;
     /**
      * default constructor for class Encounter
      */
     public Encounter()
     {
-        Party players = new Party();
-        MonParty monsters = new Party();
-        Combat combat = new Combat();
-        Parser parser = new Parser();
+        players = new Party();
+        monsters = new MonParty();
+        combat = new Combat();
+        parser = new Parser();
+    }
+    
+    /**
+     * Created the encounter and loads the parties for the encounter/initializes the Combat object
+     * @param Party - the players party
+     * @param Party - the part of monsters to fight
+     */
+    public Encounter(Party players, MonParty monsters)
+    {
+        setPlayers(players);
+        setMonsters(monsters);
+        combat = new Combat();
+        parser = new Parser();
     }
     
     /**
      * the main combat method
      */
-    private void fight()
+    public void fight()
     {
         boolean combatDone = false;
+        System.out.print("Enemies Encountered!");
         while(!combatDone){
             Command command = parser.combatCommand();
             processCommand(command);
-            combatDone = players.isDefeated();
         }
     }
     
@@ -43,10 +58,11 @@ public class Encounter
      */
     private void processCommand(Command command) 
     {
-        if(command.isUnknown()) {
+        while(command.isUnknown()) {
             System.out.println("I don't know what you mean...");
+            command = parser.combatCommand();
         }
-
+        
         String commandWord = command.getCommandWord();
         if (commandWord.equals("help")){
             printHelp();
@@ -66,18 +82,6 @@ public class Encounter
     }
     
     /**
-     * Created the encounter and loads the parties for the encounter/initializes the Combat object
-     * @param Party - the players party
-     * @param Party - the part of monsters to fight
-     */
-    public Encounter(Party players, Party monsters)
-    {
-        setPlayers(players);
-        setMonsters(monsters);
-        Combat combat = new Combat();
-    }
-    
-    /**
      * loads the players party making sure that it is not a null object or an empty party
      * @param Party - the party of players
      */
@@ -92,7 +96,7 @@ public class Encounter
      * loads the monsters party making sure that it is not a null object or an empty party
      * @param Party - the monsters party
      */
-    private void setMonsters(Party party)
+    private void setMonsters(MonParty party)
     {
         if(party != null && !party.isEmpty()){
             monsters = party;
@@ -115,10 +119,10 @@ public class Encounter
     {
         System.out.println("Remaining Monsters:");
         System.out.println("-------------------------------");
-        monsters.listAlive();
+        monsters.list();
         System.out.println();
         System.out.println("Party Status:");
         System.out.println("-------------------------------");
-        players.printStatus();
+        players.shortStatus();
     }
 }

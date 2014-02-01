@@ -1,6 +1,6 @@
 
 /**
- * This class holds objects of type Monster or PlayerCharacter depending on the constructor used for loading
+ * This class holds objects of type PlayerCharacter used for loading
  * into combat or as an object for the players to store their party
  * 
  * @author (DeusBlu) 
@@ -8,7 +8,7 @@
  */
 public class Party
 {
-    private static final int PLAYERS = 4;
+    public static final int PLAYERS = 4;
     private PlayerCharacter[] players;
     /**
      * Constructor for PlayerCharacters
@@ -17,21 +17,12 @@ public class Party
     {
         players = new PlayerCharacter[PLAYERS];
     }
-    
-    /**
-     * constructor for Monsters, number of the monsters in the group set by int
-     * @param int
-     */
-    public Party(int monsters)
-    {
-        this.monsters = new Monster[monsters];
-    }
 
     /**
      * adds the player to the party
      * @param PlayerCharacter
      */
-    public void joinParty(PlayerCharacter player)
+    public void join(PlayerCharacter player)
     {
         boolean placed = false;
         if(player != null){
@@ -51,28 +42,11 @@ public class Party
     }
     
     /**
-     * adds a monster to a monster party for combat
-     * @param Monster
-     */
-    public void monsterGroup(Monster monster)
-    {
-        boolean placed = false;
-        if(monster != null){
-            for(int i = 0; i < monsters.length; i++){
-                if(monsters[i] == null && !placed){
-                    monsters[i] = monster;
-                    placed = true;
-                }
-            }
-        }
-    }
-    
-    /**
      * checks to see if the Party is empty and returns false if not empty
      */
     public boolean isEmpty()
     {
-        if(players.length == 0 && monsters.length == 0){
+        if(players.length == 0){
             return true;
         }
         else{
@@ -91,11 +65,32 @@ public class Party
                 wiped = false;
             }
         }
-        for(int i = 0; i < monsters.length; i++){
-            if(!monsters[i].isDead()){
-                wiped = false;
+        return wiped;
+    }
+    
+    /**
+     * prints the status of the party in short form
+     */
+    public void shortStatus()
+    {
+        for(int i = 0; i < players.length; i++){
+            if(players[i] != null){
+                System.out.println("#" + (i+1) + ":  Name: " + players[i].getName() +
+                "  HP: " + players[i].showHP());
             }
         }
-        return wiped;
+    }
+    
+    /**
+     * prints the full status of the Player Character
+     */
+    public void status(int player)
+    {
+        if(players[player] != null){
+            players[player].status();
+        }
+        else{
+            System.out.println("There is no player there");
+        }
     }
 }
