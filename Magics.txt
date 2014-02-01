@@ -1,0 +1,40 @@
+THIS IS IN NO WAY NEAR COMPLETE
+
+After 2 points in one are chosen it is a specialty and one other sphere is completely locked out
+each can have up to 5 points in it
+
+Abjuration - prohibits Evocation & Conjuration
+----------
+Spells that protect/Block/banish
+1mp spells
+- Minor Shield
+- Sturdy Robes
+- Minor Slow Projectile
+- Minor Guard Camp
+
+Conjuration - prohibits Enchantment & Abjuration
+----------
+Spells that create matter of some type for a temporary time
+1mp spells
+- create dagger
+- create Minor Potion
+- Summon Rat
+- create stone
+
+Necromancy - Enchantment & Evocation
+----------
+Spells that manipulate create or destroy life force
+1mp spells
+- Cure Minor Wound
+- Cause Minor Wound
+- Minor Draining Touch
+- 
+
+Enchantment - prohibits Conjuration & Necromancy
+----------
+Spells that embue the recipient with some property (eg buffs, debuffs, etc)
+
+
+Evocation - Abjuration & Evocation
+----------
+Spells that Manipulate energy or create something from nothing

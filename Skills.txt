@@ -1,0 +1,37 @@
+STR
+---------
+climb
+jump
+swim
+
+DEX
+---------
+Balance
+Hide
+Open Lock
+Escape Artist
+
+CON
+-----------
+Concentration (arcane)
+
+INT
+-----------
+Appraise
+Decipher Script (arcane) - reads scrolls of various difficulty
+Disable Device
+Knowledge
+Search
+Spellcraft
+
+WIS
+-----------
+Heal
+Listen
+Spot
+Survival
+
+CHR
+----------
+Diplomacy
+Use Magic Device
