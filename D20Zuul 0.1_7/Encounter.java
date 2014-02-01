@@ -10,6 +10,7 @@ public class Encounter
     private Party players;
     private Party monsters;
     private Combat combat;
+    private Parser parser;
     
     /**
      * default constructor for class Encounter
@@ -17,8 +18,51 @@ public class Encounter
     public Encounter()
     {
         Party players = new Party();
-        Party monsters = new Party();
+        MonParty monsters = new Party();
         Combat combat = new Combat();
+        Parser parser = new Parser();
+    }
+    
+    /**
+     * the main combat method
+     */
+    private void fight()
+    {
+        boolean combatDone = false;
+        while(!combatDone){
+            Command command = parser.combatCommand();
+            processCommand(command);
+            combatDone = players.isDefeated();
+        }
+    }
+    
+    /**
+     * Given a command, process (that is: execute) the command.
+     * @param command The command to be processed.
+     * @return true If the command ends the game, false otherwise.
+     */
+    private void processCommand(Command command) 
+    {
+        if(command.isUnknown()) {
+            System.out.println("I don't know what you mean...");
+        }
+
+        String commandWord = command.getCommandWord();
+        if (commandWord.equals("help")){
+            printHelp();
+        }
+        else if (commandWord.equals("status")){
+            printStatus();
+        }
+        else if (commandWord.equals("equip")){
+            
+        }
+        else if (commandWord.equals("attack")){
+            
+        }
+        else if(commandWord.equals("run")){
+            
+        }
     }
     
     /**
@@ -53,5 +97,28 @@ public class Encounter
         if(party != null && !party.isEmpty()){
             monsters = party;
         }
+    }
+    
+    /**
+     * prints the help menu for combat
+     */
+    private void printHelp()
+    {
+        System.out.println("Combat Commands: ");
+        System.out.println("attack run equip status");
+    }
+    
+    /**
+     * prints the status of the battle
+     */
+    private void printStatus()
+    {
+        System.out.println("Remaining Monsters:");
+        System.out.println("-------------------------------");
+        monsters.listAlive();
+        System.out.println();
+        System.out.println("Party Status:");
+        System.out.println("-------------------------------");
+        players.printStatus();
     }
 }

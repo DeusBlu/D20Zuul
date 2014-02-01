@@ -4,12 +4,11 @@
  * into combat or as an object for the players to store their party
  * 
  * @author (DeusBlu) 
- * @version (0.1_5)
+ * @version (0.1_7)
  */
 public class Party
 {
     private static final int PLAYERS = 4;
-    private Monster[] monsters;
     private PlayerCharacter[] players;
     /**
      * Constructor for PlayerCharacters
@@ -82,24 +81,19 @@ public class Party
     }
     
     /**
-     * returns true all are dead, switch between players and monsters with string "player" "monster"
-     * @return boolean
+     * returns true if either party is dead
      */
-    public boolean isDefeated(String team)
+    public boolean isDefeated()
     {
         boolean wiped = true;
-        if(team.equalsIgnoreCase("player")){
-            for(int i = 0; i < players.length; i++){
-                if(!players[i].isDead()){
-                    wiped = false;
-                }
+        for(int i = 0; i < players.length; i++){
+            if(!players[i].isDead()){
+                wiped = false;
             }
         }
-        else if(team.equalsIgnoreCase("monster")){
-            for(int i = 0; i < monsters.length; i++){
-                if(!monsters[i].isDead()){
-                    wiped = false;
-                }
+        for(int i = 0; i < monsters.length; i++){
+            if(!monsters[i].isDead()){
+                wiped = false;
             }
         }
         return wiped;
