@@ -30,6 +30,44 @@ public class PlayerCharacterTest
     private MonParty monParty1;
     private Party party1;
     private Encounter encounte1;
+    private PlayerCharacter playerCh2;
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     
     
@@ -143,6 +181,8 @@ public class PlayerCharacterTest
         party1.join(playerCh1);
         monParty1.join(monster1);
         encounte1 = new Encounter(party1, monParty1);
+        playerCh2 = new PlayerCharacter();
+        party1.join(playerCh2);
     }
 
     /**

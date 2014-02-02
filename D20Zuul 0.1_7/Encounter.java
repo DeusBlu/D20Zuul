@@ -23,6 +23,8 @@ public class Encounter
         monsters = new MonParty();
         combat = new Combat();
         parser = new Parser();
+        monInit = new Stack<Monster>();
+        pcInit = new Stack<PlayerCharacter>();
     }
     
     /**
@@ -36,6 +38,8 @@ public class Encounter
         setMonsters(monsters);
         combat = new Combat();
         parser = new Parser();
+        monInit = new Stack<Monster>();
+        pcInit = new Stack<PlayerCharacter>();
     }
     
     /**

@@ -22,7 +22,8 @@ public class Monster
     private int xp;
     private boolean mythic;
     private boolean hasMagic;
-    
+    private int init;
+    private int initMod;
     /**
      * default constructor for testing objects of class Monster
      */
@@ -42,6 +43,8 @@ public class Monster
         setHP(level, 6);
         setMP(level, false);
         setDamage(0, 1);
+        setInitMod(0);
+        init = 0;
     }
     
     /**
@@ -57,7 +60,7 @@ public class Monster
      * @param boolean - can the monster use magic
      */
     public Monster(String name, int armor, int level, int hpDie, int dmgMin, int dmgMax, 
-    int xp, int hitBonus, boolean isMythic, boolean hasMagic)
+    int xp, int hitBonus, int initMod, boolean isMythic, boolean hasMagic)
     {
         hp = new int[2];
         mp = new int[2];
@@ -73,6 +76,8 @@ public class Monster
         setHP(level, hpDie);
         setMP(level, hasMagic);
         setDamage(dmgMin, dmgMax);
+        setInitMod(initMod);
+        init = 0;
     }
     
     /**
@@ -208,6 +213,24 @@ public class Monster
     }
     
     /**
+     * sets the monsters initiative for determing turn sequence
+     * @param int - the die roll result
+     */
+    private void setInit(int roll)
+    {
+        init = roll = initMod;
+    }
+    
+    /**
+     * sets the monsters modifier to its initiative
+     * @param int
+     */
+    private void setInitMod(int initMod)
+    {
+        this.initMod = initMod;
+    }
+    
+    /**
      * sets if the monster is a mythical monster
      * @param boolean
      */
@@ -313,6 +336,15 @@ public class Monster
     public boolean getHasMagic()
     {
         return hasMagic;
+    }
+    
+    /**
+     * returns the monsters initiative for turn sequencing
+     * @return int
+     */
+    public int getInit()
+    {
+        return init;
     }
     
     /**

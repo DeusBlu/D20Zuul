@@ -11,11 +11,19 @@ public class Party
     public static final int PLAYERS = 4;
     private PlayerCharacter[] players;
     /**
-     * Constructor for PlayerCharacters
+     * Constructor for empty party object
      */
     public Party()
     {
         players = new PlayerCharacter[PLAYERS];
+    }
+    
+    /**
+     * constructor for parties of pre-build arrays
+     */
+    public Party(PlayerCharacter[] players)
+    {
+        this.players = players;
     }
 
     /**
@@ -52,6 +60,14 @@ public class Party
         else{
             return false;
         }
+    }
+    
+    /**
+     * returns the player object at the requested index
+     */
+    public PlayerCharacter[] getPlayers()
+    {
+        return players;
     }
     
     /**
@@ -92,5 +108,13 @@ public class Party
         else{
             System.out.println("There is no player there");
         }
+    }
+    
+    /**
+     * removes a character from the party setting the pointer back to null
+     */
+    public void remove(int spot)
+    {
+        players[spot] = null;
     }
 }

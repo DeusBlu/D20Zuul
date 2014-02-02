@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Initiative()
+comment0.text=\r\n\ default\ constructor\ for\ object\ Initiative\r\n
+comment1.params=monsters\ players
+comment1.target=Initiative(MonParty,\ Party)
+comment1.text=\r\n\ constructor\ that\ accepts\ both\ parties\ and\ initializes\ the\ stacks\r\n
+comment2.params=playerParty
+comment2.target=java.util.Stack\ pcInit(Party)
+comment2.text=\r\n\ loops\ through\ the\ player\ party\ and\ seeds\ them\ into\ a\ stack\ in\ order\ of\ initiative\ lowest\ to\ highest\r\n
+comment3.params=tied
+comment3.target=PlayerCharacter[]\ breakTie(PlayerCharacter[])
+comment3.text=\r\n\ this\ re-rolls\ the\ tied\ party\ members\ initiative\r\n
+comment4.params=tempParty
+comment4.target=int\ getHighest(Party)
+comment4.text=\r\n\ method\ to\ find\ which\ player\ currently\ has\ the\ highest\ or\ which\ one\ is\ tied\ for\ the\ highest\r\n\ and\ returns\ the\ index\ location\ of\ the\ array\ the\ player\ is\ found\ at.\r\n
+numComments=5

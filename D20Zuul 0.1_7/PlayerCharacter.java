@@ -15,12 +15,6 @@ public class PlayerCharacter
     private static final int MIN_AGE = 18;
     private static final int MAX_AGE = 75;
     private static final int MAX_XP = 100;
-    private static final String[] MAINHAND_OPTIONS = {
-        "mh", "main hand", "mainhand", "m h", "main", "m", "ma"
-    };
-    private static final String[] OFFHAND_OPTIONS = {
-        "oh", "off hand", "offhand", "o h", "off", "o", "of"
-    };
     private String name;
     private int level;
     private int age;
@@ -30,18 +24,17 @@ public class PlayerCharacter
     private int intel;
     private int wis;
     private int chr;
+    private int init;
     private int[] hp;
     private int[] mp;
     private int[] xp;
     private Equipment gear;
     private Inventory backpack;
-    private InputReader reader;
     /**
      * default constructor for testing players
      */
     public PlayerCharacter()
     {
-        reader = new InputReader();
         hp = new int[2];
         mp = new int[2];
         xp = new int[2];
@@ -59,6 +52,7 @@ public class PlayerCharacter
         setHp();
         setMp();
         setXP();
+        init = 0;
     }
     
     /**
@@ -66,7 +60,6 @@ public class PlayerCharacter
      */
     public PlayerCharacter(String name, int age, int str, int dex, int con, int intel, int wis, int chr)
     {
-        reader = new InputReader();
         hp = new int[2];
         mp = new int[2];
         xp = new int[2];
@@ -84,6 +77,7 @@ public class PlayerCharacter
         setHp();
         setMp();
         setXP();
+        init = 0;
     }
     
     /**
@@ -245,6 +239,15 @@ public class PlayerCharacter
     }
     
     /**
+     * sets the players initiative for a round of combat
+     * @param int - the roll of the dice
+     */
+    public void setInit(int roll)
+    {
+        init = roll + getStatMod(dex);
+    }
+    
+    /**
      * this initializes the players exp used for leveling up.
      */
     private void setXP()
@@ -289,6 +292,14 @@ public class PlayerCharacter
     }
     
     /**
+     * this method returns the players initiate for turn order sequencing
+     */
+    public int getInit()
+    {
+        return init;
+    }
+    
+    /**
      * returns the players HP as a string for status purposes
      * @return String
      */
@@ -329,30 +340,6 @@ public class PlayerCharacter
     }
     
     /**
-     * takes the item passed and makes sure that no 
-     * @param Item
-     */
-    private void checkWeapons(Item item)
-    {
-        if(gear.hasGear("both hands") && item.getType().equalsIgnoreCase("1hweapon")){
-            System.out.println(getName() + "'s " + gear.getGear("both hands").getName() + " has been removed");
-        }
-        if(gear.hasGear("both hands") && item.getType().equalsIgnoreCase("mhweapon")){
-            System.out.println(getName() + "'s " + gear.getGear("both hands").getName() + " has been removed");
-        }
-        if(gear.hasGear("off hand") && item.getType().equalsIgnoreCase("2hweapon")){
-            System.out.println(getName() + "'s " + gear.getGear("off hand").getName() + " has been removed");
-        }
-        if(gear.hasGear("main hand") && item.getType().equalsIgnoreCase("2hweapon")){
-            System.out.println(getName() + "'s " + gear.getGear("main hand").getName() + " has been removed");
-        }
-        if(gear.hasGear(item.getEquipString())){
-            System.out.println(getName() + "'s " + gear.getGear(item.getEquipString()).getName() + 
-            " has been removed");
-        }
-    }
-    
-    /**
      * loots an item to the players inventory
      * @param item
      */
@@ -390,97 +377,11 @@ public class PlayerCharacter
     }
     
     /**
-     * initiates the equip dialogue takes the item returned by equip stores it, removes the item you
-     * equipped and puts the equipped item back into inventory
+     * adds an item to the equipment object interacting with the bag object for transfer
      */
     public void equip()
     {
-        int input = 0;
-        while(input == 0){
-            backpack.showBag();
-            System.out.println();
-            System.out.println("Which item would you like to equip?");
-            System.out.print("> ");
-            input = reader.readInt();
-        }
-        if(input < backpack.length()){
-            equipLogic(backpack.removeItem(input-1));
-        }
-        else{
-            System.out.println("There is nothing there to equip");
-        }
-        backpack.sort();
-    }
-    
-    /**
-     * takes the item passed and finds out what kind of item it is, performs the needed logic to make sure
-     * there are no logic collissions between this item and any other item, returns previously equipped
-     * item to the inventory
-     * @param Item
-     */
-    private void equipLogic(Item item)
-    {
-        Inventory wasEquipped = new Inventory();
-        if(backpack.bagSpace() <= 1 && item.getEquipString().equals("both hands")
-        && gear.hasGear("main hand") && gear.hasGear("off hand")){
-              System.out.println(getName() + "'s" + " backpack is full");
-              wasEquipped.lootItem(item);
-        }
-        else if(item.getType().equals("misc") || item.getType().equals("key")){
-              System.out.println("You cannot equip that type of item");
-              wasEquipped.lootItem(item);
-        }
-        else{
-            if(item.getType().equalsIgnoreCase("1hweapon")){
-                boolean ask = true;
-                while(ask){
-                    System.out.println("Which hand to equip to?");
-                    System.out.print("> ");
-                    String input = reader.readString();
-                    for(int i=0; i < MAINHAND_OPTIONS.length; i++){
-                        if(input.equalsIgnoreCase(MAINHAND_OPTIONS[i])){
-                            if(gear.hasGear("main hand")){
-                                System.out.println(getName() + "'s " + gear.getGear("main hand").getName() + " has been removed");
-                            }
-                            checkWeapons(item);
-                            wasEquipped.lootItem(gear.unequip("main hand"));
-                            wasEquipped.lootItem(gear.unequip("both hands"));
-                            gear.equipPlayer(getName(), item, "main hand");
-                            ask = false;
-                        }
-                    }
-                    for(int i=0; i < OFFHAND_OPTIONS.length; i++){
-                        if(input.equalsIgnoreCase(OFFHAND_OPTIONS[i])){
-                            if(gear.hasGear("off hand")){
-                                System.out.println(getName() + "'s " + gear.getGear("off hand").getName() + " has been removed");
-                            }
-                            checkWeapons(item);
-                            wasEquipped.lootItem(gear.unequip("off hand"));
-                            wasEquipped.lootItem(gear.unequip("both hands"));
-                            gear.equipPlayer(getName(), item, "off hand");
-                            ask = false;
-                        }
-                    }
-                    if(ask){
-                        System.out.println("You can equip to main hand or off hand");
-                    }
-                }
-            }
-            else if(item.getEquipString().equals("both hands")){
-                checkWeapons(item);
-                wasEquipped.lootItem(gear.unequip("both hands"));
-                wasEquipped.lootItem(gear.unequip("main hand"));
-                wasEquipped.lootItem(gear.unequip("off hand"));
-                gear.equipPlayer(name, item);
-            }
-            else{
-                gear.equipPlayer(name, item);
-            }
-        }
-        if(backpack.transfer(0, wasEquipped)){
-        }
-        if(backpack.transfer(1, wasEquipped)){
-        }
+        gear.equip(backpack, name);
     }
     
     /**
