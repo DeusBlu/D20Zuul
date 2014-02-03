@@ -22,7 +22,7 @@ public class Dice
      * @param int - # of dice
      * @param int - sides of dice
      */
-    public void rollDebug(int dice, int sides)
+    public int rollPrint(int dice, int sides)
     {
         int roll = 0;
         System.out.print("Your Rolls: ");
@@ -31,6 +31,7 @@ public class Dice
             roll += aRoll;
             System.out.print(" " + aRoll);
         }
+        return roll;
     }
     
     /**

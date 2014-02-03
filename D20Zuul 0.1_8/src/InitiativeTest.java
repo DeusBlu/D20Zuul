@@ -15,7 +15,7 @@ public class InitiativeTest
     public void testInitiative(Party party)
     {
         Initiative init = new Initiative();
-        for(int i = 0; 1 < 50000; i++){
+        for(int i = 0; i < 50000; i++){
             init.pcInit(party);
         }
     }

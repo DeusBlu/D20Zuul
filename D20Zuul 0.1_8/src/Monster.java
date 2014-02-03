@@ -204,7 +204,12 @@ public class Monster
      */
     private void setXP(int XP)
     {
-        this.xp = xp;
+    	if(xp >= 1){
+    		this.xp = xp;
+    	}
+    	else{
+    		this.xp = MIN_XP;
+    	}
     }
     
     /**
