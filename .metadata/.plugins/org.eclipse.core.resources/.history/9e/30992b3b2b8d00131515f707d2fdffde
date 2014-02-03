@@ -7,12 +7,14 @@ import java.util.Stack;
  */
 public class Initiative
 {
+    private Party players;
     private Dice dice;
     /**
      * default constructor for object Initiative
      */
     public Initiative()
     {
+        monInit = new Stack<Monster>();
         dice = new Dice();
     }
 

@@ -60,7 +60,7 @@ public class Monster
      * @param boolean - can the monster use magic
      */
     public Monster(String name, int armor, int level, int hpDie, int dmgMin, int dmgMax, 
-    		int xp, int hitBonus, int initMod, boolean isMythic, boolean hasMagic)
+    int xp, int hitBonus, int initMod, boolean isMythic, boolean hasMagic)
     {
         hp = new int[2];
         mp = new int[2];
