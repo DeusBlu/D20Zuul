@@ -185,7 +185,7 @@ public class Equipment
         while(input == 0){
             backpack.showBag();
             System.out.println();
-            System.out.println("Which item would you like to equip?");
+            System.out.println("Which item # would you like to equip?");
             System.out.print("> ");
             input = reader.readInt();
         }

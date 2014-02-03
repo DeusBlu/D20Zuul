@@ -54,12 +54,12 @@ public class Party
      */
     public boolean isEmpty()
     {
-        if(players.length == 0){
-            return true;
+        for(int i = 0; i < players.length; i++){
+            if(players[i] != null){
+                return false;
+            }
         }
-        else{
-            return false;
-        }
+        return true;
     }
     
     /**
@@ -111,10 +111,15 @@ public class Party
     }
     
     /**
-     * removes a character from the party setting the pointer back to null
+     * removes a character from the party setting the pointer back to null and returns the character that was in that
+     * location
+     * @param int - the character to remove
+     * @return PlayerCharacter
      */
-    public void remove(int spot)
+    public PlayerCharacter remove(int spot)
     {
+        PlayerCharacter removed = players[spot];
         players[spot] = null;
+        return removed;
     }
 }

@@ -19,69 +19,133 @@ public class Initiative
         monInit = new Stack<Monster>();
         dice = new Dice();
     }
-    
-    /**
-     * constructor that accepts both parties and initializes the stacks
-     */
-    public Initiative(MonParty monsters, Party players)
-    {
-        monInit = new Stack<Monster>();
-        dice = new Dice();
-    }
 
     /**
      * loops through the player party and seeds them into a stack in order of initiative lowest to highest
+     * @param Party - the party to have initiative done for them
+     * @return Stack<PlayerCharacter> - the initiative order in action from first to last, just pop
      */
     public Stack<PlayerCharacter> pcInit(Party playerParty)
     {
-        Stack<PlayerCharacter> pcInit = new Stack<PlayerCharacter>();
-        PlayerCharacter[] pcArray = new PlayerCharacter[Party.PLAYERS];
-        for(int i = 0; i < Party.PLAYERS; i++){
-            pcArray[i] = playerParty.getPlayers()[i];
-            if(pcArray[i] != null){
-                pcArray[i].setInit(dice.roll(1, 20));
-                //sets the initiative of the players
+        Party party = cloneParty(playerParty);
+        Stack<PlayerCharacter> initiative = new Stack<PlayerCharacter>();
+        setInitiative(party);
+        while(!party.isEmpty()){
+            while(!isTied(party) && !party.isEmpty()){
+                moveLowest(party, initiative);
             }
-        }
-        Party tempParty = new Party(pcArray);
-        while(!tempParty.isEmpty()){
-            int currentIndex = getHighest(playerParty);
-            for(int i = 0; i < tempParty.getPlayers().length; i++){
-                PlayerCharacter[] tied = new PlayerCharacter[Party.PLAYERS];
-                int addedToTied = 0;
-                if(tempParty.getPlayers()[i] != null && i != currentIndex){
-                    if(tempParty.getPlayers()[currentIndex].getInit() == 
-                    tempParty.getPlayers()[i].getInit()){
-                        tied[addedToTied] = tempParty.getPlayers()[i];
-                        addedToTied++;
-                        tempParty.remove(i);
-                    }
-                }
-                if(addedToTied == 0){
-                    pcInit.push(tempParty.getPlayers()[currentIndex]);
-                    tempParty.remove(currentIndex);
-                }
-                else{
-                    breakTie(tied);
-                }
+            Party tied = new Party();
+            if(!party.isEmpty() && isTied(party)){
+                tied = removeTied(party);
             }
+            breakTie(tied, initiative);
         }
-        return pcInit;
+        return initiative;
     }
     
     /**
-     * this re-rolls the tied party members initiative
+     * takes the tied party members and loops within itself to break down ties
+     * @param Party - a party of tied party members
+     * @param Stack<PlayerCharacter> - the stack to put the playrs into
      */
-    private PlayerCharacter[] breakTie(PlayerCharacter[] tied)
+    private void breakTie(Party tied, Stack<PlayerCharacter> initiative)
     {
-        return null;
+        while(!tied.isEmpty()){
+            setInitiative(tied);
+            while(!isTied(tied) && !tied.isEmpty()){
+                moveLowest(tied, initiative);
+            }
+            breakTie(tied, initiative);
+        }
     }
     
     /**
-     * method to find which player currently has the highest or which one is tied for the highest
-     * and returns the index location of the array the player is found at.
+     * moves the current highest initiative from the party object to the stack
+     * @param Party - the part to move from
+     * @param Stack<PlayerCharacter> - the initiative stack to be loaded
      */
-    private int getHighest(Party tempParty)
+    private void moveLowest(Party party, Stack<PlayerCharacter> pcInit)
+    {
+        if(getLowest(party) >= 0 && party.getPlayers()[getLowest(party)] != null){
+            pcInit.push(party.remove(getLowest(party)));
+        }
+    }
+    
+    /**
+     * clones the party object so it can be emptied without effecting the original group of the players
+     * @param Party - the party to clone
+     * @return Party - the cloned party
+     */
+    private Party cloneParty(Party party)
+    {
+        Party clone = new Party();
+        for(int i = 0; i < party.getPlayers().length; i++){
+            if(party.getPlayers()[i] != null){
+                clone.getPlayers()[i] = party.getPlayers()[i];
+            }
+        }
+        return clone;
+    }
+    
+    /**
+     * randomizes the initiatize of all the party members
+     * working with
+     * @param Party playerParty
+     */
+    private void setInitiative(Party party)
+    {
+        for(int i = 0; i < party.getPlayers().length; i++){
+            if(party.getPlayers()[i] != null){
+                party.getPlayers()[i].setInit(dice.roll(1, 20));
+                //this sets the initiative
+            }
+        }
+    }
+    
+    /**
+     * accepts array object and checks to see if players are tied for initiative then returns boolean
+     * true if there is a tie for the current initiative spot
+     * @param Party - the party object players are removed from
+     * @return boolean - true if tied
+     */
+    private boolean isTied(Party party)
+    {
+        for(int i = 0; i < party.getPlayers().length; i++){
+            if(party.getPlayers()[i] != null && i != getLowest(party)){
+                if(party.getPlayers()[getLowest(party)].getInit() == 
+                party.getPlayers()[i].getInit() && i != getLowest(party)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    /**
+     * takes objects that are tied for highest out of the party and transfers them into a party object for returning
+     * initiative
+     * @param Party - the party to take players out of
+     * @return Party - a party made up of the tied party members
+     */
+    private Party removeTied(Party party)
+    {
+        Party tied = new Party();
+        int highest = party.getPlayers()[getLowest(party)].getInit();
+        for(int i = 0; i < party.getPlayers().length; i++){
+            if(party.getPlayers()[i] != null && party.getPlayers()[i].getInit() == highest){
+                tied.join(party.remove(i));
+            }
+        }
+        return tied;
+    }
+    
+    /**
+     * method to find which player currently has the lowest or which one is tied for the lowest
+     * and returns the index location of the array the player is found at.
+     * @param Party - the party to check
+     * @return int - the index of the highest party member
+     */
+    private int getLowest(Party tempParty)
     {
         int currentLow = Integer.MAX_VALUE;
         int currentIndex = -1;

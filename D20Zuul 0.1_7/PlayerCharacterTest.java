@@ -30,7 +30,29 @@ public class PlayerCharacterTest
     private MonParty monParty1;
     private Party party1;
     private Encounter encounte1;
-    private PlayerCharacter playerCh2;
+    private PlayerCharacter playerCh3;
+    private PlayerCharacter playerCh4;
+    private PlayerCharacter playerCh5;
+    private Party party2;
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     
     
@@ -177,12 +199,15 @@ public class PlayerCharacterTest
         monster1 = new Monster();
         combat1 = new Combat(monster1, playerCh1);
         monParty1 = new MonParty();
-        party1 = new Party();
-        party1.join(playerCh1);
         monParty1.join(monster1);
-        encounte1 = new Encounter(party1, monParty1);
-        playerCh2 = new PlayerCharacter();
-        party1.join(playerCh2);
+        playerCh3 = new PlayerCharacter("Player1", 18, 11, 11, 11, 11, 11, 11);
+        playerCh4 = new PlayerCharacter("Player2", 18, 11, 11, 11, 11, 11, 11);
+        playerCh5 = new PlayerCharacter("Player3", 18, 11, 11, 11, 11, 11, 11);
+        party2 = new Party();
+        party2.join(playerCh1);
+        party2.join(playerCh3);
+        party2.join(playerCh4);
+        party2.join(playerCh5);
     }
 
     /**
