@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.params=
+comment0.target=InputReader()
+comment0.text=\r\n\ Constructor\ for\ objects\ of\ class\ InputReader\r\n
+comment1.params=
+comment1.target=java.lang.String\ readString()
+comment1.text=\r\n\ Reads\ string\ input\ from\ keyboard.\r\n\ @return\ input\ string\r\n
+comment2.params=
+comment2.target=int\ readInt()
+comment2.text=\r\n\ Reads\ integer\ input\ from\ keyboard.\r\n\ @return\ input\ or\ zero\ if\ int\ not\ typed\r\n
+comment3.params=
+comment3.target=double\ readDouble()
+comment3.text=\r\n\ Reads\ double\ input\ from\ keyboard.\r\n\ @return\ input\ or\ zero\ if\ double\ not\ typed\r\n
+comment4.params=
+comment4.target=boolean\ readBoolean()
+comment4.text=\r\n\ Reads\ boolean\ input\ from\ keyboard.\r\n\ @return\ input\ or\ false\ if\ boolean\ not\ typed\r\n
+numComments=5
