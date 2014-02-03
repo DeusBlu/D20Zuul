@@ -1,0 +1,13 @@
+Item - Attributes: double weight, int value, String type, String name
+-> MagicDevice Attributes: charges, effect
+--> MagicEquipment - Attributes: damage, defense, magicBonus, equipSpot, statMod
+-> Equipment - Attributes: damage, defense, magicBonus, equipSpot, statMod
+-> Potion - Attributes: effect, effectValue, charges
+-> Key - Attributes: opensDoor
+-> Ration - Attributes: charges
+
+
+Entity
+->PlayerCharacter
+->NPC
+->Monster
