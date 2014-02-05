@@ -6,14 +6,19 @@ Player/NPC races:
 English - race name
 -------------------
 Human - Menn
+	~All around race.
 	~Common, guided by the AEsir, the gods of Asgard, on expedition on Niflheim.
 Frost Giant - Jotnar
+	~Higher Strength ,Higher empty-handed attack, higher club attack
 	~Uncommon,Escaped his/her home realm of Jotunheim to seek refuge in Niflheim.
 High Elf - Ljosalfr
+	~Higher Wisdom and Intelligence, Higher dagger attack
 	~Not so Common,A respected prince/princess of a kingdom in Niflheim.
 Dark Elf - Dokkalfr
+	~Higher Dexterity and Charisma, Higher spear attack
 	~Rare,Escaped from the depths of Midgard, heading to Niflheim to search for a way to save their people.
 Dwarf - Dvergar
+	~Higher hammer attack, Higher wisdom and Strength
 	~Common, working with the Menn, on expedition on Niflheim.
 ==========================
 
@@ -42,8 +47,8 @@ English - race name
 
 Lesser Gods - Vanir
 	~Cast out by Odin and the AEsir, wish to take Asgard. Live in Vanaheim.
-Death God - Hel
-	~Hel wishes to get all of the souls of death Menn, Elves and Dvergar.
+Death Goddess - Hel
+	~Hel wishes to get all of the souls of dead Menn, Elves and Dvergar.
 Death by water God - Ran
 	~Ran wishes to get the souls of all Giants and creatures that die in battle.
 -------------------	
