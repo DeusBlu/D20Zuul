@@ -1,3 +1,4 @@
+
 /**
  * This class is used to create players, it can make NPC's, PC's, and can be stored in the party for
  * controlling multiple characters

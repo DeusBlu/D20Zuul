@@ -1,7 +1,8 @@
 {
   "C:\\Program Files (x86)\\Java\\jre7\\lib\\rt.jar": {
+    "coordinate": "jre:jre:zip:call:1.0.0",
     "location": "C:\\Program Files (x86)\\Java\\jre7\\lib\\rt.jar",
-    "status": "UNRESOLVED",
+    "status": "RESOLVED",
     "error": "No class path info available for \u0027C:\\Program Files (x86)\\Java\\jre7\\lib\\rt.jar\u0027. Skipped."
   },
   "C:\\Users\\desmond.jenkins\\Documents\\GitHub\\D20Zuul\\D20Zuul 0.1_8\\src": {

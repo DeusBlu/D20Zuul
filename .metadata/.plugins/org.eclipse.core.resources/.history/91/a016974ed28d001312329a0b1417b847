@@ -1,0 +1,37 @@
+
+/**
+ * a subclass of item that the player will equip
+ * @author Deus
+ * @version 0.1_8
+ */
+public class Gear extends Item{
+	private Damnage damage;
+	private int defense;
+	private int magicBonus;
+	private String equipSpot;
+	private String statBonus;
+	
+	/**
+	 * default constructor for Gear
+	 */
+	public Gear()
+	{
+		super();
+		damage = new Damage();
+		setDefense(0);
+		setMagicBonus(0);
+		setType()
+		setEquipSpot("")
+		setStatBonus("none", 0);
+	}
+	
+	/**
+	 * constructor for making various pieces of gear that can be equipped
+	 */
+	public Gear(String name, double weight, int value, int dice, int sides, int plus, int defense, int magicBonus)
+	{
+		super(weight, value, name);
+		damage = new Damage(dice, sides, plus);
+		
+	}
+}

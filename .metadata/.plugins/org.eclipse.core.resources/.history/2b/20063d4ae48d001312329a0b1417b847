@@ -1,0 +1,16 @@
+
+public class TwoHanded extends Gear {
+
+	public TwoHanded() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public TwoHanded(double weight, int value, String name, int dice,
+			int sides, int plus, int defense, int magicBonus, int hitBonus,
+			String statToMod, int statMod) {
+		super(weight, value, name, dice, sides, plus, defense, magicBonus,
+				hitBonus, statToMod, statMod);
+		// TODO Auto-generated constructor stub
+	}
+
+}

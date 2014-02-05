@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+
 /**
  * Item objects to be equipped or used by players or monsters
  * 
@@ -23,7 +23,7 @@ public class Item
     {
     	setWeight(0);
     	setValue(0);
-    	setType("misc");
+    	setType();
     	setName("unknownItem");
     }
     
@@ -34,11 +34,11 @@ public class Item
      * @param String - the item type
      * @param String - the name of the item
      */
-    public Item(double weight, int value,String type, String name)
+    public Item(double weight, int value, String name)
     {
     	setWeight(weight);
     	setValue(value);
-    	setType(type);
+    	setType();
     	setName(name);
     }
     
@@ -74,16 +74,9 @@ public class Item
      * sets the item type
      * @param String type
      */
-    private void setType(String type)
+    private void setType()
     {
-        for(int i=0; i < ITEMTYPE.length; i++){
-            if(ITEMTYPE[i].equalsIgnoreCase(type)){
-                this.type = type;
-            }
-        }
-        if(this.type == null){
-            this.type = "misc";
-        }
+    	this.type = "misc";
     }
     
     /**

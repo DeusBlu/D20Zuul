@@ -1,14 +1,30 @@
-Item - Attributes: double weight, int value, String type, String name
+Item - Attributes: double weight, int value, String type, String name, ITEMTYPE - sort
 
--> MagicDevice Attributes: charges, effect, effect value, String[] EFFECT, 
---> MagicEquipment - Attributes: damage, defense, magicBonus, equipSpot, statMod
+-> Equipment - Attributes: Damage damage, int defense, int magicBonus, String statToMod, int statMod
+--> TwoHanded - String type, String equipSpot
+--> Mainhand - String type, String equipSpot
+--> OneHand - String type, String equipSpot
+--> Shield - String type, String equipSpot
+--> Helm - String type, String equipSpot
+--> Shoulders - String type, String equipSpot
+--> Chest - String type, String equipSpot
+--> Gloves - String type, String equipSpot
+--> Pants - String type, String equipSpot
+--> Boots - String type, String equipSpot
 
--> Equipment - Attributes: damage, defense, magicBonus, equipSpot, statMod, ITEMTYPE - sort
+-> MagicDevice Attributes: charges, effect, effect value, String[] EFFECT, String type
 
--> Key - Attributes: opensDoor
+-> Key - Attributes: opensDoor, String type
 
 
 Entity
 ->PlayerCharacter
 ->NPC
 ->Monster
+
+
+
+"2hweapon", "mhweapon", "1hweapon", "shield", "helm", "shoulders", "chest", "gloves", "pants",
+		"boots"
+
+"head", "chest", "hands", "legs", "feet", "main hand", "off hand", "both hands"

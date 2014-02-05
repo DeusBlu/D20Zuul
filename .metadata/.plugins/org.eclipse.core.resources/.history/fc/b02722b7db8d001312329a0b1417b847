@@ -1,0 +1,79 @@
+
+/**
+ * a subclass of item that the player will equip
+ * @author Deus
+ * @version 0.1_8
+ */
+public class Gear extends Item{
+	private static final String[] WEAPONTYPE = {
+		"2hweapon", "mhweapon", "1hweapon", "shield", "helm", "shoulders", "chest", "gloves", "pants",
+		"boots"
+		}; //used to make sure items are of a valid type
+	private Damnage damage;
+	private int defense;
+	private int magicBonus;
+	private String equipSpot;
+	private String statBonus;
+	
+	/**
+	 * default constructor for Gear
+	 */
+	public Gear()
+	{
+		super();
+		damage = new Damage();
+		setDefense(0);
+		setMagicBonus(0);
+		setType("")
+		setEquipSpot()
+		setStatBonus("none", 0);
+	}
+	
+	/**
+	 * constructor for making various pieces of gear that can be equipped
+	 * @param double - weight of item in lbs
+	 * @param int - value of item in copper
+	 * @param String - item Name
+	 * @param int - number of dice for damage
+	 * @param int - number of sides of the dice
+	 * @param int - the plus to damage
+	 * @param int - defense of the item CAN BE NEGATIVE!!!
+	 * @param int - magical bonus to hit/damage (Battle Axe +5 is 5 magical bonus)
+	 * @param String - the type of item validated against WEAPONTYPE
+	 * @param String - the stat that will be modded set to none if not recognized
+	 * @param int - the amount the stat is modded, CAN BE NEGATIVE!
+	 */
+	public Gear(double weight, int value, String name, int dice, int sides, int plus, int defense, int magicBonus, String type, String statToMod, int statMod)
+	{
+		super(weight, value, name);
+		damage = new Damage(dice, sides, plus);
+		setDefense(defense);
+		setMagicBonus(magicBonus);
+		setType(type);
+		setEquipSpot();
+		setStatBonus(statToMod, statMod);
+	}
+	
+	/**
+	 * sets the defense value of the item
+	 * @param int
+	 */
+	private void setDefense(int defense)
+	{
+		this.defense = defense;
+	}
+	
+	/**
+	 * sets the magic bonus of the weapon (Battle Axe +5 is 5 magical bonus)
+	 */
+	private void setMagicBonus(int magicBonus)
+	{
+		if(magicBonus > 0){
+			this.magicBonus = magicBonus;
+		}
+		else{
+			this.magicBonus = 0;
+		}
+		}
+	}
+}
