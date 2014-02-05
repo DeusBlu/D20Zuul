@@ -1,0 +1,56 @@
+Incomplete!!!
+
+
+Player/NPC races:
+
+English - race name
+-------------------
+Human - Menn
+	~All around race.
+	~Common, guided by the AEsir, the gods of Asgard, on expedition on Niflheim.
+Frost Giant - Jotnar
+	~Higher Strength ,Higher empty-handed attack, higher club attack
+	~Uncommon,Escaped his/her home realm of Jotunheim to seek refuge in Niflheim.
+High Elf - Ljosalfr
+	~Higher Wisdom and Intelligence, Higher dagger attack
+	~Not so Common,A respected prince/princess of a kingdom in Niflheim.
+Dark Elf - Dokkalfr
+	~Higher Dexterity and Charisma, Higher spear attack
+	~Rare,Escaped from the depths of Midgard, heading to Niflheim to search for a way to save their people.
+Dwarf - Dvergar
+	~Higher hammer attack, Higher wisdom and Strength
+	~Common, working with the Menn, on expedition on Niflheim.
+==========================
+
+Monster races:
+
+English - race name
+-------------------
+Human - Menn
+	~Not so Common, allied with the Vanir to help them take down the AEsir.
+Frost Giant - Jotnar
+	~Common, hate the AEsir for what Odin did to their realm of Jotunheim.
+Fire Giant - Eldjotnar
+	~Common, work with the Jotnar to help bring the Giants into rule.
+Black Elf - Svartalfar
+	~Rare, evil dwarves that are much taller and support Hel taking back control of Svartalfheim.
+Undead demon - Nair
+	~Most Common later on, warriors of Hel, doing her bidding.
+Undead warrior - Draugr
+	~Common low level enemy, Menn that died at sea, brought back by Ran.
+
+==========================
+Boss races:
+
+English - race name
+-------------------
+
+Lesser Gods - Vanir
+	~Cast out by Odin and the AEsir, wish to take Asgard. Live in Vanaheim.
+Death Goddess - Hel
+	~Hel wishes to get all of the souls of dead Menn, Elves and Dvergar.
+Death by water God - Ran
+	~Ran wishes to get the souls of all Giants and creatures that die in battle.
+-------------------	
+Head boss - Njord
+	~Leader of the Vanir, god of wind and sea. Convinced Ran to help fight the AEsir, and Hel was convinced by Ran.
