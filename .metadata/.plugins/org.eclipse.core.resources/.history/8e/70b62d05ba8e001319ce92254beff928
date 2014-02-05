@@ -25,8 +25,8 @@ public class MagicDevice extends Item {
 	 * @param effect
 	 * @param effectValue
 	 */
-	public MagicDevice(double weight, int value, String name, int charges) 
-	{
+	public MagicDevice(double weight, int value, String name, int charges, 
+			String effect, Damage effectValue) {
 		super(weight, value, name);
 		setCharges(charges);
 		setType();
@@ -52,22 +52,5 @@ public class MagicDevice extends Item {
 	private void setType()
 	{
 		type = "Magic Device";
-	}
-	
-	/**
-	 * returns the number of charges the device has
-	 * @return int
-	 */
-	public int getCharges()
-	{
-		return charges;
-	}
-	
-	/**
-	 * returns the item type
-	 */
-	public String getType()
-	{
-		return type;
 	}
 }

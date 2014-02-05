@@ -1,0 +1,20 @@
+/**
+ * represents items that have magical properties that can be activated by a use command such as wand's
+ * and potion's
+ * @author DeusBlu
+ * @version 0.1_8
+ *
+ */
+public class MagicDevice extends Item {
+
+	public MagicDevice() {
+		super();
+		
+	}
+
+	public MagicDevice(double weight, int value, String name) {
+		super(weight, value, name);
+		// TODO Auto-generated constructor stub
+	}
+
+}

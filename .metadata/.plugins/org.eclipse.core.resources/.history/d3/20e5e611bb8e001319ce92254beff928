@@ -53,21 +53,4 @@ public class MagicDevice extends Item {
 	{
 		type = "Magic Device";
 	}
-	
-	/**
-	 * returns the number of charges the device has
-	 * @return int
-	 */
-	public int getCharges()
-	{
-		return charges;
-	}
-	
-	/**
-	 * returns the item type
-	 */
-	public String getType()
-	{
-		return type;
-	}
 }

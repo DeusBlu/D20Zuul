@@ -11,7 +11,7 @@ public class Boots extends Gear {
 	private ArrayList<String> equipSpots;
 	
 	/**
-	 * default constructor for type Boots
+	 * default constructor for type TwoHanded
 	 */
 	public Boots() {
 		super();
@@ -21,7 +21,7 @@ public class Boots extends Gear {
 	}
 	
 	/**
-	 * creates an object of type Boots
+	 * creates an object of type TwoHanded - a weapon used with both hands
 	 * @param double - weight in lbs
 	 * @param int - value in copper
 	 * @param String - name
@@ -44,7 +44,7 @@ public class Boots extends Gear {
 	}
 	
 	/**
-	 * sets the type of gear this is
+	 * sets the type of weapon this is
 	 */
 	private void setType()
 	{
@@ -60,7 +60,7 @@ public class Boots extends Gear {
 	}
 	
 	/**
-	 * returns the type of gear this is
+	 * returns the type of weapon this is
 	 * @return String
 	 */
 	public String getType()

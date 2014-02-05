@@ -6,12 +6,20 @@
  *
  */
 public class MagicDevice extends Item {
+	private String[] EFFECT = {
+			"damage", "healing", "buff", "misc"
+	};
 	private int charges;
+	private String effect;
+	private Damage effectValue;
 	private String type;
 
 	public MagicDevice() {
 		super();
+		effectValue = new Damage();
 		setCharges(0);
+		setEffect("misc");
+		setEffectValue(effectValue);
 		setType();
 		
 	}
@@ -25,10 +33,12 @@ public class MagicDevice extends Item {
 	 * @param effect
 	 * @param effectValue
 	 */
-	public MagicDevice(double weight, int value, String name, int charges) 
-	{
+	public MagicDevice(double weight, int value, String name, int charges, 
+			String effect, int effectValue) {
 		super(weight, value, name);
 		setCharges(charges);
+		setEffect(effect);
+		setEffectValue(effectValue);
 		setType();
 	}
 	
@@ -42,32 +52,27 @@ public class MagicDevice extends Item {
 			this.charges = charges;
 		}
 		else{
-			throw new IllegalArgumentException("Charges of item " + getName() + " are negative");
+			this.charges = 0;
 		}
 	}
+	
+	/**
+	 * sets the effect type of the item, throws exception if the type is not valid
+	 * @param effect
+	 */
+	private void setEffect(String effect)
+	{
+		for(int i = 0; i < EFFECT.length; i++){
+			if(effect.equalsIgnoreCase(EFFECT[i]))
+				this.effect = effect;
+		}
+		if(this.effect == null){
+			throw new IllegalArgumentException("Effect of item " + getName() + " is not a valid effect type");
+		}
+	}
+	
+	/**
+	 * sets the effect value
+	 */
 
-	/**
-	 * sets the item type
-	 */
-	private void setType()
-	{
-		type = "Magic Device";
-	}
-	
-	/**
-	 * returns the number of charges the device has
-	 * @return int
-	 */
-	public int getCharges()
-	{
-		return charges;
-	}
-	
-	/**
-	 * returns the item type
-	 */
-	public String getType()
-	{
-		return type;
-	}
 }
