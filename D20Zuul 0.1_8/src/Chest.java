@@ -7,7 +7,6 @@ import java.util.ArrayList;
  *
  */
 public class Chest extends Gear {
-	private String type;
 	private ArrayList<String> equipSpots;
 	
 	/**
@@ -15,7 +14,6 @@ public class Chest extends Gear {
 	 */
 	public Chest() {
 		super();
-		setType();
 		equipSpots = new ArrayList<String>();
 		setEquipSpots();
 	}
@@ -37,18 +35,9 @@ public class Chest extends Gear {
 	public Chest(double weight, int value, String name, int dice, int sides, int plus, int defense, 
 			int magicBonus, int hitBonus, String statToMod, int statMod) {
 		super(weight, value, name, dice, sides, plus, defense, magicBonus,
-				hitBonus, statToMod, statMod);
-		setType();
+				hitBonus, statToMod, statMod, "chest");
 		equipSpots = new ArrayList<String>();
 		setEquipSpots();
-	}
-	
-	/**
-	 * sets the type of weapon this is
-	 */
-	private void setType()
-	{
-		this.type = "chest";
 	}
 	
 	/**
@@ -57,15 +46,6 @@ public class Chest extends Gear {
 	private void setEquipSpots()
 	{
 		equipSpots.add("Chest");
-	}
-	
-	/**
-	 * returns the type of weapon this is
-	 * @return String
-	 */
-	public String getType()
-	{
-		return type;
 	}
 	
     /**

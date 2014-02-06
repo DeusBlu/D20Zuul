@@ -1,6 +1,4 @@
-
-
-
+import java.util.ArrayList;
 /**
  * a subclass of item that the player will equip
  * @author Deus
@@ -16,6 +14,8 @@ public class Gear extends Item{
 	private int hitBonus;
 	private String statToMod;
 	private int statMod;
+	private String type;
+	private ArrayList<String> equipSpots;
 	
 	/**
 	 * default constructor for Gear
@@ -23,11 +23,13 @@ public class Gear extends Item{
 	public Gear()
 	{
 		super();
+		equipSpots = new ArrayList<String>();
 		damage = new Damage();
 		setDefense(0);
 		setMagicBonus(0);
 		setHitBonus(0);
 		setStatBonus("none", 0);
+		setType("");
 	}
 	
 	/**
@@ -40,18 +42,20 @@ public class Gear extends Item{
 	 * @param int - the plus to damage
 	 * @param int - defense of the item CAN BE NEGATIVE!!!
 	 * @param int - magical bonus to hit/damage (Battle Axe +5 is 5 magical bonus)
-	 * @param String - the type of item validated against WEAPONTYPE
+	 * @param String - the type of item
 	 * @param String - the stat that will be modded set to none if not recognized
 	 * @param int - the amount the stat is modded, CAN BE NEGATIVE!
 	 */
-	public Gear(double weight, int value, String name, int dice, int sides, int plus, int defense, int magicBonus, int hitBonus, String statToMod, int statMod)
+	public Gear(double weight, int value, String name, int dice, int sides, int plus, int defense, int magicBonus, int hitBonus, String statToMod, int statMod, String type)
 	{
 		super(weight, value, name);
+		equipSpots = new ArrayList<String>();
 		damage = new Damage(dice, sides, plus);
 		setDefense(defense);
 		setMagicBonus(magicBonus);
 		setHitBonus(hitBonus);
 		setStatBonus(statToMod, statMod);
+		setType(type);
 	}
 	
 	/**
@@ -109,6 +113,30 @@ public class Gear extends Item{
 	}
 	
 	/**
+	 * sets the type of gear this item is passed from child Class
+	 * @param String
+	 */
+	public void setType(String type)
+	{
+		this.type = type;
+	}
+	
+	/**
+	 * this method sets the equip spots 
+	 * @param String
+	 */
+	public void setEquipSpots(String spot)
+	{
+		if(spot != null){
+			equipSpots.add(spot);
+		}
+		else{
+			throw new IllegalArgumentException("EquipSpot of " + getName() + 
+					" was null");
+		}
+	}
+	
+	/**
 	 * rolls the damage for the weapon and returns it modified with the damage mod
 	 * @return int
 	 */
@@ -123,7 +151,12 @@ public class Gear extends Item{
 	 */
 	public String showDamage()
 	{
-		return "" + damage.getNumber() + "d" + damage.getSides() + "+" + (damage.getPlus() + magicBonus);
+		if(damage != null){
+			return "" + damage.getNumber() + "d" + damage.getSides() + "+" + (damage.getPlus() + magicBonus);
+		}
+		else{
+			return null;
+		}
 	}
 	
 	/**
@@ -169,4 +202,39 @@ public class Gear extends Item{
 	{
 		return statMod;
 	}
+	
+	/**
+	 * returns the item type
+	 * @return String
+	 */
+	public String getType()
+	{
+		return type;
+	}
+	
+    /**
+     * prints the places that an item can be equipped
+     */
+    public void equipWhere()
+    {
+        String loc = "";
+        for(String spot : equipSpots){
+            loc += spot + ", ";
+        }
+        System.out.println(getName() + " can be go to your: " + loc);
+    }
+    
+    /**
+     * returns a string containing all the places an item can be equipped, most items this is only 1 location some
+     * are more
+     * @return String
+     */
+    public String getEquipString()
+    {
+        String loc = "";
+        for(String spot : equipSpots){
+            loc += spot;
+        }
+        return loc;
+    }
 }

@@ -1,5 +1,3 @@
-
-import java.util.ArrayList;
 /**
  * This class creates a two handed weapon
  * @author DeusBlu
@@ -7,17 +5,12 @@ import java.util.ArrayList;
  *
  */
 public class TwoHanded extends Gear {
-	private String type;
-	private ArrayList<String> equipSpots;
-	
 	/**
 	 * default constructor for type TwoHanded
 	 */
 	public TwoHanded() {
 		super();
-		setType();
-		equipSpots = new ArrayList<String>();
-		setEquipSpots();
+		sendEquipSpots();
 	}
 	
 	/**
@@ -37,60 +30,14 @@ public class TwoHanded extends Gear {
 	public TwoHanded(double weight, int value, String name, int dice, int sides, int plus, int defense, 
 			int magicBonus, int hitBonus, String statToMod, int statMod) {
 		super(weight, value, name, dice, sides, plus, defense, magicBonus,
-				hitBonus, statToMod, statMod);
-		setType();
-		equipSpots = new ArrayList<String>();
-		setEquipSpots();
+				hitBonus, statToMod, statMod, "2hweapon");
+		sendEquipSpots();
 	}
-	
-	/**
-	 * sets the type of weapon this is
-	 */
-	private void setType()
-	{
-		this.type = "2hweapon";
-	}
-	
 	/**
 	 * adds the equip spots to the array
 	 */
-	private void setEquipSpots()
+	private void sendEquipSpots()
 	{
-		equipSpots.add("Both Hands");
+		setEquipSpots("Both Hands");
 	}
-	
-	/**
-	 * returns the type of weapon this is
-	 * @return String
-	 */
-	public String getType()
-	{
-		return type;
-	}
-	
-    /**
-     * prints the places that an item can be equipped
-     */
-    public void equipWhere()
-    {
-        String loc = "";
-        for(String spot : equipSpots){
-            loc += spot + ", ";
-        }
-        System.out.println(getName() + " can be go to your: " + loc);
-    }
-    
-    /**
-     * returns a string containing all the places an item can be equipped, most items this is only 1 location some
-     * are more
-     * @return String
-     */
-    public String getEquipString()
-    {
-        String loc = "";
-        for(String spot : equipSpots){
-            loc += spot;
-        }
-        return loc;
-    }
 }

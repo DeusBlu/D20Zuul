@@ -75,20 +75,17 @@ public class Inventory
     {
         if(spot > 0 && backpack[spot-1] != null){
             spot--;
-            System.out.println("Item Name: " + backpack[spot].getName());
-            System.out.println("Item Type: " + backpack[spot].getType());
-            if(backpack[spot].getDamage()[1] != 0){
-                System.out.println("Damage: " + backpack[spot].getDamage()[0] + "-" + 
-                backpack[spot].getDamage()[1]);
+            if(backpack[spot] instanceof TwoHanded){
+            	((TwoHanded)backpack[spot]).printDetails();
             }
-            if(backpack[spot].getDefense() != 0){
-                System.out.println("Defense: " + backpack[spot].getDefense());
+            if(backpack[spot] instanceof MainHand){
+            	((MainHand)backpack[spot]).printDetails();
             }
-            if(!backpack[spot].getEffect().equalsIgnoreCase("none")){
-                System.out.println("Effect: " + backpack[spot].getEffect());
-                if(backpack[spot].getEffectValue() > 0){
-                    System.out.println("Potency: " + backpack[spot].getEffectValue());
-                }
+            if(backpack[spot] instanceof OneHand){
+            	((OneHand)backpack[spot]).printDetails();
+            }
+            if(backpack[spot] instanceof Shield){
+            	((Shield)backpack[spot]).printDetails();
             }
         }
     }

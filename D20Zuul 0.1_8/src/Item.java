@@ -115,7 +115,7 @@ public class Item
      * returns the item type
      * @return String
      */
-    public String getItemType()
+    public String getType()
     {
     	return type;
     }
@@ -127,5 +127,28 @@ public class Item
     public String getName()
     {
     	return name;
+    }
+    
+    /**
+     * returns the value as Xg Ys Zc
+     * @return String
+     */
+    public String printValue()
+    {
+    	int copper = value % 10;
+    	int silver = (value/10) % 10;
+    	int gold = (value/100) % 10;
+    	return "" + gold + "g " + silver + "s " + copper + "c";
+    }
+    
+    /**
+     * prints the details about the item
+     */
+    public void printDetails()
+    {
+    	System.out.println("Item Name: " + getName());
+        System.out.println("Item Type: " + getType());
+        System.out.println("Item Weight: " + getWeight() + "lbs");
+        System.out.println("Value: " + printValue());
     }
 }
