@@ -1,10 +1,10 @@
 /**
- * holds values for damage that are rolled by dice objects
+ * holds values for damage/healing/anything that rolls that are rolled by dice objects
  * @author DeusBlu
  * @version 0.1_8
  *
  */
-public class Damage {
+public class DiceSet {
 	private Dice dice;
 	private int number;
 	private int sides;
@@ -13,7 +13,7 @@ public class Damage {
 	/**
 	 * default constructor for damage objects
 	 */
-	public Damage()
+	public DiceSet()
 	{
 		dice = new Dice();
 		setNumber(1);
@@ -24,7 +24,7 @@ public class Damage {
 	/**
 	 * constructor for damage to be attached to weapons/monsters/traps/anything that deals damage
 	 */
-	public Damage(int number, int sides, int plus)
+	public DiceSet(int number, int sides, int plus)
 	{
 		dice = new Dice();
 		setNumber(number);

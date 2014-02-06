@@ -4,14 +4,18 @@ import java.util.ArrayList;
  * @author Deus
  * @version 0.1_8
  */
-public class Gear extends Item{
+public abstract class Gear extends Item{
 	private static final String[] STATS = {
 		"str", "dex", "con", "intel", "wis", "chr"
 	};
-	private Damage damage;
+	private static final String[] EQUIP_SPOTS = {
+		"Main Hand", "Off Hand", "Two Hands", "Head",
+		"Shoulders", "Chest", "Hands", "Legs", "Feet"
+	};
+	private DiceSet diceSet;
 	private int defense;
-	private int magicBonus;
-	private int hitBonus;
+	private int magicMod;
+	private int hitMod;
 	private String statToMod;
 	private int statMod;
 	private String type;
@@ -24,11 +28,11 @@ public class Gear extends Item{
 	{
 		super();
 		equipSpots = new ArrayList<String>();
-		damage = new Damage();
+		diceSet = new DiceSet();
 		setDefense(0);
-		setMagicBonus(0);
-		setHitBonus(0);
-		setStatBonus("none", 0);
+		setMagicMod(0);
+		setHitMod(0);
+		setStatMod("none", 0);
 		setType("");
 	}
 	
@@ -50,11 +54,11 @@ public class Gear extends Item{
 	{
 		super(weight, value, name);
 		equipSpots = new ArrayList<String>();
-		damage = new Damage(dice, sides, plus);
+		diceSet = new DiceSet(dice, sides, plus);
 		setDefense(defense);
-		setMagicBonus(magicBonus);
-		setHitBonus(hitBonus);
-		setStatBonus(statToMod, statMod);
+		setMagicMod(magicBonus);
+		setHitMod(hitBonus);
+		setStatMod(statToMod, statMod);
 		setType(type);
 	}
 	
@@ -70,26 +74,26 @@ public class Gear extends Item{
 	/**
 	 * sets the magic bonus of the weapon (Battle Axe +5 is 5 magical bonus)
 	 */
-	private void setMagicBonus(int magicBonus)
+	private void setMagicMod(int magicBonus)
 	{
 		if(magicBonus > 0){
-			this.magicBonus = magicBonus;
+			this.magicMod = magicBonus;
 		}
 		else{
-			this.magicBonus = 0;
+			this.magicMod = 0;
 		}
 	}
 	
 	/**
 	 * sets the hit bonus without adding a damage bonus
 	 */
-	private void setHitBonus(int hitBonus)
+	private void setHitMod(int hitBonus)
 	{
 		if(hitBonus > 0){
-			this.hitBonus = hitBonus;
+			this.hitMod = hitBonus;
 		}
 		else{
-			this.hitBonus = 0;
+			this.hitMod = 0;
 		}
 	}
 	
@@ -98,7 +102,7 @@ public class Gear extends Item{
 	 * @param String - stat to mod valid (str, dex, con, intel, wis, chr)
 	 * @param int - amount the stat is changed, CAN BE NEGATIVE!
 	 */
-	private void setStatBonus(String statToMod, int statMod)
+	private void setStatMod(String statToMod, int statMod)
 	{
 		for(int i = 0; i < STATS.length; i++){
 			if(statToMod.equalsIgnoreCase(STATS[i])){
@@ -125,24 +129,29 @@ public class Gear extends Item{
 	 * this method sets the equip spots 
 	 * @param String
 	 */
-	public void setEquipSpots(String spot)
+	protected void setEquipSpots(String spot)
 	{
 		if(spot != null){
-			equipSpots.add(spot);
+			for(int i = 0; i < EQUIP_SPOTS.length; i++){
+				if(EQUIP_SPOTS[i].equalsIgnoreCase(spot)){
+					equipSpots.add(spot);
+				}
+			}
 		}
-		else{
+		if(equipSpots.isEmpty()){
 			throw new IllegalArgumentException("EquipSpot of " + getName() + 
-					" was null");
+					" was invalid");
 		}
 	}
 	
 	/**
 	 * rolls the damage for the weapon and returns it modified with the damage mod
+	 * returns just the bonus if no damage range
 	 * @return int
 	 */
 	public int getDamage()
 	{
-		return (damage.getDamage() + damage.getPlus());
+		return (diceSet.getDamage() + diceSet.getPlus());
 	}
 	
 	/**
@@ -151,8 +160,8 @@ public class Gear extends Item{
 	 */
 	public String showDamage()
 	{
-		if(damage != null){
-			return "" + damage.getNumber() + "d" + damage.getSides() + "+" + (damage.getPlus() + magicBonus);
+		if(diceSet != null){
+			return "" + diceSet.getNumber() + "d" + diceSet.getSides() + "+" + (diceSet.getPlus() + magicMod);
 		}
 		else{
 			return null;
@@ -173,7 +182,7 @@ public class Gear extends Item{
 	 */
 	public int getMagicBonus()
 	{
-		return magicBonus;
+		return magicMod;
 	}
 	
 	/**
@@ -182,7 +191,7 @@ public class Gear extends Item{
 	 */
 	public int getHitBonus()
 	{
-		return hitBonus + magicBonus;
+		return hitMod + magicMod;
 	}
 	
 	/**
@@ -236,5 +245,28 @@ public class Gear extends Item{
             loc += spot;
         }
         return loc;
+    }
+    
+    /**
+     * prints the details about the item
+     */
+    public void printDetails()
+    {
+    	System.out.println("Item Name: " + getName());
+        System.out.println("Item Type: " + getType());
+        System.out.println("Item Weight: " + getWeight() + "lbs");
+        if(diceSet != null){
+        	System.out.println("Damage: " + showDamage());
+        }
+        if(hitMod > 0){
+        	System.out.println("+" + hitMod + " to hit roll");
+        }
+        if(defense > 0){
+        	System.out.println("Defense: " + defense);
+        }
+        if(statToMod != null && !statToMod.isEmpty()){
+        	System.out.println("Gives " + statMod + " to " + statToMod);
+        }
+        System.out.println("Value: " + printValue());
     }
 }

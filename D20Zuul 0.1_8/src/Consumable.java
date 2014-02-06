@@ -11,7 +11,7 @@ public class Consumable extends MagicDevice {
 			"damage", "healing", "buff", "misc"
 	};
 	private String effect;
-	private Damage effectValue;
+	private DiceSet effectValue;
 	private String type;
 	
 	/**
@@ -21,7 +21,7 @@ public class Consumable extends MagicDevice {
 	{
 		super();
 		setEffect("misc");
-		setEffectValue(new Damage());
+		setEffectValue(new DiceSet());
 		setType();
 	}
 
@@ -33,7 +33,7 @@ public class Consumable extends MagicDevice {
 	 * @param effect
 	 * @param effectValue
 	 */
-	public Consumable(double weight, int value, String name, int charges, String effect, Damage effectValue) 
+	public Consumable(double weight, int value, String name, int charges, String effect, DiceSet effectValue) 
 	{
 		super(weight, value, name, charges);
 		setEffect(effect);
@@ -45,7 +45,7 @@ public class Consumable extends MagicDevice {
 	 * sets the effect value, a damage object to hold dice and modifiers
 	 * @param effectValue
 	 */
-	private void setEffectValue(Damage effectValue)
+	private void setEffectValue(DiceSet effectValue)
 	{
 		if(effectValue != null){
 			this.effectValue = effectValue;

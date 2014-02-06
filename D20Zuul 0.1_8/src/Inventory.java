@@ -145,6 +145,21 @@ public class Inventory
     }
     
     /**
+     * querries the spot for equipable gear returns null if not equipable or empty
+     * @param int
+     * @return gear
+     */
+    public Gear getGear(int spot)
+    {
+    	if(backpack[spot] != null && backpack[spot] instanceof Gear){
+    		return (Gear)backpack[spot];
+    	}
+    	else{
+    		return null;
+    	}
+    }
+    
+    /**
      * takes an item from one inventory and transfers it to this inventory based on its location in
      * the originating inventory and returns true if it was able to be moved
      * @param Inventory

@@ -10,7 +10,6 @@ public class TwoHanded extends Gear {
 	 */
 	public TwoHanded() {
 		super();
-		sendEquipSpots();
 	}
 	
 	/**

@@ -1,25 +1,20 @@
-
-import java.util.ArrayList;
 /**
- * This class creates a two handed weapon
+ * This class creates boots
  * @author DeusBlu
  * @version 0.1_8
  *
  */
 public class Boots extends Gear {
-	private ArrayList<String> equipSpots;
-	
 	/**
-	 * default constructor for type Boots
+	 * default constructor for type boots
 	 */
 	public Boots() {
 		super();
-		equipSpots = new ArrayList<String>();
-		setEquipSpots();
+		sendEquipSpots();
 	}
 	
 	/**
-	 * creates an object of type Boots
+	 * creates an object of type boots
 	 * @param double - weight in lbs
 	 * @param int - value in copper
 	 * @param String - name
@@ -36,41 +31,13 @@ public class Boots extends Gear {
 			int magicBonus, int hitBonus, String statToMod, int statMod) {
 		super(weight, value, name, dice, sides, plus, defense, magicBonus,
 				hitBonus, statToMod, statMod, "boots");
-		equipSpots = new ArrayList<String>();
-		setEquipSpots();
+		sendEquipSpots();
 	}
-	
 	/**
 	 * adds the equip spots to the array
 	 */
-	private void setEquipSpots()
+	private void sendEquipSpots()
 	{
-		equipSpots.add("Feet");
+		setEquipSpots("Feet");
 	}
-	
-    /**
-     * prints the places that an item can be equipped
-     */
-    public void equipWhere()
-    {
-        String loc = "";
-        for(String spot : equipSpots){
-            loc += spot + ", ";
-        }
-        System.out.println(getName() + " can be go to your: " + loc);
-    }
-    
-    /**
-     * returns a string containing all the places an item can be equipped, most items this is only 1 location some
-     * are more
-     * @return String
-     */
-    public String getEquipString()
-    {
-        String loc = "";
-        for(String spot : equipSpots){
-            loc += spot;
-        }
-        return loc;
-    }
 }

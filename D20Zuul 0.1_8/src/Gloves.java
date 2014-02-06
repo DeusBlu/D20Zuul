@@ -1,12 +1,12 @@
 /**
- * This class creates a two handed weapon
+ * This class creates gloves
  * @author DeusBlu
  * @version 0.1_8
  *
  */
 public class Gloves extends Gear {
 	/**
-	 * default constructor for type TwoHanded
+	 * default constructor for type Gloves
 	 */
 	public Gloves() {
 		super();
@@ -14,7 +14,7 @@ public class Gloves extends Gear {
 	}
 	
 	/**
-	 * creates an object of type TwoHanded - a weapon used with both hands
+	 * creates an object of type gloves
 	 * @param double - weight in lbs
 	 * @param int - value in copper
 	 * @param String - name
