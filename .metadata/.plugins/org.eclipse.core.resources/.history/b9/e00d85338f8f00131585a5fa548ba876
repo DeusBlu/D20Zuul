@@ -125,13 +125,7 @@ public class EquipUI
 					}
 					else{
 						if(replace(toEquip.getEquipString())){
-							Gear lootGear = gearCheck(toEquip);
-							if(lootGear != null){
-								wasEquipped.lootItem(lootGear);
-							}
-							else{
-								wasEquipped.lootItem(equipment.unequip(toEquip.getEquipString()));
-							}
+							wasEquipped.lootItem(gearCheck(toEquip));
 							System.out.println(toEquip.getName() + " was equipped!");
 							equipment.equip(toEquip.getEquipString(), toEquip);
 						}
