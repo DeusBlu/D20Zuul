@@ -6,7 +6,7 @@
  * @author (DeusBlu) 
  * @version (0.1_3)
  */
-public class PlayerCharacter
+public class PlayerCharacter extends Entity
 {
     // instance variables - replace the example below with your own
     private static final int STARTING_HP = 10;

@@ -21,15 +21,19 @@ public class EquipUI
 	private InputReader reader;
 	private Equipment equipment;
 	private Inventory backpack;
+	private Inventory wasEquipped;
+	private Gear toEquip;
 	
 	/**
 	 * default constructor for EquipUI
 	 */
 	public EquipUI()
 	{
+		toEquip = new Gear();
 		reader = new InputReader();
 		equipment = new Equipment();
 		backpack = new Inventory();
+		wasEquipped = new Inventory();
 	}
 	
 	/**
@@ -40,9 +44,11 @@ public class EquipUI
 	public EquipUI(Equipment equipment, 
 				   Inventory inventory)
 	{
+		toEquip = new Gear();
 		reader = new InputReader();
 		setEquip(equipment);
 		setInventory(inventory);
+		wasEquipped = new Inventory();
 		equipUI();
 	}
 	
@@ -79,8 +85,6 @@ public class EquipUI
 	 */
 	private void equipUI()
 	{
-		Gear toEquip;
-		Inventory wasEquipped = new Inventory();
 		boolean finished = false;
 		int input = 0;
 		while(!finished){
@@ -92,60 +96,116 @@ public class EquipUI
 				input = reader.readInt();
 				if(backpack.getGear(input-1) != null){
 					toEquip = backpack.removeGear(input-1);
-					if(toEquip.getType().equals("2hweapon") && equipment.isDualWield()){
-						if(backpack.bagSpace() <= 1){
-							System.out.println("Your backpack is full");
-							wasEquipped.lootItem(toEquip);
-						}
-						else{
-							if(replace(toEquip.getEquipString())){
-								wasEquipped.lootItem(equipment.unequip("Main Hand"));
-								wasEquipped.lootItem(equipment.unequip("Off Hand"));
-								System.out.println(toEquip.getName() + " was equipped!");
-								equipment.equip(toEquip.getEquipString(), toEquip);
-							}
-							else{
-								System.out.println(toEquip.getName() + " was returned to your bag");
-								wasEquipped.lootItem(toEquip);
-							}
-						}
+					if(toEquip.getType().equals("2hweapon")){
+						equip2H();
 					}
 					else if(toEquip.getType().equals("1hweapon")){
-						String hand = weaponEquip();
-						if(replace(hand)){
-							wasEquipped.lootItem(equipment.unequip(hand));
-							wasEquipped.lootItem(equipment.unequip("Both Hands"));
-							System.out.println(toEquip.getName() + " was equipped!");
-							equipment.equip(hand, toEquip);
-						}
-						else{
-							System.out.println(toEquip.getName() + " was returned to your bag");
-							wasEquipped.lootItem(toEquip);
-						}
+						equipWeapon(weaponEquip());
+					}
+					else if(toEquip.getType().equals("mhweapon")){
+						equipWeapon("Main Hand");
 					}
 					else{
-						if(replace(toEquip.getEquipString())){
-							Gear lootGear = gearCheck(toEquip);
-							if(lootGear != null){
-								wasEquipped.lootItem(lootGear);
-							}
-							else{
-								wasEquipped.lootItem(equipment.unequip(toEquip.getEquipString()));
-							}
-							System.out.println(toEquip.getName() + " was equipped!");
-							equipment.equip(toEquip.getEquipString(), toEquip);
-						}
-						else{
-							System.out.println(toEquip.getName() + " was returned to your bag");
-							wasEquipped.lootItem(toEquip);
-						}
+						equipGear();
 					}
 				}
 			}
 			backpack.transfer(0, wasEquipped);
 			backpack.transfer(1, wasEquipped);
-			finished = equipAgain();
 			backpack.sort();
+			finished = equipAgain();
+		}
+	}
+	
+	/**
+	 * the equip process for a 2hweapon
+	 */
+	private void equip2H()
+	{
+		if(backpack.bagSpace() <= 1 && equipment.isDualWield()){
+			System.out.println("Your backpack is full");
+			wasEquipped.lootItem(toEquip);
+		}
+		else if(equipment.hasGear("Main Hand") || equipment.hasGear("Off Hand")){
+			if(replace(toEquip.getEquipString())){
+				wasEquipped.lootItem(equipment.unequip("Main Hand"));
+				wasEquipped.lootItem(equipment.unequip("Off Hand"));
+				equipment.equip(toEquip.getEquipString(), toEquip);
+				System.out.println(toEquip.getName() + " was equipped!");
+			}
+			else{
+				wasEquipped.lootItem(toEquip);
+				System.out.println(toEquip.getName()  + " returned to your backpack");
+			}
+		}
+		else{
+			if(replace(toEquip.getEquipString())){
+				wasEquipped.lootItem(equipment.unequip(toEquip.getEquipString()));
+				equipment.equip(toEquip.getEquipString(), toEquip);
+				System.out.println(toEquip.getName() + " was equipped!");
+			}
+			else{
+				wasEquipped.lootItem(toEquip);
+				System.out.println(toEquip.getName()  + " returned to your backpack");
+			}
+		}
+	}
+	
+	/**
+	 * the equip process for a 1h or mh weapon
+	 * @param hand
+	 */
+	private void equipWeapon(String hand)
+	{
+		if(equipment.hasGear("Both Hands")){
+			if(replace(toEquip.getEquipString())){
+				wasEquipped.lootItem(equipment.unequip("Both Hands"));
+				equipment.equip(toEquip.getEquipString(), toEquip);
+				System.out.println(toEquip.getName() + " was equipped!");
+			}
+			else{
+				wasEquipped.lootItem(toEquip);
+				System.out.println(toEquip.getName()  + " returned to your backpack");
+			}
+		}
+		else if(equipment.hasGear(hand)){
+			if(replace(toEquip.getEquipString())){
+				wasEquipped.lootItem(equipment.unequip(hand));
+				equipment.equip(toEquip.getEquipString(), toEquip);
+				System.out.println(toEquip.getName() + " was equipped!");
+			}
+			else{
+				wasEquipped.lootItem(toEquip);
+				System.out.println(toEquip.getName()  + " returned to your backpack");
+			}
+		}
+		else{
+			wasEquipped.lootItem(equipment.unequip(toEquip.getEquipString()));
+			equipment.equip(hand, toEquip);
+			System.out.println(toEquip.getName() + " was equipped!");
+		}
+	}
+	
+	/**
+	 * equips all other kinds of gear
+	 */
+	private void equipGear()
+	{
+		if(equipment.hasGear(toEquip.getEquipString())){
+			if(replace(toEquip.getEquipString())){
+				wasEquipped.lootItem(equipment.unequip(toEquip.getEquipString()));
+				equipment.equip(toEquip.getEquipString(), toEquip);
+				System.out.println(toEquip.getName() + " was equipped!");
+			}
+			else{
+				wasEquipped.lootItem(toEquip);
+				System.out.println(toEquip.getName()  + " returned to your backpack");
+			}
+		}
+		else{
+			wasEquipped.lootItem(equipment.unequip(toEquip.getEquipString()));
+			equipment.equip(toEquip.getEquipString(), toEquip);
+			System.out.println(toEquip.getName() + " was equipped!");
 		}
 	}
 	
@@ -170,11 +230,14 @@ public class EquipUI
 				String input = reader.readString();
 				for(int i=0; i < YES.length; i++){
 	                if(input.equalsIgnoreCase(YES[i])){
+	                	wasEquipped.lootItem(equipment.unequip("Main Hand"));
+	                	wasEquipped.lootItem(equipment.unequip("Off Hand"));
 	                	ask = false;
 	                }
 	            }
 	            for(int i=0; i < NO.length; i++){
 	                if(input.equalsIgnoreCase(NO[i])){
+	    				 System.out.println(toEquip.getName() + " was returned to your bag");
 	                     ask = false;
 	                     replace = false;
 	                }
@@ -200,6 +263,7 @@ public class EquipUI
 	            }
 	            for(int i=0; i < NO.length; i++){
 	                if(input.equalsIgnoreCase(NO[i])){
+	    				 System.out.println(toEquip.getName() + " was returned to your bag");
 	                     ask = false;
 	                     replace = false;
 	                }
@@ -224,6 +288,7 @@ public class EquipUI
 	            }
 	            for(int i=0; i < NO.length; i++){
 	                if(input.equalsIgnoreCase(NO[i])){
+	    				 System.out.println(toEquip.getName() + " was returned to your bag");
 	                     ask = false;
 	                     replace = false;
 	                }
@@ -299,31 +364,5 @@ public class EquipUI
             }
         }
         return answer;
-	}
-	
-	/**
-	 * checks for 2hweapon, mhweapon, ohweapon and makes sure proper equipment
-	 * changes happen
-	 * @param Gear - item to equip
-	 * @return Gear - the removed item
-	 */
-	private Gear gearCheck(Gear toEquip)
-	{
-		if(toEquip.getType().equals("2hweapon") ||
-		   toEquip.getType().equals("mhweapon")){
-			if(equipment.hasGear("Both Hands")){
-				return equipment.unequip("Both Hands");
-			}
-			else if(equipment.hasGear("Main Hand")){
-				return equipment.unequip("Main Hand");
-			}
-			else if(equipment.hasGear("Off Hand")){
-				return equipment.unequip("Off Hand");
-			}
-			else{
-				return equipment.unequip(toEquip.getEquipString());
-			}
-		}
-		return toEquip;
 	}
 }

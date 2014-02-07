@@ -15,27 +15,15 @@ public class HP {
 	{
 		hp = new int[2];
 		dice = new Dice();
-		setHP(4, 0, 4);
 	}
-	
-	/**
-	 * constructor for HP
-	 * @param int - maxHP
-	 */
-	public HP(int hpDie, int conMod, int startingMaxHP)
-	{
-		hp = new int[2];
-		dice = new Dice();
-		setHP(hpDie, conMod, startingMaxHP);
-	}
-	
+
 	/**
 	 * initializes the HP Die
 	 * @param Dice hpDie
 	 * @param int conMod
 	 * @param int startingMaxHP
 	 */
-	private void setHP(int hpDie, int conMod, int startingMaxHP)
+	public void setHP(int numberDice, int hpDie, int hpMod)
 	{
 		int maxHP = dice.roll(1, hpDie);
 		if(maxHP + conMod > 0){

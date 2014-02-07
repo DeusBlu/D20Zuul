@@ -4,7 +4,7 @@
  * @author (DeusBlu) 
  * @version (0.1_3)
  */
-public class Monster
+public class Monster extends Entity
 {
     private static final Dice dice = new Dice();
     private static final int BASE_MP = 5;
