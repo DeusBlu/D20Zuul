@@ -35,21 +35,23 @@ public class MP {
 	private void setMP(int wisMod, int startingMaxMP)
 	{
         mp[0] = wisMod + startingMaxMP;
-        mp[1] = wisMod = startingMaxMP;
+        mp[1] = wisMod + startingMaxMP;
         
 	}
 	
 	/**
-	 * spends the mp
+	 * spends the mp returns true if the spell was cast
 	 * @param damage
+	 * @return boolean
 	 */
-	public void spend(int spent)
+	public boolean spend(int spent)
 	{
 		if(spent <= mp[0]){
 			mp[0] -= spent;
+			return true;
 		}
 		else{
-			mp[0] = 0;
+			return false;
 		}
 	}
 	

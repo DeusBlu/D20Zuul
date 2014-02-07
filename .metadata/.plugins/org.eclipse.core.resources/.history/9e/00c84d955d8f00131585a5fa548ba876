@@ -1,0 +1,55 @@
+/*
+ * keeps track of the players XP and returns level up information
+ * @author DeusBlu
+ * @version 0.1_8
+ */
+public class XP {
+	
+	private int[] xp;
+	
+	/**
+	 * default constructor for XP items
+	 */
+	public XP() 
+	{
+		xp = new int[2];
+		setXP(1);
+	}
+	
+	/**
+	 * constructor for XP items with param starting level
+	 * @param int
+	 */
+	public XP(int startingLevel)
+	{
+		xp = new int[2];
+		setXP(startingLevel);
+	}
+	
+	/**
+	 * initializes the XP
+	 */
+	private void setXP(int startingLevel)
+	{
+		for(int i = 1; i <= startingLevel; i++){
+			xp[0] = xp[1];
+			xp[1] += (i * 1000);
+		}
+	}
+	
+	/**
+	 * prints out the current exp and exp needed for next level
+	 */
+	public void printXP()
+	{
+		System.out.println("" + xp[0] + "/" + xp[1]);
+	}
+	
+	/**
+	 * levels up the character
+	 */
+	private void levelUp()
+	{
+		
+	}
+}

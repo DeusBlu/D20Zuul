@@ -1,20 +1,20 @@
 import java.util.ArrayList;
 /**
  * a subclass of item that the player will equip
- * @author Deus
+ * @author DeusBlu
  * @version 0.1_8
  */
-public abstract class Gear extends Item{
+public class Gear extends Item{
 	private static final String[] STATS = {
 		"str", "dex", "con", "intel", "wis", "chr"
 	};
 	private static final String[] EQUIP_SPOTS = {
-		"Main Hand", "Off Hand", "Two Hands", "Head",
+		"Main Hand", "Off Hand", "Both Hands", "Head",
 		"Shoulders", "Chest", "Hands", "Legs", "Feet"
 	};
 	private DiceSet diceSet;
 	private int defense;
-	private int magicMod;
+	private int damageMod;
 	private int hitMod;
 	private String statToMod;
 	private int statMod;
@@ -30,7 +30,7 @@ public abstract class Gear extends Item{
 		equipSpots = new ArrayList<String>();
 		diceSet = new DiceSet();
 		setDefense(0);
-		setMagicMod(0);
+		setDamageMod(0);
 		setHitMod(0);
 		setStatMod("none", 0);
 		setType("");
@@ -50,14 +50,15 @@ public abstract class Gear extends Item{
 	 * @param String - the stat that will be modded set to none if not recognized
 	 * @param int - the amount the stat is modded, CAN BE NEGATIVE!
 	 */
-	public Gear(double weight, int value, String name, int dice, int sides, int plus, int defense, int magicBonus, int hitBonus, String statToMod, int statMod, String type)
+	public Gear(double weight, int value, String name, int dice, int sides, int modifier, int defense, 
+			    int damageMod, int hitMod, String statToMod, int statMod, String type)
 	{
 		super(weight, value, name);
 		equipSpots = new ArrayList<String>();
-		diceSet = new DiceSet(dice, sides, plus);
+		diceSet = new DiceSet(dice, sides, modifier);
 		setDefense(defense);
-		setMagicMod(magicBonus);
-		setHitMod(hitBonus);
+		setDamageMod(damageMod);
+		setHitMod(hitMod);
 		setStatMod(statToMod, statMod);
 		setType(type);
 	}
@@ -74,13 +75,13 @@ public abstract class Gear extends Item{
 	/**
 	 * sets the magic bonus of the weapon (Battle Axe +5 is 5 magical bonus)
 	 */
-	private void setMagicMod(int magicBonus)
+	private void setDamageMod(int damageMod)
 	{
-		if(magicBonus > 0){
-			this.magicMod = magicBonus;
+		if(damageMod > 0){
+			this.damageMod = damageMod;
 		}
 		else{
-			this.magicMod = 0;
+			this.damageMod = 0;
 		}
 	}
 	
@@ -151,7 +152,7 @@ public abstract class Gear extends Item{
 	 */
 	public int getDamage()
 	{
-		return (diceSet.getDamage() + diceSet.getPlus());
+		return (diceSet.getDamage() + diceSet.getModifier());
 	}
 	
 	/**
@@ -160,12 +161,16 @@ public abstract class Gear extends Item{
 	 */
 	public String showDamage()
 	{
+		String damageString = "";
 		if(diceSet != null){
-			return "" + diceSet.getNumber() + "d" + diceSet.getSides() + "+" + (diceSet.getPlus() + magicMod);
+			if(diceSet.getNumber() > 0 && diceSet.getSides() > 0){
+				damageString += "" + diceSet.getNumber() + "d" + diceSet.getSides();
+			}
+			if(diceSet.getModifier() > 0 || damageMod > 0){
+				damageString += "+" + (diceSet.getModifier() + damageMod);
+			}
 		}
-		else{
-			return null;
-		}
+		return damageString;
 	}
 	
 	/**
@@ -182,7 +187,7 @@ public abstract class Gear extends Item{
 	 */
 	public int getMagicBonus()
 	{
-		return magicMod;
+		return damageMod;
 	}
 	
 	/**
@@ -191,7 +196,7 @@ public abstract class Gear extends Item{
 	 */
 	public int getHitBonus()
 	{
-		return hitMod + magicMod;
+		return hitMod;
 	}
 	
 	/**
@@ -264,9 +269,27 @@ public abstract class Gear extends Item{
         if(defense > 0){
         	System.out.println("Defense: " + defense);
         }
-        if(statToMod != null && !statToMod.isEmpty()){
-        	System.out.println("Gives " + statMod + " to " + statToMod);
+        if(statToMod != null && !statToMod.equalsIgnoreCase("none")){
+        	System.out.println(statToMod + " +" + statMod);
         }
         System.out.println("Value: " + printValue());
+    }
+    
+    /**
+     * prints a short detail of the item
+     */
+    public void printShortDetail()
+    {
+    	System.out.print(getName() + "  ");
+        if(getDamage() != 0){
+            System.out.print("Dmg: " + showDamage() + "  ");
+        }
+        if(getDefense() != 0){
+            System.out.print("Def: " + getDefense() + "  ");
+        }
+        if(!statToMod.equalsIgnoreCase("none")){
+            System.out.print(statToMod + " +" + statMod);
+        }
+        System.out.println();
     }
 }

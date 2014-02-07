@@ -1,0 +1,26 @@
+
+
+/**
+ * the primary method that runs the game
+ * @author DeusBlu
+ * @version 0.1_8
+ *
+ */
+public class TestingMain 
+{
+	public static void main(String args[])
+	{
+	    XP xp1 = new XP(1);
+	    XP xp2 = new XP(2);
+	    XP xp3 = new XP(3);
+	    XP xp4 = new XP(4);
+	    XP xp5 = new XP(5);
+	    XP xp6 = new XP(6);
+	    xp1.printXP();
+	    xp2.printXP();
+	    xp3.printXP();
+	    xp4.printXP();
+	    xp5.printXP();
+	    xp6.printXP();
+	} 
+}

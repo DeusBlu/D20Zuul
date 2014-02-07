@@ -82,4 +82,15 @@ public class HP {
 		}
 		return overheal;
 	}
+	
+	/**
+	 * increases the max HP of the player
+	 * @param int side of HP Die
+	 */
+	public void levelUp(int hpDie)
+	{
+		int increase = dice.roll(1, hpDie);
+		hp[1] += increase;
+		hp[0] += increase;
+	}
 }

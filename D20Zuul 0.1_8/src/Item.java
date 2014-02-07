@@ -85,7 +85,7 @@ public class Item
      */
     private void setName(String name)
     {
-    	if(name != null && name.isEmpty()){
+    	if(name != null && !name.isEmpty()){
     		this.name = name;
     	}
     	else{
@@ -137,7 +137,7 @@ public class Item
     {
     	int copper = value % 10;
     	int silver = (value/10) % 10;
-    	int gold = (value/100) % 10;
+    	int gold = (value/100);
     	return "" + gold + "g " + silver + "s " + copper + "c";
     }
     

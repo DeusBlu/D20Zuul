@@ -21,15 +21,15 @@ public class OneHand extends Gear {
 	 * @param int - sides
 	 * @param int - plus
 	 * @param int - defense
-	 * @param int - magicBonus
-	 * @param int - hitBonus
+	 * @param int - damageMod
+	 * @param int - hitMod
 	 * @param String - statToMod
 	 * @param int - statMod
 	 */
 	public OneHand(double weight, int value, String name, int dice, int sides, int plus, int defense, 
-			int magicBonus, int hitBonus, String statToMod, int statMod) {
-		super(weight, value, name, dice, sides, plus, defense, magicBonus,
-				hitBonus, statToMod, statMod, "1hweapon");
+			int damageMod, int hitMod, String statToMod, int statMod) {
+		super(weight, value, name, dice, sides, plus, defense, damageMod,
+				hitMod, statToMod, statMod, "1hweapon");
 		sendEquipSpots();
 	}
 	/**

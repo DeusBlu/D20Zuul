@@ -8,7 +8,7 @@ public class DiceSet {
 	private Dice dice;
 	private int number;
 	private int sides;
-	private int plus;
+	private int modifier;
 	
 	/**
 	 * default constructor for damage objects
@@ -18,18 +18,18 @@ public class DiceSet {
 		dice = new Dice();
 		setNumber(1);
 		setSides(2);
-		setPlus(0);
+		setModifier(0);
 	}
 	
 	/**
 	 * constructor for damage to be attached to weapons/monsters/traps/anything that deals damage
 	 */
-	public DiceSet(int number, int sides, int plus)
+	public DiceSet(int number, int sides, int modifier)
 	{
 		dice = new Dice();
 		setNumber(number);
 		setSides(sides);
-		setPlus(plus);
+		setModifier(modifier);
 	}
 
 	/**
@@ -45,11 +45,11 @@ public class DiceSet {
 	 * @param number
 	 */
 	private void setNumber(int number) {
-		if(number > 0){
+		if(number >= 0){
 			this.number = number;
 		}
 		else{
-			this.number = 1;
+			throw new IllegalArgumentException("number of dice to roll was negative");
 		}
 	}
 
@@ -66,11 +66,11 @@ public class DiceSet {
 	 * @param int
 	 */
 	private void setSides(int sides) {
-		if(sides > 0){
+		if(sides >= 0){
 			this.sides = sides;
 		}
 		else{
-			this.sides = 2;
+			throw new IllegalArgumentException("the sides of the dice was negative");
 		}
 	}
 
@@ -78,21 +78,17 @@ public class DiceSet {
 	 * returns the modifier to the roll
 	 * @return int
 	 */
-	public int getPlus() {
-		return plus;
+	public int getModifier() {
+		return modifier;
 	}
 
 	/**
 	 * sets the modifier to the roll (+5 damage)
 	 * @param int
 	 */
-	private void setPlus(int plus) {
-		if(plus > 0){
-			this.plus = plus;
-		}
-		else{
-			this.plus = 0;
-		}
+	private void setModifier(int modifier) 
+	{
+		this.modifier = modifier;
 	}
 	
 	/**
@@ -101,6 +97,6 @@ public class DiceSet {
 	 */
 	public int getDamage()
 	{
-		return (dice.roll(number, sides)) + plus;
+		return (dice.roll(number, sides)) + modifier;
 	}
 }

@@ -82,37 +82,152 @@ public class EquipUI
 		Gear toEquip;
 		Inventory wasEquipped = new Inventory();
 		boolean finished = false;
+		int input = 0;
 		while(!finished){
-			equipment.showEquip();
+			input = 0;
+			backpack.showBag();
 			System.out.println("What item # would you like to equip?");
 			System.out.print("> ");
-			int input = reader.readInt();
 			while(input == 0){
+				input = reader.readInt();
 				if(backpack.getGear(input-1) != null){
-					toEquip = backpack.getGear(input-1);
+					toEquip = backpack.removeGear(input-1);
 					if(toEquip.getType().equals("2hweapon") && equipment.isDualWield()){
 						if(backpack.bagSpace() <= 1){
 							System.out.println("Your backpack is full");
+							wasEquipped.lootItem(toEquip);
 						}
 						else{
-							wasEquipped.lootItem(equipment.unequip("Main Hand"));
-							wasEquipped.lootItem(equipment.unequip("Off Hand"));
-							equipment.equip(toEquip.getEquipString(), toEquip);
+							if(replace(toEquip.getEquipString())){
+								wasEquipped.lootItem(equipment.unequip("Main Hand"));
+								wasEquipped.lootItem(equipment.unequip("Off Hand"));
+								System.out.println(toEquip.getName() + " was equipped!");
+								equipment.equip(toEquip.getEquipString(), toEquip);
+							}
+							else{
+								System.out.println(toEquip.getName() + " was returned to your bag");
+								wasEquipped.lootItem(toEquip);
+							}
 						}
 					}
 					else if(toEquip.getType().equals("1hweapon")){
 						String hand = weaponEquip();
-						wasEquipped.lootItem(equipment.unequip(hand));
-						equipment.equip(hand, toEquip);
+						if(replace(hand)){
+							wasEquipped.lootItem(equipment.unequip(hand));
+							wasEquipped.lootItem(equipment.unequip("Both Hands"));
+							System.out.println(toEquip.getName() + " was equipped!");
+							equipment.equip(hand, toEquip);
+						}
+						else{
+							System.out.println(toEquip.getName() + " was returned to your bag");
+							wasEquipped.lootItem(toEquip);
+						}
 					}
 					else{
-						wasEquipped.lootItem(equipment.unequip(toEquip.getEquipString()));
-						equipment.equip(toEquip.getEquipString(), toEquip);
+						if(replace(toEquip.getEquipString())){
+							wasEquipped.lootItem(gearCheck(toEquip));
+							System.out.println(toEquip.getName() + " was equipped!");
+							equipment.equip(toEquip.getEquipString(), toEquip);
+						}
+						else{
+							System.out.println(toEquip.getName() + " was returned to your bag");
+							wasEquipped.lootItem(toEquip);
+						}
 					}
 				}
 			}
+			backpack.transfer(0, wasEquipped);
+			backpack.transfer(1, wasEquipped);
 			finished = equipAgain();
+			backpack.sort();
 		}
+	}
+	
+	/**
+	 * confirms if you really want to replace one item with the other
+	 * @param equip location HashMap key
+	 * @return boolean
+	 */
+	private boolean replace(String gear)
+	{
+		boolean ask = true;
+		boolean replace = true;
+		if(gear.equals("Both Hands") && equipment.isDualWield()){
+			while(ask){
+				System.out.println("Replace these items?");
+				System.out.println("--------------------");
+				equipment.getGear("Main Hand").printDetails();
+				System.out.println();
+				equipment.getGear("Off Hand").printDetails();
+				System.out.println();
+				System.out.print(">");
+				String input = reader.readString();
+				for(int i=0; i < YES.length; i++){
+	                if(input.equalsIgnoreCase(YES[i])){
+	                	ask = false;
+	                }
+	            }
+	            for(int i=0; i < NO.length; i++){
+	                if(input.equalsIgnoreCase(NO[i])){
+	                     ask = false;
+	                     replace = false;
+	                }
+	            }
+	            if(ask){
+	                System.out.println("use 'yes' or 'no'");
+	            }
+			}
+		}
+		else if(equipment.hasGear("Both Hands") && (gear.equals("Main Hand") || 
+				gear.equals("Off Hand"))){
+			while(ask){
+				System.out.println("Replace this item?");
+				System.out.println("------------------");
+				equipment.getGear("Both Hands").printDetails();
+				System.out.println();
+				System.out.print(">");
+				String input = reader.readString();
+				for(int i=0; i < YES.length; i++){
+	                if(input.equalsIgnoreCase(YES[i])){
+	                	ask = false;
+	                }
+	            }
+	            for(int i=0; i < NO.length; i++){
+	                if(input.equalsIgnoreCase(NO[i])){
+	                     ask = false;
+	                     replace = false;
+	                }
+	            }
+	            if(ask){
+	                System.out.println("use 'yes' or 'no'");
+	            }
+			}
+		}
+		else if(equipment.hasGear(gear)){
+			while(ask){
+				System.out.println("Replace this item?");
+				System.out.println("------------------");
+				equipment.getGear(gear).printDetails();
+				System.out.println();
+				System.out.print(">");
+				String input = reader.readString();
+				for(int i=0; i < YES.length; i++){
+	                if(input.equalsIgnoreCase(YES[i])){
+	                	ask = false;
+	                }
+	            }
+	            for(int i=0; i < NO.length; i++){
+	                if(input.equalsIgnoreCase(NO[i])){
+	                     ask = false;
+	                     replace = false;
+	                }
+	            }
+	            if(ask){
+	                System.out.println("use 'yes' or 'no'");
+	            }
+			}
+		}
+		return replace;
 	}
 	
 	/**
@@ -155,18 +270,21 @@ public class EquipUI
 		boolean answer = false;
 		boolean ask = true;
         while(ask){
+        	System.out.println("Current Equip:");
+        	System.out.println();
+        	equipment.showEquip();
             System.out.println("Equip another item?");
             System.out.print("> ");
             String input = reader.readString();
             for(int i=0; i < YES.length; i++){
                 if(input.equalsIgnoreCase(YES[i])){
-                	answer = true;
+                	answer = false;
                 	ask = false;
                 }
             }
             for(int i=0; i < NO.length; i++){
                 if(input.equalsIgnoreCase(NO[i])){
-                     answer = false;
+                     answer = true;
                      ask = false;
                 }
             }
@@ -175,5 +293,31 @@ public class EquipUI
             }
         }
         return answer;
+	}
+	
+	/**
+	 * checks for 2hweapon, mhweapon, ohweapon and makes sure proper equipment
+	 * changes happen
+	 * @param Gear - item to equip
+	 * @return Gear - the removed item
+	 */
+	private Gear gearCheck(Gear toEquip)
+	{
+		if(toEquip.getType().equals("2hweapon") ||
+		   toEquip.getType().equals("mhweapon")){
+			if(equipment.hasGear("Both Hands")){
+				return equipment.unequip("Both Hands");
+			}
+			else if(equipment.hasGear("Main Hand")){
+				return equipment.unequip("Main Hand");
+			}
+			else if(equipment.hasGear("Off Hand")){
+				return equipment.unequip("Off Hand");
+			}
+			else{
+				return equipment.unequip(toEquip.getEquipString());
+			}
+		}
+		return null;
 	}
 }

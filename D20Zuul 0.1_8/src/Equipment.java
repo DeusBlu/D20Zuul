@@ -36,10 +36,24 @@ public class Equipment
      * prints the details of an equipped item based on the equipment spot string
      * @param String
      */
-    private void equipDetails(String location)
+    public void equipDetails(String location)
     {
         if(equipment.get(location) != null){
             equipment.get(location).printDetails();
+        }
+        else{
+            System.out.println("<none>");
+        }
+    }
+    
+    /**
+     * prints the short details of an equipped item based on the equipment spot string
+     * @param String
+     */
+    private void equipShortDetails(String location)
+    {
+        if(equipment.get(location) != null){
+            equipment.get(location).printShortDetail();
         }
         else{
             System.out.println("<none>");
@@ -54,26 +68,26 @@ public class Equipment
         System.out.println("--------------------------------");
         if(equipment.containsKey("Both Hands")){
             System.out.print("Both Hands: ");
-            equipDetails("Both Hands");
+            equipShortDetails("Both Hands");
         }
         else{
             System.out.print("Main Hand: ");
-            equipDetails("Main Hand");
+            equipShortDetails("Main Hand");
             System.out.print("Off Hand: ");
-            equipDetails("Off Hand");
+            equipShortDetails("Off Hand");
         }
         System.out.print("Helm: ");
-        equipDetails("Head");
+        equipShortDetails("Head");
         System.out.print("Shoulders: ");
-        equipDetails("Shoulders");
+        equipShortDetails("Shoulders");
         System.out.print("Chest: ");
-        equipDetails("Chest");
+        equipShortDetails("Chest");
         System.out.print("Gloves: ");
-        equipDetails("Hands");
+        equipShortDetails("Hands");
         System.out.print("Pants: ");
-        equipDetails("Legs");
+        equipShortDetails("Legs");
         System.out.print("Boots: ");
-        equipDetails("Feet");
+        equipShortDetails("Feet");
     }
     
     /**
@@ -94,7 +108,7 @@ public class Equipment
      * @return Item
      * @param String
      */
-    public Item getGear(String spot)
+    public Gear getGear(String spot)
     {
         return equipment.get(spot);
     }
@@ -104,7 +118,7 @@ public class Equipment
      * @param String
      * @return Item
      */
-    public Item unequip(String spot)
+    public Gear unequip(String spot)
     {
         return equipment.remove(spot);
     }
