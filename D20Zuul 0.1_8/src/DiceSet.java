@@ -95,7 +95,7 @@ public class DiceSet {
 	 * returns the damage done
 	 * @return int
 	 */
-	public int getDamage()
+	public int getRoll()
 	{
 		return (dice.roll(number, sides)) + modifier;
 	}

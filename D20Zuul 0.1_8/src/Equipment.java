@@ -151,7 +151,7 @@ public class Equipment
     }
     
     /**
-     * returns the ToHit modifier and Damage modifier for the attack round
+     * returns the ToHit modifier for the attack
      * @return int
      */
     public int getAttackMod()
@@ -161,6 +161,19 @@ public class Equipment
             mod += equipment.get(gear).getHitBonus();
         }
         return mod;
+    }
+    
+    /**
+     * returns the Damage modifier for the attack
+     * @return int
+     */
+    public int getDamageMod()
+    {
+    	int mod = 0;
+    	for(String gear : equipment.keySet()){
+    		mod += equipment.get(gear).getDamageBonus();
+    	}
+    	return mod;
     }
     
     /**
@@ -174,5 +187,21 @@ public class Equipment
             mod += equipment.get(gear).getDefense();
         }
         return mod;
+    }
+    
+    /**
+     * returns the stat mod from your gear for the given stat
+     * @param stat as a string
+     * @return int
+     */
+    public int getStatMod(String stat)
+    {
+    	int statMod = 0;
+    	for(String gear : equipment.keySet()){
+    		if(equipment.get(gear).getStatToMod().equalsIgnoreCase("stat")){
+    			statMod += equipment.get(gear).getStatMod();
+    		}
+    	}
+    	return statMod;
     }
 }

@@ -152,7 +152,7 @@ public class Gear extends Item{
 	 */
 	public int getDamage()
 	{
-		return (diceSet.getDamage() + diceSet.getModifier());
+		return (diceSet.getRoll() + diceSet.getModifier());
 	}
 	
 	/**
@@ -185,7 +185,7 @@ public class Gear extends Item{
 	/**
 	 * returns the magical bonus of the item (Battle Axe +5 returns 5)
 	 */
-	public int getMagicBonus()
+	public int getDamageBonus()
 	{
 		return damageMod;
 	}

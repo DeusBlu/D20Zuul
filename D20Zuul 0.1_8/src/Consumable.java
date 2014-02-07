@@ -84,7 +84,7 @@ public class Consumable extends MagicDevice {
 	 */
 	public int getEffectValue()
 	{
-		return effectValue.getDamage();
+		return effectValue.getRoll();
 	}
 	
 	/**

@@ -80,4 +80,13 @@ public class XP {
 			levelUp();
 		}
 	}
+	
+	/**
+	 * returns the level as an int
+	 * @return int
+	 */
+	public int getLevel()
+	{
+		return level;
+	}
 }

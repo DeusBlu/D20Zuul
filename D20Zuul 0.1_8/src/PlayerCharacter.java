@@ -1,59 +1,10 @@
 
-/**
- * This class is used to create players, it can make NPC's, PC's, and can be stored in the party for
- * controlling multiple characters
- * 
- * @author (DeusBlu) 
- * @version (0.1_3)
- */
+
 public class PlayerCharacter extends Entity
 {
-    // instance variables - replace the example below with your own
-    private static final int STARTING_HP = 10;
-    private static final int STARTING_MP = 1;
-    private static final int BASE_AC = 10;
-    private static final int MIN_AGE = 18;
-    private static final int MAX_AGE = 75;
-    private static final int MAX_XP = 100;
-    private String name;
-    private int level;
-    private int age;
-    private int str;
-    private int dex;
-    private int con;
-    private int intel;
-    private int wis;
-    private int chr;
-    private int init;
-    private int[] hp;
-    private int[] mp;
-    private int[] xp;
-    private Equipment gear;
-    private Inventory backpack;
-    /**
-     * default constructor for testing players
-     */
-    public PlayerCharacter()
-    {
-        hp = new int[2];
-        mp = new int[2];
-        xp = new int[2];
-        gear = new Equipment();
-        backpack = new Inventory();
-        setName("");
-        setAge(MIN_AGE);
-        setLevel();
-        setStr(3);
-        setDex(3);
-        setCon(3);
-        setIntel(3);
-        setWis(3);
-        setChr(3);
-        setHp();
-        setMp();
-        setXP();
-        init = 0;
-    }
+    
+    
+    
     
     /**
      * the constructor that is used to make valid player characters
