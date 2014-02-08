@@ -12,7 +12,9 @@ Item - Attributes: double weight, int value, String type, String name, ITEMTYPE 
 --> Pants - String type, String equipSpot
 --> Boots - String type, String equipSpot
 
--> MagicDevice Attributes: charges, effect, effect value, String[] EFFECT, String type
+-> MagicDevice Attributes: charges, String type
+--> Wand Attributes: Spell (need to write magic system for this)
+--> Consumable:  effect, effect value, String[] EFFECT,
 
 -> Key - Attributes: opensDoor, String type
 

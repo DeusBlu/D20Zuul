@@ -16,35 +16,85 @@ public class Player extends Entity
     /**
      * default constructor for testing players
      */
-    public PlayerCharacter()
+    public Player()
     {
     	super();
         xp = new XP();
         setAge(MIN_AGE);
-        setXP();
     }
-
-	/**
-	 * @param name
-	 * @param str
-	 * @param dex
-	 * @param con
-	 * @param intel
-	 * @param wis
-	 * @param chr
-	 * @param armor
-	 * @param numberDice
-	 * @param hpDie
-	 * @param fort
-	 * @param reflex
-	 * @param will
-	 */
-	public Player(String name, int str, int dex, int con, int intel, int wis,
-			int chr, int armor, int numberDice, int hpDie, int fort,
-			int reflex, int will) {
-		super(name, str, dex, con, intel, wis, chr, armor, numberDice, hpDie,
-				fort, reflex, will);
-		// TODO Auto-generated constructor stub
+    
+    /**
+     * the typical constructor for creating a player
+     * @param name
+     * @param str
+     * @param dex
+     * @param con
+     * @param intel
+     * @param wis
+     * @param chr
+     * @param numberDice
+     * @param hpDie
+     * @param fort
+     * @param reflex
+     * @param will
+     * @param age
+     */
+	public Player(String name, int str, int dex, int con, 
+				  int intel, int wis, int chr,  int numberDice, 
+				  int hpDie, int fort, int reflex,
+				  int will, int age) {
+		super(name, str, dex, con, 
+			  intel, wis, chr, BASE_AC, 
+			  numberDice, hpDie, fort, 
+			  reflex, will, 1, 3, 0);
+		xp = new XP();
+		setAge(age);
 	}
 
+	/**
+	 * sets the age of the player throws exception if out of bounds
+	 * @param age
+	 */
+	public void setAge(int age)
+	{
+		if(age < MIN_AGE || age > MAX_AGE){
+			this.age = age;
+		}
+		else{
+			throw new IllegalArgumentException("Age was out of bounds on " + getName());
+		}
+	}
+	
+	/**
+	 * returns the age of the player as an int
+	 * @return age
+	 */
+	public int getAge()
+	{
+		return age;
+	}
+	
+	/**
+	 * prints the level and XP of the player
+	 */
+	public void showXP()
+	{
+		xp.printXP();
+	}
+	
+	/**
+	 * initiates the EquipUI menu for equiping items to the player
+	 */
+	public void equip()
+	{
+		new EquipUI(getGear(), getBackpack());
+	}
+	
+	public void addXP(int earnedXP)
+	{
+		if(xp.addXP(earnedXP)){
+			System.out.println(getName() + " has reached level " + 
+		    xp.getLevel() + "!");
+		}
+	}
 }

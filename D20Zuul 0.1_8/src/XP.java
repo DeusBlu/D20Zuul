@@ -72,13 +72,19 @@ public class XP {
 	/**
 	 * adds Xp to the character and calls level up when appropriate
 	 * @param xp to add as an int
+	 * @return boolean true if leveled
 	 */
-	public void addXP(int xp)
+	public boolean addXP(int xp)
 	{
+		int startLevel = getLevel();
 		this.xp[0] += xp;
 		while(this.xp[0] >= this.xp[1]){
 			levelUp();
 		}
+		if(startLevel != level){
+			return true;
+		}
+		return false;
 	}
 	
 	/**

@@ -18,7 +18,7 @@ public class Equipment
     
     /**
      * equips Gear and returns Gear if there was any in the spot equipped
-     * @param String the name of the person being equipped
+     * @param String the spot to equip to
      * @param Gear the item to equip
      * @return Gear the item that was equipped
      */

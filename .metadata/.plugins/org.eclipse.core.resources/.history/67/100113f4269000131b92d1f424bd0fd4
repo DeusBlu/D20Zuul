@@ -1,0 +1,16 @@
+
+public class Monster extends Entity {
+
+	public Monster() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Monster(String name, int str, int dex, int con, int intel, int wis,
+			int chr, int armor, int numberDice, int hpDie, int fort,
+			int reflex, int will, int dDice, int dDie, int dBonus) {
+		super(name, str, dex, con, intel, wis, chr, armor, numberDice, hpDie,
+				fort, reflex, will, dDice, dDie, dBonus);
+		// TODO Auto-generated constructor stub
+	}
+
+}

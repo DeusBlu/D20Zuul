@@ -14,6 +14,7 @@ public class Entity
 	private int armor;
 	private Inventory backpack;
 	private Equipment gear;
+	private DiceSet damage;
 	
 	/**
 	 * default constructor for Entity
@@ -22,6 +23,7 @@ public class Entity
 	{
 		hp = new int[2];
 		mp = new int[2];
+		damage = new DiceSet();
 		backpack = new Inventory();
 		gear = new Equipment();
 		stats = new Stats();
@@ -33,15 +35,19 @@ public class Entity
 	}
 	
 
-	public Entity(String name, int str, int dex, int con, int intel, int wis, int chr, 
-				  int armor, int numberDice,  int hpDie, int fort, int reflex, int will)
+	public Entity(String name, int str, int dex, int con, 
+				  int intel, int wis, int chr,  int armor, 
+				  int numberDice,  int hpDie, int fort, int reflex, 
+				  int will, int dDice, int dDie, int dBonus)
 	{
 		hp = new int[2];
 		mp = new int[2];
+		damage = new DiceSet();
 		stats = new Stats(str, dex, con, intel, wis, chr);
 		resist = new Resist(fort, reflex, will);
 		backpack = new Inventory();
 		gear = new Equipment();
+		setDamage(dDice, dDie, dBonus);
 		setName(name);
 		setArmor(armor);
 		setHP(numberDice, hpDie);
@@ -90,6 +96,23 @@ public class Entity
 	}
 	
 	/**
+	 * sets the BASE unarmed damage, do not apply str mods here they are applied at the return
+	 * Tiny creature - (0, 0, 1), Small (1, 2, 0), Medium (1, 3, 0), Large (1, 4, 0), Huge, (1, 6, 0)
+	 * @param dDice
+	 * @param dDie
+	 * @param dBonus
+	 */
+	private void setDamage(int dDice, int dDie, int dBonus)
+	{
+		if(dDice > 0 && dDie > 0){
+			damage = new DiceSet(dDice, dDie, dBonus);
+		}
+		else{
+			damage = new DiceSet(1, 3, 0);
+		}
+	}
+	
+	/**
 	 * returns the players current HP
 	 * @return
 	 */
@@ -111,7 +134,7 @@ public class Entity
 	 * @param damage
 	 * @return boolean
 	 */
-	public boolean damage(int damage)
+	public boolean takeDamage(int damage)
 	{
 		if(damage <= hp[0]){
 			hp[0] -= damage;
@@ -128,7 +151,7 @@ public class Entity
 	 * @param healing
 	 * @return int
 	 */
-	public int heal(int heal)
+	public int healDamage(int heal)
 	{
 		int overheal = 0;
 		if(hp[0] + heal > hp[1]){
@@ -191,6 +214,21 @@ public class Entity
 	}
 	
 	/**
+	 * returns the randomized and modified damage for the entity
+	 * @return int
+	 */
+	public int getDamage()
+	{
+		if(!gear.hasGear("Both Hands") || !gear.hasGear("Main Hand") ||
+		   !gear.getGear("Off Hand").getType().equals("1hweapon")){
+			return (damage.getRoll() + getStatMod(getStat("Str")));
+		}
+		else{
+			return gear.getDamage() + getStatMod(getStat("Str"));
+		}
+	}
+	
+	/**
 	 * returns the name
 	 * @return String
 	 */
@@ -239,9 +277,31 @@ public class Entity
 		return this.resist.getResist(resist);
 	}
 	
+	/**
+	 * returns the initiative with the dex mod included for combat
+	 * @return int
+	 */
 	public int getInit()
 	{
 		return getStatMod(stats.getStat("dex"));
+	}
+	
+	/**
+	 * returns the Inventory item for managing
+	 * @return Inventory
+	 */
+	public Inventory getBackpack()
+	{
+		return backpack;
+	}
+	
+	/**
+	 * returns the Gear item for managing
+	 * @return Equipment
+	 */
+	public Equipment getGear()
+	{
+		return gear;
 	}
 	
 	/**

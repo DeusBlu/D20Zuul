@@ -292,4 +292,16 @@ public class Gear extends Item{
         }
         System.out.println();
     }
+    
+    public boolean isWeapon()
+    {
+    	if(getType().equals("1hweapon") || 
+    	   getType().equals("mhweapon") ||
+    	   getType().equals("2hweapon")){
+    		return true;
+    	}
+    	else{
+    		return false;
+    	}
+    }
 }
