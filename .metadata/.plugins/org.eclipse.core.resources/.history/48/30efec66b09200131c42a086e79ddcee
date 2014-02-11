@@ -1,0 +1,41 @@
+/**
+ * the class responsible for holding the player party, 
+ * special calls for accessing individual players within a party
+ * 
+ * @author DeusBlu
+ * @version 0.1_8
+ *
+ */
+public class PlayerParty extends Party{
+	
+	private final int MAX_PLAYERS = 4;
+	private Player[] players;
+	
+	/**
+	 * constructor for PlayerCharacter parties
+	 */
+	public PlayerParty() 
+	{
+		players = new Player[MAX_PLAYERS];
+	}
+
+    /**
+     * adds the player to the party
+     * @param PlayerCharacter
+     */
+    public void join(Player player)
+    {
+        boolean placed = false;
+        if(player != null){
+            for(int i = 0; i < MAX_PLAYERS; i++){
+                if(players[i] == null && !placed){
+                    players[i] = player;
+                    placed = true;
+                }
+            }
+        }
+        else{
+            throw new IllegalArgumentException("Player object was null");
+        }
+    }
+}

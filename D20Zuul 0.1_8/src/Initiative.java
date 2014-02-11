@@ -8,6 +8,7 @@ import java.util.Stack;
 public class Initiative
 {
     private Dice dice;
+    
     /**
      * default constructor for object Initiative
      */
@@ -19,20 +20,20 @@ public class Initiative
     /**
      * loops through the player party and seeds them into a stack in order of initiative lowest to highest
      * @param Party - the party to have initiative done for them
-     * @return Stack<PlayerCharacter> - the initiative order in action from first to last, just pop
+     * @return Stack<Entity> - the initiative order in action from first to last, just pop
      */
-    public Stack<PlayerCharacter> pcInit(Party playerParty)
+    public Stack<Entity> pcInit(Party players, Party opponents)
     {
-        Party party = cloneParty(playerParty);
-        Stack<PlayerCharacter> initiative = new Stack<PlayerCharacter>();
-        setInitiative(party);
-        while(!party.isEmpty()){
-            while(!isTied(party) && !party.isEmpty()){
-                moveLowest(party, initiative);
+    	Party combatants = mergeParties(players, opponents);
+        Stack<Entity> initiative = new Stack<Entity>();
+        setInitiative(combatants);
+        while(!combatants.isEmpty()){
+            while(!isTied(combatants) && !combatants.isEmpty()){
+                moveLowest(combatants, initiative);
             }
             Party tied = new Party();
-            if(!party.isEmpty() && isTied(party)){
-                tied = removeTied(party);
+            if(!combatants.isEmpty() && isTied(combatants)){
+                tied = removeTied(combatants);
             }
             breakTie(tied, initiative);
         }
@@ -42,45 +43,90 @@ public class Initiative
     /**
      * takes the tied party members and loops within itself to break down ties
      * @param Party - a party of tied party members
-     * @param Stack<PlayerCharacter> - the stack to put the playrs into
+     * @param Stack<Entity> - the stack to put the playrs into
      */
-    private void breakTie(Party tied, Stack<PlayerCharacter> initiative)
+    private void breakTie(Party tied, Stack<Entity> pcInit)
     {
         while(!tied.isEmpty()){
+        	modTieBreak(tied, pcInit);
             setInitiative(tied);
             while(!isTied(tied) && !tied.isEmpty()){
-                moveLowest(tied, initiative);
+                moveLowest(tied, pcInit);
             }
-            breakTie(tied, initiative);
+            breakTie(tied, pcInit);
         }
+    }
+    
+    /**
+     * breaks initiative ties based on the dex mod
+     * @param tied
+     * @param pcInit
+     */
+    private void modTieBreak(Party tied, Stack<Entity> pcInit)
+    {
+    	while(!modTied(tied) && !tied.isEmpty()){
+    		moveLowestMod(tied, pcInit);
+    	}
+    }
+    
+    /**
+     * returns true if the dex modifiers of the players are tied
+     * @param party
+     * @return boolean true if tied
+     */
+    private boolean modTied(Party party)
+    {
+    	for(int i = 0; i < party.getPlayers().length; i++){
+            if(party.getPlayers()[i] != null && i != getLowestMod(party)){
+                if(party.getPlayers()[getLowestMod(party)].getStatMod(party.getPlayers()[getLowestMod(party)].getStat("dex")) == 
+                party.getPlayers()[i].getInit() && i != getLowestMod(party)){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     
     /**
      * moves the current highest initiative from the party object to the stack
      * @param Party - the part to move from
-     * @param Stack<PlayerCharacter> - the initiative stack to be loaded
+     * @param Stack<Entity> - the initiative stack to be loaded
      */
-    private void moveLowest(Party party, Stack<PlayerCharacter> pcInit)
+    private void moveLowest(Party party, Stack<Entity> pcInit)
     {
         if(getLowest(party) >= 0 && party.getPlayers()[getLowest(party)] != null){
             pcInit.push(party.remove(getLowest(party)));
         }
     }
     
-    /**
-     * clones the party object so it can be emptied without effecting the original group of the players
-     * @param Party - the party to clone
-     * @return Party - the cloned party
-     */
-    private Party cloneParty(Party party)
+    private void moveLowestMod(Party party, Stack<Entity> pcInit)
     {
-        Party clone = new Party();
-        for(int i = 0; i < party.getPlayers().length; i++){
-            if(party.getPlayers()[i] != null){
-                clone.getPlayers()[i] = party.getPlayers()[i];
+    	if(getLowestMod(party) >= 0 && party.getPlayers()[getLowestMod(party)] != null){
+            pcInit.push(party.remove(getLowest(party)));
+        }
+    }
+    
+    /**
+     * clones a new party from 2 parties for sorting into the initiative stack
+     * @param players
+     * @param opponents
+     * @return Party made up of all players in the 2 given parties
+     */
+    private Party mergeParties(Party players, Party opponents)
+    {
+    	Party combatants = new Party();
+    	for(int i = 0; i < players.getPlayers().length; i++){
+            if(players.getPlayers()[i] != null){
+                combatants.getPlayers()[i] = players.getPlayers()[i];
             }
         }
-        return clone;
+    	for(int i = 0; i < opponents.getPlayers().length; i++){
+            if(opponents.getPlayers()[i] != null){
+                combatants.getPlayers()[i + players.getNumberPlayers()]
+                		= opponents.getPlayers()[i];
+            }
+        }
+    	return combatants;
     }
     
     /**
@@ -149,6 +195,27 @@ public class Initiative
             if(tempParty.getPlayers()[i] != null){
                 if(tempParty.getPlayers()[i].getInit() <= currentLow){
                     currentLow = tempParty.getPlayers()[i].getInit();
+                    currentIndex = i;
+                }
+            }
+        } //at this point we have found the current lowest init value
+        return currentIndex;
+    }
+    
+    /**
+     * returns the index of the lowest init mod
+     * @param tempParty
+     * @return index of lowest init mod as an int
+     */
+    private int getLowestMod(Party tempParty)
+    {
+    	int currentLow = Integer.MAX_VALUE;
+        int currentIndex = -1;
+        for(int i = 0; i < tempParty.getPlayers().length; i++){
+            if(tempParty.getPlayers()[i] != null){
+            	int dexMod = tempParty.getPlayers()[i].getStatMod(tempParty.getPlayers()[i].getStat("dex"));
+                if(dexMod <= currentLow){
+                    currentLow = dexMod;
                     currentIndex = i;
                 }
             }

@@ -1,0 +1,28 @@
+/**
+ * the class responsible for holding the player party, 
+ * special calls for accessing individual players within a party
+ * @author DeusBlu
+ * @version 0.1_8
+ *
+ */
+public class PlayerParty extends Party {
+	
+	private final int MAX_PLAYERS = 4;
+	private Player[] players;
+	public PlayerParty() 
+	{
+		super();
+		players = new Player[MAX_PLAYERS];
+	}
+    
+    /**
+     * prints the full status of the Player Character
+     */
+    public void status(int player)
+    {
+        if(players[player] != null){
+            players[player].status();
+        }
+    }
+
+}

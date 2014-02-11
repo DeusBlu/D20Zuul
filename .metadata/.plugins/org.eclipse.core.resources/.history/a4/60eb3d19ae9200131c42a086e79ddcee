@@ -1,0 +1,116 @@
+/**
+ * the class responsible for holding the player party, 
+ * special calls for accessing individual players within a party
+ * 
+ * @author DeusBlu
+ * @version 0.1_8
+ *
+ */
+public class PlayerParty{
+	
+	private final int MAX_PLAYERS = 4;
+	private Player[] players;
+	
+	/**
+	 * constructor for PlayerCharacter parties
+	 */
+	public PlayerParty() 
+	{
+		players = new Player[MAX_PLAYERS];
+	}
+
+    /**
+     * adds the player to the party
+     * @param PlayerCharacter
+     */
+    public void join(Player player)
+    {
+        boolean placed = false;
+        if(player != null){
+            for(int i = 0; i < MAX_PLAYERS; i++){
+                if(players[i] == null && !placed){
+                    players[i] = player;
+                    placed = true;
+                }
+            }
+        }
+        else{
+            throw new IllegalArgumentException("Player object was null");
+        }
+    }
+    
+    /**
+     * checks to see if the Party is empty and returns false if not empty
+     */
+    public boolean isEmpty()
+    {
+        for(int i = 0; i < players.length; i++){
+            if(players[i] != null){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * returns the player object at the requested index
+     */
+    public Player[] getPlayers()
+    {
+        return players;
+    }
+    
+    /**
+     * returns the number of entities in the party as an int
+     * @return number of players as an int
+     */
+    public int getNumberPlayers()
+    {
+    	int numPlayers = 0;
+    	for(int i = 0; i < players.length; i++){
+    		if(players[i] != null){
+    			numPlayers++;
+    		}
+    	}
+    	return numPlayers;
+    }
+    
+    /**
+     * returns true if either party is dead
+     */
+    public boolean isDefeated()
+    {
+        boolean wiped = true;
+        for(int i = 0; i < players.length; i++){
+            if(!players[i].isDead()){
+                wiped = false;
+            }
+        }
+        return wiped;
+    }
+    
+    /**
+     * prints the status of the party in short form
+     */
+    public void shortStatus()
+    {
+        for(int i = 0; i < players.length; i++){
+            if(players[i] != null){
+                System.out.println("#" + (i+1) + ":  Name: " + players[i].getName());
+            }
+        }
+    }
+    
+    /**
+     * removes a character from the party setting the pointer back to null and returns the character that was in that
+     * location
+     * @param int - the character to remove
+     * @return PlayerCharacter
+     */
+    public Entity remove(int spot)
+    {
+    	Entity removed = players[spot];
+        players[spot] = null;
+        return removed;
+    }
+}

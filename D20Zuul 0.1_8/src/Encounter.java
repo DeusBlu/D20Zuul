@@ -9,22 +9,20 @@ import java.util.Stack;
 public class Encounter
 {
     private Party players;
-    private MonParty monsters;
+    private Party opponents;
     private Combat combat;
     private Parser parser;
-    private Stack<Monster> monInit;
-    private Stack<PlayerCharacter> pcInit;
+    private Stack<Entity> initiative;
     /**
      * default constructor for class Encounter
      */
     public Encounter()
     {
         players = new Party();
-        monsters = new MonParty();
+        opponents = new Party();
         combat = new Combat();
         parser = new Parser();
-        monInit = new Stack<Monster>();
-        pcInit = new Stack<PlayerCharacter>();
+        initiative = new Stack<Entity>();
     }
     
     /**
@@ -32,14 +30,13 @@ public class Encounter
      * @param Party - the players party
      * @param Party - the part of monsters to fight
      */
-    public Encounter(Party players, MonParty monsters)
+    public Encounter(Party players, Party opponents)
     {
         setPlayers(players);
-        setMonsters(monsters);
+        setMonsters(opponents);
         combat = new Combat();
         parser = new Parser();
-        monInit = new Stack<Monster>();
-        pcInit = new Stack<PlayerCharacter>();
+        initiative = new Stack<Entity>();
     }
     
     /**
@@ -100,10 +97,10 @@ public class Encounter
      * loads the monsters party making sure that it is not a null object or an empty party
      * @param Party - the monsters party
      */
-    private void setMonsters(MonParty party)
+    private void setMonsters(Party party)
     {
         if(party != null && !party.isEmpty()){
-            monsters = party;
+            opponents = party;
         }
     }
     
@@ -123,7 +120,7 @@ public class Encounter
     {
         System.out.println("Remaining Monsters:");
         System.out.println("-------------------------------");
-        monsters.list();
+        opponents.shortStatus();;
         System.out.println();
         System.out.println("Party Status:");
         System.out.println("-------------------------------");

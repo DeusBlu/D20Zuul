@@ -1,0 +1,13 @@
+
+public class MonParty extends Party {
+
+	public MonParty() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public MonParty(Entity[] players) {
+		super(players);
+		// TODO Auto-generated constructor stub
+	}
+
+}

@@ -1,0 +1,176 @@
+import java.util.Random;
+/**
+ * Write a description of class Combat here.
+ * 
+ * @author (DeusBlu) 
+ * @version (0.1_5)
+ */
+public class Combat
+{
+    private Random rand;
+    private Dice dice;
+    private Entity opponent;
+    private Player player;
+    
+    /**
+     * default constructor for class Combat
+     */
+    public Combat()
+    {
+        rand = new Random();
+        dice = new Dice();
+    }
+    /**
+     * Constructor for Combat
+     * @param Opponent - the opponent for the combat
+     * @param Player - the character for the combat
+     */
+    public Combat(Entity opponent, Player player)
+    {
+        rand = new Random();
+        dice = new Dice();
+        usePlayer(player);
+        useOpponent(opponent);
+    }
+    
+    /**
+     * loads a Player into the combat
+     * @param player - the player character to use for combat
+     */
+    private void usePlayer(Player player)
+    {
+        if(player != null){
+            this.player = player;
+        }
+        else{
+            System.out.println("There was an error in Combat loading the player");
+        }
+    }
+    
+    /**
+     * load a Opponent into the combat
+     * @param opponent - the opponent to use for combat
+     */
+    private void useOpponent(Entity opponent)
+    {
+        if(opponent != null){
+            this.opponent = opponent;
+        }
+        else{
+            System.out.println("There was an error in Combat loading a opponent");
+        }
+    }
+    
+    /**
+     * returns the player character that is being used for combat
+     * @return Player
+     */
+    public Player getPlayer()
+    {
+        if(player != null){
+            return player;
+        }
+        else{
+            return null;
+        }
+    }
+    
+    /**
+     * returns the opponent that is being used for combat
+     * @return Opponent
+     */
+    public Entity getOpponent()
+    {
+        if(opponent != null){
+            return opponent;
+        }
+        else{
+            return null;
+        }
+    }
+    
+    /**
+     * makes the object player melee attack the object opponent
+     */
+    public void playerAttack()
+    {
+        int roll = dice.roll(1, 20);
+        roll++;
+        if(roll == 20){
+            playerHit();
+        }
+        else if(roll == 1){
+            playerMiss();
+        }
+        else{
+            if(roll + ((Entity)player).getMeleeAttackMod() > opponent.getArmor()){
+                playerHit();
+            }
+            else{
+                playerMiss();
+            }
+        }
+    }
+    
+    /**
+     * makes the object player damage the object opponent
+     */
+    private void playerHit()
+    {
+        int delt = player.getDamage();
+        System.out.println(player.getName() + " hit " + opponent.getName());
+        System.out.println(opponent.getName() + " takes " + delt + " damage!");
+        opponent.takeDamage(delt);
+    }
+    
+    /**
+     * makes the player object swing and miss
+     */
+    private void playerMiss()
+    {
+        System.out.println(player.getName() + " missed the " + opponent.getName());
+    }
+    
+    /**
+     * makes the opponent attack the player
+     */
+    public void opponentAttack()
+    {
+        int roll = dice.roll(1, 20);
+        roll++;
+        if(roll == 20){
+            opponentHit();
+        }
+        else if(roll == 1){
+            opponentMiss();
+        }
+        else{
+            if(roll + opponent.getMeleeAttackMod() > player.getArmor()){
+                opponentHit();
+            }
+            else{
+                opponentMiss();
+            }
+        }
+    }
+    
+    /**
+     * makes the opponent hit the player
+     */
+    private void opponentHit()
+    {
+        int[] damage = opponent.getDamage();
+        int delt = (rand.nextInt(damage[1]) + damage[0]);
+        System.out.println(opponent.getName() + " hit " + player.getName());
+        System.out.println(player.getName() + " takes " + delt + " damage!");
+        player.damage(delt);
+    }
+    
+    /**
+     * makes the opponent miss the player
+     */
+    private void opponentMiss()
+    {
+        System.out.println(opponent.getName() + " missed the " + player.getName());
+    }
+}

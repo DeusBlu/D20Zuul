@@ -1,0 +1,33 @@
+
+public class MonParty extends Party 
+{
+    private static final int MAX_PARTY = 10;
+    private Entity[] players;
+
+    /**
+     * constructor for MonParty objects
+     */
+	public MonParty() {
+		players = new Entity[MAX_PARTY];
+	}
+
+    /**
+     * adds the player to the party
+     * @param PlayerCharacter
+     */
+    public void join(Entity player)
+    {
+        boolean placed = false;
+        if(player != null){
+            for(int i = 0; i < MAX_PARTY; i++){
+                if(players[i] == null && !placed){
+                    players[i] = player;
+                    placed = true;
+                }
+            }
+        }
+        else{
+            throw new IllegalArgumentException("Player object was null");
+        }
+    }
+}

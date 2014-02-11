@@ -12,6 +12,7 @@ public class Entity
 	private Stats stats;
 	private Resist resist;
 	private int armor;
+	private int init;
 	private Inventory backpack;
 	private Equipment gear;
 	private DiceSet damage;
@@ -28,6 +29,7 @@ public class Entity
 		gear = new Equipment();
 		stats = new Stats();
 		resist = new Resist();
+		init = 0;
 		setName("");
 		setArmor(0);
 		setHP(0, 0);
@@ -47,6 +49,7 @@ public class Entity
 		resist = new Resist(fort, reflex, will);
 		backpack = new Inventory();
 		gear = new Equipment();
+		init = 0;
 		setDamage(dDice, dDie, dBonus);
 		setName(name);
 		setArmor(armor);
@@ -114,7 +117,7 @@ public class Entity
 	
 	/**
 	 * returns the players current HP
-	 * @return
+	 * @return current HP as int
 	 */
 	public int getCurrentHP()
 	{
@@ -122,11 +125,30 @@ public class Entity
 	}
 	
 	/**
-	 * prints the HP as a string
+	 * returns the current MP
+	 * @return MP as an int
+	 */
+	public int getCurrentMP()
+	{
+		return mp[0];
+	}
+	
+	/**
+	 * returns the HP as an int
+	 * @return max HP as an int
 	 */
 	public int getMaxHP()
 	{
 		return hp[1];
+	}
+	
+	/**
+	 * returns the max MP as an int
+	 * @return max MP as an int
+	 */
+	public int getMaxMP()
+	{
+		return mp[1];
 	}
 	
 	/**
@@ -283,7 +305,12 @@ public class Entity
 	 */
 	public int getInit()
 	{
-		return getStatMod(stats.getStat("dex"));
+		return init;
+	}
+	
+	public void setInit(int init)
+	{
+		this.init = init + getStatMod(stats.getStat("dex"));
 	}
 	
 	/**

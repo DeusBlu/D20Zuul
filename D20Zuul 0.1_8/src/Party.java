@@ -8,44 +8,41 @@
  */
 public class Party
 {
-    public static final int PLAYERS = 4;
-    private PlayerCharacter[] players;
+    private static final int MAX_PARTY = 10;
+    private Entity[] players;
     /**
      * Constructor for empty party object
      */
     public Party()
     {
-        players = new PlayerCharacter[PLAYERS];
+        players = new Entity[MAX_PARTY];
     }
     
     /**
      * constructor for parties of pre-build arrays
      */
-    public Party(PlayerCharacter[] players)
+    public Party(int players)
     {
-        this.players = players;
+        this.players = new Entity[players];
     }
 
     /**
      * adds the player to the party
      * @param PlayerCharacter
      */
-    public void join(PlayerCharacter player)
+    public void join(Entity player)
     {
         boolean placed = false;
         if(player != null){
-            for(int i = 0; i < PLAYERS; i++){
+            for(int i = 0; i < players.length; i++){
                 if(players[i] == null && !placed){
                     players[i] = player;
                     placed = true;
                 }
             }
-            if(!placed){
-                System.out.println("Your party is full");
-            }
         }
         else{
-            System.out.println("Player object was null!!!");
+            throw new IllegalArgumentException("Player object was null");
         }
     }
     
@@ -65,9 +62,24 @@ public class Party
     /**
      * returns the player object at the requested index
      */
-    public PlayerCharacter[] getPlayers()
+    public Entity[] getPlayers()
     {
         return players;
+    }
+    
+    /**
+     * returns the number of entities in the party as an int
+     * @return number of players as an int
+     */
+    public int getNumberPlayers()
+    {
+    	int numPlayers = 0;
+    	for(int i = 0; i < players.length; i++){
+    		if(players[i] != null){
+    			numPlayers++;
+    		}
+    	}
+    	return numPlayers;
     }
     
     /**
@@ -91,22 +103,8 @@ public class Party
     {
         for(int i = 0; i < players.length; i++){
             if(players[i] != null){
-                System.out.println("#" + (i+1) + ":  Name: " + players[i].getName() +
-                "  HP: " + players[i].showHP());
+                System.out.println("#" + (i+1) + ":  Name: " + players[i].getName());
             }
-        }
-    }
-    
-    /**
-     * prints the full status of the Player Character
-     */
-    public void status(int player)
-    {
-        if(players[player] != null){
-            players[player].status();
-        }
-        else{
-            System.out.println("There is no player there");
         }
     }
     
@@ -116,9 +114,9 @@ public class Party
      * @param int - the character to remove
      * @return PlayerCharacter
      */
-    public PlayerCharacter remove(int spot)
+    public Entity remove(int spot)
     {
-        PlayerCharacter removed = players[spot];
+    	Entity removed = players[spot];
         players[spot] = null;
         return removed;
     }

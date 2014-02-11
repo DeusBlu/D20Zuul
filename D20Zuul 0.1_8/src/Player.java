@@ -57,7 +57,7 @@ public class Player extends Entity
 	 */
 	public void setAge(int age)
 	{
-		if(age < MIN_AGE || age > MAX_AGE){
+		if(age >= MIN_AGE || age <= MAX_AGE){
 			this.age = age;
 		}
 		else{
@@ -96,5 +96,28 @@ public class Player extends Entity
 			System.out.println(getName() + " has reached level " + 
 		    xp.getLevel() + "!");
 		}
+	}
+	
+	public void status()
+	{
+		System.out.println("Name: " + getName());
+		System.out.println("Age: " + getAge());
+		System.out.println("HP: " + getCurrentHP() + "/" + getMaxHP());
+		System.out.println("MP: " + getCurrentMP() + "/" + getMaxMP());
+		System.out.println("Level: " + xp.getLevel());
+		System.out.print("XP: ");
+		xp.printXP();
+		System.out.println("Stats");
+		System.out.println("------");
+		System.out.println("Str: " + getStat("str"));
+		System.out.println("Dex: " + getStat("dex"));
+		System.out.println("Con: " + getStat("con"));
+		System.out.println("Int: " + getStat("intel"));
+		System.out.println("Wis: " + getStat("wis"));
+		System.out.println("Chr: " + getStat("chr"));
+		System.out.println();
+		System.out.println("Equipment:");
+		System.out.println("-----------");
+		getGear().showEquip();
 	}
 }

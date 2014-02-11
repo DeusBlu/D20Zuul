@@ -13,12 +13,21 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="setXP" key="selection"/>
+		<item value="" key="selection"/>
 		<list key="findhistory">
+			<item value="entity"/>
+			<item value="cloneParty"/>
+			<item value="getInit"/>
+			<item value="PlayerCharacter"/>
+			<item value="Monster"/>
+			<item value="monster"/>
 			<item value="setXP"/>
 			<item value="MIX_XP"/>
 		</list>
 		<list key="replacehistory">
+			<item value="Player"/>
+			<item value="Opponent"/>
+			<item value="opponent"/>
 		</list>
 	</section>
 </section>
