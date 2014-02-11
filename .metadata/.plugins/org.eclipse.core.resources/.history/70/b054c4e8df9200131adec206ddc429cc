@@ -7,9 +7,9 @@
  */
 public class Player extends Entity 
 {
-	public static final int BASE_AC = 10;
-    public static final int MIN_AGE = 18;
-    public static final int MAX_AGE = 75;
+	private static final int BASE_AC = 10;
+    private static final int MIN_AGE = 18;
+    private static final int MAX_AGE = 75;
     private int age;
     private XP xp;
 
