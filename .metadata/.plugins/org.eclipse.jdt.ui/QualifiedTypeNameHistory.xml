@@ -6,4 +6,6 @@
 <fullyQualifiedTypeName name="EquipUI"/>
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="java.lang.IllegalArgumentException"/>
+<fullyQualifiedTypeName name="Initiative"/>
+<fullyQualifiedTypeName name="Encounter"/>
 </qualifiedTypeNameHistroy>

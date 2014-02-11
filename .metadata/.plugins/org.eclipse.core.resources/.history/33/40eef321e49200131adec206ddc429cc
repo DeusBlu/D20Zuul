@@ -16,7 +16,7 @@ public class CreatePlayer
     	"no", "n"
     };
 	public static final String LAND = "UNKNOWN";
-	private static final int ROLLS = 8;
+	private static final int ROLLS = 12;
 	private InputReader reader;
 	private String name;
 	private int age;
