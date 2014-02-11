@@ -191,9 +191,16 @@ public class Entity
 	 */
 	public void setMP()
 	{
-		int startMP = getStatMod(stats.getStat("wis") + getStatMod(stats.getStat("intel")));
-		mp[0] = startMP;
-		mp[1] = startMP;
+		int startMP = getStatMod(stats.getStat("wis") + 
+				getStatMod(stats.getStat("intel")));
+		if(startMP >= 0){
+			mp[0] = startMP;
+			mp[1] = startMP;
+		}
+		else{
+			mp[0] = 0;
+			mp[1] = 0;
+		}
 	}
 	
 	/**

@@ -8,6 +8,7 @@
  */
 public class Party
 {
+	public static final int MAX_PLAYERS = 4;
     private static final int MAX_PARTY = 10;
     private Entity[] players;
     /**
@@ -19,11 +20,13 @@ public class Party
     }
     
     /**
-     * constructor for parties of pre-build arrays
+     * constructor for parties of players sending boolean sets to player
+     * party max size
+     * @param boolean true or false will set the max players to MAX_PLAYERS
      */
-    public Party(int players)
+    public Party(boolean forPlayers)
     {
-        this.players = new Entity[players];
+        this.players = new Entity[MAX_PLAYERS];
     }
 
     /**
@@ -89,9 +92,11 @@ public class Party
     {
         boolean wiped = true;
         for(int i = 0; i < players.length; i++){
-            if(!players[i].isDead()){
-                wiped = false;
-            }
+        	if(players[i] != null){
+        		if(!players[i].isDead()){
+                	wiped = false;
+            	}
+        	}
         }
         return wiped;
     }
@@ -103,7 +108,11 @@ public class Party
     {
         for(int i = 0; i < players.length; i++){
             if(players[i] != null){
-                System.out.println("#" + (i+1) + ":  Name: " + players[i].getName());
+                System.out.print("#" + (i+1) + ":  Name: " + players[i].getName());
+                if(players[i].isDead()){
+                	System.out.print(" - Dead");
+                }
+                System.out.println();
             }
         }
     }

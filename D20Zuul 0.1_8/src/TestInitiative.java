@@ -7,7 +7,7 @@ public class TestInitiative {
 		Player rush = new Player("Rush", 11, 11, 11, 11, 11, 11, 1, 10, 1, 1, 1, 19);
 		Player muru = new Player("Murutang", 11, 11, 11, 11, 11, 11, 1, 10, 1, 1, 1, 19);
 		Player sure = new Player("Surewould", 11, 11, 11, 11, 11, 11, 1, 10, 1, 1, 1, 19);
-		Party pcParty = new Party(4);
+		Party pcParty = new Party(true);
 		pcParty.join(deus);
 		pcParty.join(rush);
 		pcParty.join(muru);
@@ -21,8 +21,10 @@ public class TestInitiative {
 		monParty.join(gob2);
 		monParty.join(gob3);
 		monParty.join(gob4);
-		Initiative init = new Initiative();
-		Stack<Entity> initiative = init.pcInit(pcParty, monParty);
+		//Initiative init = new Initiative();
+		//Stack<Entity> initiative = init.pcInit(pcParty, monParty);
+		Encounter testFight = new Encounter(pcParty, monParty);
+		testFight.fight();
 	}
 
 }

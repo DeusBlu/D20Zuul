@@ -1,0 +1,44 @@
+/**
+ * determines who the monster should attack
+ * @author DeusBlu
+ * @version 0.1_8
+ *
+ */
+
+public class CombatAI 
+{
+	private Entity[] players;
+	
+	/**
+	 * constructor for the CombatUI
+	 */
+	public CombatAI()
+	{
+		players = new Entity[Party.MAX_PLAYERS];
+	}
+	
+	/**
+	 * useable constructor that accepts the array of players to choose from
+	 * @param players
+	 */
+	public CombatAI(Entity[] players)
+	{
+		this.players = players;
+	}
+	
+	/**
+	 * decides who to attack based on current HP, attacks lowest
+	 * @return the entity to attack
+	 */
+	public Entity attackWho()
+	{
+		Entity toAttack = null;
+		int lowestHP = Integer.MAX_VALUE;
+		for(int i = 0; i < players.length; i++){
+			if(players[i].getCurrentHP() < lowestHP){
+				toAttack = players[i];
+			}
+		}
+		return toAttack;
+	}
+}

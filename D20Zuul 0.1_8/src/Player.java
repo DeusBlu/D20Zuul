@@ -90,6 +90,10 @@ public class Player extends Entity
 		new EquipUI(getGear(), getBackpack());
 	}
 	
+	/**
+	 * adds XP to the player
+	 * @param earnedXP
+	 */
 	public void addXP(int earnedXP)
 	{
 		if(xp.addXP(earnedXP)){
@@ -98,6 +102,9 @@ public class Player extends Entity
 		}
 	}
 	
+	/**
+	 * prints the status of the player
+	 */
 	public void status()
 	{
 		System.out.println("Name: " + getName());
@@ -107,6 +114,7 @@ public class Player extends Entity
 		System.out.println("Level: " + xp.getLevel());
 		System.out.print("XP: ");
 		xp.printXP();
+		System.out.println();
 		System.out.println("Stats");
 		System.out.println("------");
 		System.out.println("Str: " + getStat("str"));
@@ -117,7 +125,6 @@ public class Player extends Entity
 		System.out.println("Chr: " + getStat("chr"));
 		System.out.println();
 		System.out.println("Equipment:");
-		System.out.println("-----------");
 		getGear().showEquip();
 	}
 }

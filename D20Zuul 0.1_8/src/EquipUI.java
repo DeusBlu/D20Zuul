@@ -89,12 +89,12 @@ public class EquipUI
 		int input = 0;
 		while(!finished){
 			input = 0;
-			backpack.showBag();
-			System.out.println("What item # would you like to equip?");
-			System.out.print("> ");
 			while(input == 0){
+				backpack.showBag();
+				System.out.println("What item # would you like to equip?");
+				System.out.print("> ");
 				input = reader.readInt();
-				if(backpack.getGear(input-1) != null){
+				if(input > 0 && backpack.getGear(input-1) != null){
 					toEquip = backpack.removeGear(input-1);
 					if(toEquip.getType().equals("2hweapon")){
 						equip2H();

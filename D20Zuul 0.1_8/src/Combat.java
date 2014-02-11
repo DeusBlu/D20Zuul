@@ -55,6 +55,6 @@ public class Combat
      */
     private void miss(Entity player, Entity opponent)
     {
-        System.out.println(player.getName() + " missed the " + opponent.getName());
+        System.out.println(player.getName() + " missed " + opponent.getName());
     }
 }

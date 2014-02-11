@@ -1,0 +1,10 @@
+import Player;
+public class TestPlayer {
+
+	public static void main(String[] args) 
+	{
+		Player deus = new Player("Deus", 11, 11, 11, 11, 11, 11, 1, 10, 1, 1, 1, 19);
+		
+	}
+
+}

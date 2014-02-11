@@ -13,6 +13,8 @@ public class Encounter
     private Combat combat;
     private Parser parser;
     private Stack<Entity> initiative;
+    private CombatAI ai;
+    private CombatUI ui;
     /**
      * default constructor for class Encounter
      */
@@ -23,6 +25,8 @@ public class Encounter
         combat = new Combat();
         parser = new Parser();
         initiative = new Stack<Entity>();
+        ai = new CombatAI();
+        ui = new CombatUI();
     }
     
     /**
@@ -37,6 +41,8 @@ public class Encounter
         combat = new Combat();
         parser = new Parser();
         initiative = new Stack<Entity>();
+        ai = new CombatAI(players);
+        ui = new CombatUI(opponents);
     }
     
     /**
@@ -45,11 +51,47 @@ public class Encounter
     public void fight()
     {
         boolean combatDone = false;
-        System.out.print("Enemies Encountered!");
+        System.out.println("Enemies Encountered!");
+        printStatus();
+        int round = 1;
         while(!combatDone){
-            Command command = parser.combatCommand();
-            processCommand(command);
+        	System.out.println("Round " + round + "!");
+        	initiative = new Initiative().pcInit(players, opponents);
+        	while(!initiative.isEmpty()){
+        		if(initiative.peek().isDead()){
+        			initiative.pop();
+        		}
+        		else{
+        			if(!players.isDefeated() && !opponents.isDefeated())
+        			takeTurn(initiative.pop());
+        		}
+        	}
+        	if(players.isDefeated() || opponents.isDefeated()){
+        		combatDone = true;
+        	}
+        	round++;
         }
+        finishCombat();
+    }
+    
+    /**
+     * makes the entity take turn
+     * @param takingTurn
+     */
+    private void takeTurn(Entity takingTurn)
+    {
+    	System.out.println(takingTurn.getName() + "'s turn");
+    	if(takingTurn instanceof Player){
+    		boolean turnDone = false;
+    		while(!turnDone){
+    			System.out.println("What do you do?");
+    			Command command = parser.combatCommand();
+    			turnDone = processCommand(command, ((Player)takingTurn));
+    		}
+    	}
+    	else{
+    		combat.attack(takingTurn, ai.attackWho());
+    	}
     }
     
     /**
@@ -57,8 +99,9 @@ public class Encounter
      * @param command The command to be processed.
      * @return true If the command ends the game, false otherwise.
      */
-    private void processCommand(Command command) 
+    private boolean processCommand(Command command, Player player) 
     {
+    	boolean turnDone = false;
         while(command.isUnknown()) {
             System.out.println("I don't know what you mean...");
             command = parser.combatCommand();
@@ -72,14 +115,21 @@ public class Encounter
             printStatus();
         }
         else if (commandWord.equals("equip")){
-            
+        	player.equip();
+            turnDone = true;
         }
         else if (commandWord.equals("attack")){
-            
+        	Entity target = ui.getTarget();
+        	combat.attack(player, target);
+        	if(target.isDead()){
+        		System.out.println(target.getName() + " has been defeated!");
+        	}
+            turnDone = true;
         }
         else if(commandWord.equals("run")){
-            
+            turnDone = true;
         }
+        return turnDone;
     }
     
     /**
@@ -102,6 +152,30 @@ public class Encounter
         if(party != null && !party.isEmpty()){
             opponents = party;
         }
+    }
+    
+    private void finishCombat()
+    {
+		System.out.println();
+    	if(opponents.isDefeated()){
+    		System.out.println("You have won!");
+    		int earnedXP = 0;
+    		for(int i = 0; i < opponents.getPlayers().length; i++){
+    			if(opponents.getPlayers()[i] instanceof Creature){
+    				Creature defeated = ((Creature)opponents.getPlayers()[i]);
+    				earnedXP += defeated.getXpValue();
+    			}
+    		}
+    		for(int i = 0; i < players.getPlayers().length; i++){
+    			if(players.getPlayers()[i] instanceof Player){
+    				Player player = ((Player)players.getPlayers()[i]);
+    				if(!player.isDead()){
+    					System.out.println(player.getName() + " earned " + earnedXP + "xp");
+    					((Player)players.getPlayers()[i]).addXP(earnedXP);
+    				}
+    			}
+    		}
+    	}
     }
     
     /**

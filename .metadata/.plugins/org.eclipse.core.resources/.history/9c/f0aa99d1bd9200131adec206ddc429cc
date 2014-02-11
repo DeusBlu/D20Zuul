@@ -1,0 +1,19 @@
+/**
+ * determines who the monster should attack
+ * @author DeusBlu
+ * @version 0.1_8
+ *
+ */
+
+public class CombatUI 
+{
+	private Players[] players;
+	
+	/**
+	 * constructor for the CombatUI
+	 */
+	public CombatUI()
+	{
+		players = new Players[4];
+	}
+}

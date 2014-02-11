@@ -1,0 +1,31 @@
+/**
+ * determines who the monster should attack
+ * @author DeusBlu
+ * @version 0.1_8
+ *
+ */
+
+public class CombatUI 
+{
+	private Entity[] players;
+	
+	/**
+	 * constructor for the CombatUI
+	 */
+	public CombatUI()
+	{
+		players = new Entity[Party.MAX_PLAYERS];
+	}
+	
+	public Entity attackWho()
+	{
+		Entity toAttack = null;
+		int lowestHP = Integer.MAX_VALUE;
+		for(int i = 0; i < players.length; i++){
+			if(players[i].getCurrentHP() < lowestHP){
+				toAttack = players[i];
+			}
+		}
+		return toAttack;
+	}
+}

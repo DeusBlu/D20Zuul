@@ -1,0 +1,20 @@
+/**
+ * determines who the monster should attack
+ * @author DeusBlu
+ * @version 0.1_8
+ *
+ */
+
+public class CombatUI 
+{
+	private InputReader reader;
+	
+	/**
+	 * constructor for the CombatUI
+	 */
+	public CombatUI()
+	{
+		reader = new InputReader();
+	}
+	
+}
