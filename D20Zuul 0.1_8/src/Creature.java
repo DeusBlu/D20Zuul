@@ -1,20 +1,59 @@
-
-public class Creature extends Entity {
+/**
+ * constructor for base object Creature
+ * @author DeusBlu
+ * @version 0.1_8
+ *
+ */
+public class Creature extends Entity 
+{
 	private int xpValue;
-
-	public Creature() {
+	
+	/**
+	 * default constructor for type Creture
+	 */
+	public Creature() 
+	{
 		super();
 		setXpValue(1);
 	}
 
-	public Creature(String name, int str, int dex, int con, 
-			int intel, int wis, int chr, int armor, 
-			int numberDice, int hpDie, int fort, int reflex, 
-			int will, int dDice, int dDie, int dBonus, int xpValue) {
-		super(name, str, dex, con, 
-				intel, wis, chr, armor, 
-				numberDice, hpDie, fort, reflex, 
-				will, dDice, dDie, dBonus);
+	/**
+	 * Constructor to create a useable creature
+	 * @param name
+	 * @param str
+	 * @param dex
+	 * @param con
+	 * @param intel
+	 * @param wis
+	 * @param chr
+	 * @param armor
+	 * @param numberDice
+	 * @param hpDie
+	 * @param fort
+	 * @param reflex
+	 * @param will
+	 * @param dDice
+	 * @param dDie
+	 * @param dBonus
+	 * @param xpValue
+	 */
+	public Creature(String name, int str, 
+					int dex, int con, 
+					int intel, int wis, 
+					int chr, int armor, 
+					int numberDice, int hpDie, 
+					int fort, int reflex, 
+					int will, int dDice, 
+					int dDie, int dBonus, 
+					int xpValue) {
+		super(name, str, 
+			  dex, con, 
+			  intel, wis, 
+			  chr, armor, 
+			  numberDice, hpDie, 
+			  fort, reflex, 
+			  will, dDice, 
+			  dDie, dBonus);
 		setXpValue(xpValue);
 	}
 	
@@ -42,7 +81,7 @@ public class Creature extends Entity {
 		for(int i = 0; i < backpack.length(); i++){
 			if(backpack.getGear(i) != null){
 				Gear newGear = backpack.removeGear(i);
-				if(newGear.isWeapon()){
+				if(newGear instanceof Weapon){
 					weaponEquip(newGear);
 				}
 				else{
@@ -102,6 +141,10 @@ public class Creature extends Entity {
 		}
 	}
 	
+	/**
+	 * equips a piece of gear to the only spot it is able to be equipped to
+	 * @param newGear
+	 */
 	private void gearEquip(Gear newGear)
 	{
 		if(newGear != null){

@@ -26,10 +26,18 @@ public class TwoHanded extends Weapon {
 	 * @param String - statToMod
 	 * @param int - statMod
 	 */
-	public TwoHanded(double weight, int value, String name, int dice, int sides, int plus, int defense, 
-			int damageMod, int hitMod, String statToMod, int statMod) {
-		super(weight, value, name, dice, sides, plus, defense, damageMod,
-				hitMod, statToMod, statMod, "2hweapon");
+	public TwoHanded(double weight, 
+					 int value, String name, 
+					 int dice, int sides, 
+					 int plus, int defense, 
+					 int damageMod, int hitMod, 
+					 String statToMod, int statMod) {
+		super(weight, value, 
+				name, dice, 
+				sides, plus, 
+				defense, damageMod,
+				hitMod, statToMod, 
+				statMod, "2hweapon");
 		sendEquipSpots();
 	}
 	/**

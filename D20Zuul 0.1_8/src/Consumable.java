@@ -7,9 +7,6 @@
  *
  */
 public class Consumable extends MagicDevice {
-	private String[] EFFECT = {
-			"damage", "healing", "buff", "misc"
-	};
 	private String effect;
 	private DiceSet effectValue;
 	private String type;
@@ -61,8 +58,8 @@ public class Consumable extends MagicDevice {
 	 */
 	private void setEffect(String effect)
 	{
-		for(int i = 0; i < EFFECT.length; i++){
-			if(effect.equalsIgnoreCase(EFFECT[i]))
+		for(int i = 0; i < Constant.EFFECT.length; i++){
+			if(effect.equalsIgnoreCase(Constant.EFFECT[i]))
 				this.effect = effect;
 		}
 		if(this.effect == null){

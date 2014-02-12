@@ -6,18 +6,6 @@
  */
 public class EquipUI 
 {
-	private static final String[] MAINHAND_OPTIONS = {
-        "mh", "main hand", "mainhand", "m h", "main", "m", "ma"
-    };
-    private static final String[] OFFHAND_OPTIONS = {
-        "oh", "off hand", "offhand", "o h", "off", "o", "of"
-    };
-    private static final String[] YES = {
-    	"yes", "y"
-    };
-    private static final String[] NO = {
-    	"no", "n"
-    };
 	private InputReader reader;
 	private Equipment equipment;
 	private Inventory backpack;
@@ -228,15 +216,15 @@ public class EquipUI
 				System.out.println();
 				System.out.print(">");
 				String input = reader.readString();
-				for(int i=0; i < YES.length; i++){
-	                if(input.equalsIgnoreCase(YES[i])){
+				for(int i=0; i < Constant.YES.length; i++){
+	                if(input.equalsIgnoreCase(Constant.YES[i])){
 	                	wasEquipped.lootItem(equipment.unequip("Main Hand"));
 	                	wasEquipped.lootItem(equipment.unequip("Off Hand"));
 	                	ask = false;
 	                }
 	            }
-	            for(int i=0; i < NO.length; i++){
-	                if(input.equalsIgnoreCase(NO[i])){
+	            for(int i=0; i < Constant.NO.length; i++){
+	                if(input.equalsIgnoreCase(Constant.NO[i])){
 	    				 System.out.println(toEquip.getName() + " was returned to your bag");
 	                     ask = false;
 	                     replace = false;
@@ -256,13 +244,13 @@ public class EquipUI
 				System.out.println();
 				System.out.print(">");
 				String input = reader.readString();
-				for(int i=0; i < YES.length; i++){
-	                if(input.equalsIgnoreCase(YES[i])){
+				for(int i=0; i < Constant.YES.length; i++){
+	                if(input.equalsIgnoreCase(Constant.YES[i])){
 	                	ask = false;
 	                }
 	            }
-	            for(int i=0; i < NO.length; i++){
-	                if(input.equalsIgnoreCase(NO[i])){
+	            for(int i=0; i < Constant.NO.length; i++){
+	                if(input.equalsIgnoreCase(Constant.NO[i])){
 	    				 System.out.println(toEquip.getName() + " was returned to your bag");
 	                     ask = false;
 	                     replace = false;
@@ -281,13 +269,13 @@ public class EquipUI
 				System.out.println();
 				System.out.print(">");
 				String input = reader.readString();
-				for(int i=0; i < YES.length; i++){
-	                if(input.equalsIgnoreCase(YES[i])){
+				for(int i=0; i < Constant.YES.length; i++){
+	                if(input.equalsIgnoreCase(Constant.YES[i])){
 	                	ask = false;
 	                }
 	            }
-	            for(int i=0; i < NO.length; i++){
-	                if(input.equalsIgnoreCase(NO[i])){
+	            for(int i=0; i < Constant.NO.length; i++){
+	                if(input.equalsIgnoreCase(Constant.NO[i])){
 	    				 System.out.println(toEquip.getName() + " was returned to your bag");
 	                     ask = false;
 	                     replace = false;
@@ -313,14 +301,14 @@ public class EquipUI
             System.out.println("Which hand to equip to?");
             System.out.print("> ");
             String input = reader.readString();
-            for(int i=0; i < MAINHAND_OPTIONS.length; i++){
-                if(input.equalsIgnoreCase(MAINHAND_OPTIONS[i])){
+            for(int i=0; i < Constant.MAINHAND_OPTIONS.length; i++){
+                if(input.equalsIgnoreCase(Constant.MAINHAND_OPTIONS[i])){
                 	answer =  "Main Hand";
                 	ask = false;
                 }
             }
-            for(int i=0; i < OFFHAND_OPTIONS.length; i++){
-                if(input.equalsIgnoreCase(OFFHAND_OPTIONS[i])){
+            for(int i=0; i < Constant.OFFHAND_OPTIONS.length; i++){
+                if(input.equalsIgnoreCase(Constant.OFFHAND_OPTIONS[i])){
                      answer = "Off Hand";
                      ask = false;
                 }
@@ -347,14 +335,14 @@ public class EquipUI
             System.out.println("Equip another item?");
             System.out.print("> ");
             String input = reader.readString();
-            for(int i=0; i < YES.length; i++){
-                if(input.equalsIgnoreCase(YES[i])){
+            for(int i=0; i < Constant.YES.length; i++){
+                if(input.equalsIgnoreCase(Constant.YES[i])){
                 	answer = false;
                 	ask = false;
                 }
             }
-            for(int i=0; i < NO.length; i++){
-                if(input.equalsIgnoreCase(NO[i])){
+            for(int i=0; i < Constant.NO.length; i++){
+                if(input.equalsIgnoreCase(Constant.NO[i])){
                      answer = true;
                      ask = false;
                 }

@@ -145,7 +145,13 @@ public class Equipment
     {
         int damage = 0;
         for(String item : equipment.keySet()){
-            damage += equipment.get(item).getDamage();
+        	if(equipment.get(item) instanceof Weapon){
+        		damage += ((Weapon)equipment.get(item)).getDamage();
+        		damage += ((Weapon)equipment.get(item)).getDamageMod();
+        	}
+        	else{
+        		damage += equipment.get(item).getDamageMod();
+        	}
         }
         return damage;
     }
@@ -158,7 +164,7 @@ public class Equipment
     {
         int mod = 0;
         for(String gear : equipment.keySet()){
-            mod += equipment.get(gear).getHitBonus();
+            mod += equipment.get(gear).getHitMod();
         }
         return mod;
     }
@@ -171,7 +177,7 @@ public class Equipment
     {
     	int mod = 0;
     	for(String gear : equipment.keySet()){
-    		mod += equipment.get(gear).getDamageBonus();
+    		mod += equipment.get(gear).getDamageMod();
     	}
     	return mod;
     }
@@ -198,7 +204,7 @@ public class Equipment
     {
     	int statMod = 0;
     	for(String gear : equipment.keySet()){
-    		if(equipment.get(gear).getStatToMod().equalsIgnoreCase("stat")){
+    		if(equipment.get(gear).getStatToMod().equalsIgnoreCase(stat)){
     			statMod += equipment.get(gear).getStatMod();
     		}
     	}

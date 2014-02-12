@@ -4,15 +4,8 @@ import java.util.ArrayList;
  * @author DeusBlu
  * @version 0.1_8
  */
-public class Gear extends Item{
-	private static final String[] STATS = {
-		"str", "dex", "con", "intel", "wis", "chr"
-	};
-	private static final String[] EQUIP_SPOTS = {
-		"Main Hand", "Off Hand", "Both Hands", "Head",
-		"Shoulders", "Chest", "Hands", "Legs", "Feet"
-	};
-	private DiceSet diceSet;
+public class Gear extends Item
+{
 	private int defense;
 	private int damageMod;
 	private int hitMod;
@@ -28,7 +21,6 @@ public class Gear extends Item{
 	{
 		super();
 		equipSpots = new ArrayList<String>();
-		diceSet = new DiceSet();
 		setDefense(0);
 		setDamageMod(0);
 		setHitMod(0);
@@ -50,12 +42,14 @@ public class Gear extends Item{
 	 * @param String - the stat that will be modded set to none if not recognized
 	 * @param int - the amount the stat is modded, CAN BE NEGATIVE!
 	 */
-	public Gear(double weight, int value, String name, int dice, int sides, int modifier, int defense, 
-			    int damageMod, int hitMod, String statToMod, int statMod, String type)
+	public Gear(double weight, int value, 
+				String name, int defense, 
+			    int damageMod, int hitMod, 
+			    String statToMod, int statMod, 
+			    String type)
 	{
 		super(weight, value, name);
 		equipSpots = new ArrayList<String>();
-		diceSet = new DiceSet(dice, sides, modifier);
 		setDefense(defense);
 		setDamageMod(damageMod);
 		setHitMod(hitMod);
@@ -105,9 +99,9 @@ public class Gear extends Item{
 	 */
 	private void setStatMod(String statToMod, int statMod)
 	{
-		for(int i = 0; i < STATS.length; i++){
-			if(statToMod.equalsIgnoreCase(STATS[i])){
-				this.statToMod = STATS[i];
+		for(int i = 0; i < Constant.STATS.length; i++){
+			if(statToMod.equalsIgnoreCase(Constant.STATS[i])){
+				this.statToMod = Constant.STATS[i];
 				this.statMod = statMod;
 			}
 		}
@@ -133,8 +127,8 @@ public class Gear extends Item{
 	protected void setEquipSpots(String spot)
 	{
 		if(spot != null){
-			for(int i = 0; i < EQUIP_SPOTS.length; i++){
-				if(EQUIP_SPOTS[i].equalsIgnoreCase(spot)){
+			for(int i = 0; i < Constant.EQUIP_SPOTS.length; i++){
+				if(Constant.EQUIP_SPOTS[i].equalsIgnoreCase(spot)){
 					equipSpots.add(spot);
 				}
 			}
@@ -144,35 +138,6 @@ public class Gear extends Item{
 					" was invalid");
 		}
 	}
-	
-	/**
-	 * rolls the damage for the weapon and returns it modified with the damage mod
-	 * returns just the bonus if no damage range
-	 * @return int
-	 */
-	public int getDamage()
-	{
-		return (diceSet.getRoll() + diceSet.getModifier());
-	}
-	
-	/**
-	 * returns the damage as a string for display
-	 * @return String
-	 */
-	public String showDamage()
-	{
-		String damageString = "";
-		if(diceSet != null){
-			if(diceSet.getNumber() > 0 && diceSet.getSides() > 0){
-				damageString += "" + diceSet.getNumber() + "d" + diceSet.getSides();
-			}
-			if(diceSet.getModifier() > 0 || damageMod > 0){
-				damageString += "+" + (diceSet.getModifier() + damageMod);
-			}
-		}
-		return damageString;
-	}
-	
 	/**
 	 * returns the defense value of the item
 	 * @return int
@@ -185,7 +150,7 @@ public class Gear extends Item{
 	/**
 	 * returns the magical bonus of the item (Battle Axe +5 returns 5)
 	 */
-	public int getDamageBonus()
+	public int getDamageMod()
 	{
 		return damageMod;
 	}
@@ -194,7 +159,7 @@ public class Gear extends Item{
 	 * returns the hit bonus of the weapon (magicBonus + hitBonus)
 	 * @return int
 	 */
-	public int getHitBonus()
+	public int getHitMod()
 	{
 		return hitMod;
 	}
@@ -260,9 +225,6 @@ public class Gear extends Item{
     	System.out.println("Item Name: " + getName());
         System.out.println("Item Type: " + getType());
         System.out.println("Item Weight: " + getWeight() + "lbs");
-        if(diceSet != null){
-        	System.out.println("Damage: " + showDamage());
-        }
         if(hitMod > 0){
         	System.out.println("+" + hitMod + " to hit roll");
         }
@@ -280,10 +242,6 @@ public class Gear extends Item{
      */
     public void printShortDetail()
     {
-    	System.out.print(getName() + "  ");
-        if(getDamage() != 0){
-            System.out.print("Dmg: " + showDamage() + "  ");
-        }
         if(getDefense() != 0){
             System.out.print("Def: " + getDefense() + "  ");
         }
@@ -291,17 +249,5 @@ public class Gear extends Item{
             System.out.print(statToMod + " +" + statMod);
         }
         System.out.println();
-    }
-    
-    public boolean isWeapon()
-    {
-    	if(getType().equals("1hweapon") || 
-    	   getType().equals("mhweapon") ||
-    	   getType().equals("2hweapon")){
-    		return true;
-    	}
-    	else{
-    		return false;
-    	}
     }
 }

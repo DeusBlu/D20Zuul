@@ -26,10 +26,18 @@ public class Shoulders extends Armor {
 	 * @param String - statToMod
 	 * @param int - statMod
 	 */
-	public Shoulders(double weight, int value, String name, int dice, int sides, int plus, int defense, 
-			int damageMod, int hitMod, String statToMod, int statMod) {
-		super(weight, value, name, dice, sides, plus, defense, damageMod,
-				hitMod, statToMod, statMod, "shoulders");
+	public Shoulders(double weight, int value, 
+				 	 String name, int dice, 
+				 	 int sides, int plus, 
+				 	 int defense, int damageMod, 
+				 	 int hitMod, String statToMod, 
+				 	 int statMod) {
+		super(weight, value, 
+				name, dice, 
+				sides, plus, 
+				defense, damageMod,
+				hitMod, statToMod, 
+				statMod, "shoulders");
 		sendEquipSpots();
 	}
 	/**

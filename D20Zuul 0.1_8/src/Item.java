@@ -7,10 +7,6 @@
  */
 public class Item
 {
-	public static final String[] ITEMTYPE = {
-		"2hweapon", "mhweapon", "1hweapon", "shield", "helm", "shoulders", "chest", "gloves", "pants",
-		"boots","misc", "key"
-		}; //showEquip in PlayerCharacter and setEquipSpots below must be updated with this list!!!!!!
     private double weight;
     private int value;
     private String type;

@@ -6,17 +6,8 @@
  */
 public class CreatePlayer 
 {
-	private final String[] STATS = {
-			"Str", "Dex", "Con", "Int", "Wis", "Chr"
-	};
-    private static final String[] YES = {
-    	"yes", "y"
-    };
-    private static final String[] NO = {
-    	"no", "n"
-    };
 	public static final String LAND = "UNKNOWN";
-	private static final int ROLLS = 8;
+	private static final int ROLLS = 6;
 	private InputReader reader;
 	private String name;
 	private int age;
@@ -59,9 +50,9 @@ public class CreatePlayer
 		boolean done = false;
 		setStats();
 		while(!done){
-			for(int i = 0; i < STATS.length; i++){
+			for(int i = 0; i < Constant.STATS.length; i++){
 				printStatChoices();
-				setStat(STATS[i]);
+				setStat(Constant.STATS[i]);
 			}
 			if(confirmStats()){
 				done = true;
@@ -96,17 +87,17 @@ public class CreatePlayer
 		while(!done){
 			System.out.print("Enter Age> ");
 			int age = reader.readInt();
-			if(age >= Player.MIN_AGE && age <= Player.MAX_AGE){
+			if(age >= Constant.MIN_AGE && age <= Constant.MAX_AGE){
 				this.age = age;
 				done = true;
 			}
-			else if(age < Player.MIN_AGE){
+			else if(age < Constant.MIN_AGE){
 				System.out.println("Oh I think you sound a bit older than that ");
-				System.out.println("you must be at least "+Player.MIN_AGE);
+				System.out.println("you must be at least "+Constant.MIN_AGE);
 			}
-			else if(age > Player.MAX_AGE){
+			else if(age > Constant.MAX_AGE){
 				System.out.println("Oh you sound a good bit younger than that ");
-				System.out.println("to me, you can't be a day older than "+Player.MAX_AGE);
+				System.out.println("to me, you can't be a day older than "+Constant.MAX_AGE);
 			}
 		}
 	}
@@ -189,14 +180,14 @@ public class CreatePlayer
 		boolean done = false;
 		while(!done){
 			input = reader.readString();
-			for(int i=0; i < YES.length; i++){
-                if(input.equalsIgnoreCase(YES[i])){
+			for(int i=0; i < Constant.YES.length; i++){
+                if(input.equalsIgnoreCase(Constant.YES[i])){
                 	done = true;
                 	keep = true;
                 }
             }
-            for(int i=0; i < NO.length; i++){
-                if(input.equalsIgnoreCase(NO[i])){
+            for(int i=0; i < Constant.NO.length; i++){
+                if(input.equalsIgnoreCase(Constant.NO[i])){
                      done = true;
                      keep = false;
                 }

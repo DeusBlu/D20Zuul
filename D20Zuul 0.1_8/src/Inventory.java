@@ -201,10 +201,10 @@ public class Inventory
             for(int i = 0; i < BACKPACK_SIZE; i++){
                 temp.lootItem(removeItem(i));
             }
-            for(int i = 0; i < Item.ITEMTYPE.length; i++){
+            for(int i = 0; i < Constant.ITEMTYPE.length; i++){
                 for(int x = 0; x < BACKPACK_SIZE; x++){
                     if(temp.getItem(x) != null){
-                        if(temp.getItem(x).getType().equals(Item.ITEMTYPE[i])){
+                        if(temp.getItem(x).getType().equals(Constant.ITEMTYPE[i])){
                             lootItem(temp.getItem(x));
                         }
                     }

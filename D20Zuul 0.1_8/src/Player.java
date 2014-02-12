@@ -7,11 +7,9 @@
  */
 public class Player extends Entity 
 {
-	public static final int BASE_AC = 10;
-    public static final int MIN_AGE = 18;
-    public static final int MAX_AGE = 75;
     private int age;
     private XP xp;
+    private PlayerClass playerClass;
 
     /**
      * default constructor for testing players
@@ -20,7 +18,8 @@ public class Player extends Entity
     {
     	super();
         xp = new XP();
-        setAge(MIN_AGE);
+        playerClass = new PlayerClass();
+        setAge(Constant.MIN_AGE);
     }
     
     /**
@@ -39,15 +38,22 @@ public class Player extends Entity
      * @param will
      * @param age
      */
-	public Player(String name, int str, int dex, int con, 
-				  int intel, int wis, int chr,  int numberDice, 
-				  int hpDie, int fort, int reflex,
-				  int will, int age) {
-		super(name, str, dex, con, 
-			  intel, wis, chr, BASE_AC, 
-			  numberDice, hpDie, fort, 
-			  reflex, will, 1, 3, 0);
+	public Player(String name, int str, 
+				  int dex, int con, 
+				  int intel, int wis, 
+				  int chr,  int numberDice, 
+				  int hpDie, int fort, 
+				  int reflex, int will, 
+				  int age) {
+		super(name, str, 
+				dex, con, 
+				intel, wis, 
+				chr, Constant.BASE_AC, 
+				numberDice, hpDie, 
+				fort, reflex, 
+				will, 1, 3, 0);
 		xp = new XP();
+		playerClass = new PlayerClass();
 		setAge(age);
 	}
 
@@ -57,7 +63,7 @@ public class Player extends Entity
 	 */
 	public void setAge(int age)
 	{
-		if(age >= MIN_AGE || age <= MAX_AGE){
+		if(age >= Constant.MIN_AGE || age <= Constant.MAX_AGE){
 			this.age = age;
 		}
 		else{

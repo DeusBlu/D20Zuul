@@ -8,15 +8,13 @@
  */
 public class Party
 {
-	public static final int MAX_PLAYERS = 4;
-    private static final int MAX_PARTY = 10;
     private Entity[] players;
     /**
      * Constructor for empty party object
      */
     public Party()
     {
-        players = new Entity[MAX_PARTY];
+        players = new Entity[Constant.MAX_PARTY];
     }
     
     /**
@@ -26,7 +24,7 @@ public class Party
      */
     public Party(boolean forPlayers)
     {
-        this.players = new Entity[MAX_PLAYERS];
+        this.players = new Entity[Constant.MAX_PLAYERS];
     }
 
     /**

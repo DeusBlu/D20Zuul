@@ -26,10 +26,18 @@ public class OneHand extends Weapon {
 	 * @param String - statToMod
 	 * @param int - statMod
 	 */
-	public OneHand(double weight, int value, String name, int dice, int sides, int plus, int defense, 
-			int damageMod, int hitMod, String statToMod, int statMod) {
-		super(weight, value, name, dice, sides, plus, defense, damageMod,
-				hitMod, statToMod, statMod, "1hweapon");
+	public OneHand(double weight, int value, 
+				   String name, int dice, 
+				   int sides, int plus, 
+				   int defense, int damageMod, 
+				   int hitMod, String statToMod, 
+				   int statMod) {
+		super(weight, value, 
+			  name, dice, 
+			  sides, plus, 
+			  defense, damageMod,
+			  hitMod, statToMod, 
+			  statMod, "1hweapon");
 		sendEquipSpots();
 	}
 	/**
