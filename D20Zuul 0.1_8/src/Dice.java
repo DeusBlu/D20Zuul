@@ -40,7 +40,7 @@ public class Dice
     {
         int roll = 0;
         for(int i = 0; i < dice; i++){
-            roll += BetterRandom.random(sides-1)+1;
+            roll += BetterRandom.random(sides)+1;
         }
         return roll;
     }

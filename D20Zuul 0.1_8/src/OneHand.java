@@ -4,7 +4,7 @@
  * @version 0.1_8
  *
  */
-public class OneHand extends Gear {
+public class OneHand extends Weapon {
 	/**
 	 * default constructor for type OneHand
 	 */

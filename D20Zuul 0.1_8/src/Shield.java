@@ -4,7 +4,7 @@
  * @version 0.1_8
  *
  */
-public class Shield extends Gear {
+public class Shield extends Armor {
 	/**
 	 * default constructor for type TwoHanded
 	 */

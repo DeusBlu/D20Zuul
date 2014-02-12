@@ -78,7 +78,7 @@ public class Initiative
     {
     	for(int i = 0; i < party.getPlayers().length; i++){
             if(party.getPlayers()[i] != null && i != getLowestMod(party)){
-                if(party.getPlayers()[getLowestMod(party)].getStatMod(party.getPlayers()[getLowestMod(party)].getStat("dex")) == 
+                if(party.getPlayers()[getLowestMod(party)].getStatMod("dex") == 
                 party.getPlayers()[i].getInit() && i != getLowestMod(party)){
                     return true;
                 }
@@ -213,7 +213,7 @@ public class Initiative
         int currentIndex = -1;
         for(int i = 0; i < tempParty.getPlayers().length; i++){
             if(tempParty.getPlayers()[i] != null){
-            	int dexMod = tempParty.getPlayers()[i].getStatMod(tempParty.getPlayers()[i].getStat("dex"));
+            	int dexMod = tempParty.getPlayers()[i].getStatMod("dex");
                 if(dexMod <= currentLow){
                     currentLow = dexMod;
                     currentIndex = i;

@@ -41,7 +41,7 @@ public class Creature extends Entity {
 		Inventory backpack = getBackpack();
 		for(int i = 0; i < backpack.length(); i++){
 			if(backpack.getGear(i) != null){
-				Gear newGear = backpack.getGear(i);
+				Gear newGear = backpack.removeGear(i);
 				if(newGear.isWeapon()){
 					weaponEquip(newGear);
 				}
@@ -104,20 +104,28 @@ public class Creature extends Entity {
 	
 	private void gearEquip(Gear newGear)
 	{
-		Equipment gear = getGear();
-		Inventory backpack = getBackpack();
-		if(newGear.getType().equals("Shield")){
-			if(gear.getGear("Both Hands") == null){
-				if(gear.getGear("Off Hand") != null){
-					if(newGear.getValue() > gear.getGear("Off Hand").getValue()){
-						backpack.lootItem(gear.equip("Main Hand", newGear));
+		if(newGear != null){
+			Equipment gear = getGear();
+			Inventory backpack = getBackpack();
+			if(newGear.getType().equals("Shield")){
+				if(gear.getGear("Both Hands") == null){
+					if(gear.getGear("Off Hand") != null){
+						if(newGear.getValue() > gear.getGear("Off Hand").getValue()){
+							backpack.lootItem(gear.equip("Main Hand", newGear));
+						}
 					}
 				}
 			}
-		}
-		else{
-			if(newGear.getValue() > gear.getGear("Off Hand").getValue()){
-				backpack.lootItem(gear.equip("Main Hand", newGear));
+			else{
+				if(gear.getGear(newGear.getEquipString()) != null){
+					if(newGear.getValue() > gear.getGear(newGear.getEquipString()).getValue()){
+						backpack.lootItem(gear.equip(newGear.getEquipString(), newGear));
+					}
+				}
+				else{
+					backpack.lootItem(gear.equip(newGear.getEquipString(), newGear));
+				}
+				
 			}
 		}
 	}

@@ -37,6 +37,7 @@ public class CombatAI
 		for(int i = 0; i < players.getPlayers().length; i++){
 			if(players.getPlayers()[i].getCurrentHP() < lowestHP){
 				toAttack = players.getPlayers()[i];
+				lowestHP = players.getPlayers()[i].getCurrentHP();
 			}
 		}
 		return toAttack;

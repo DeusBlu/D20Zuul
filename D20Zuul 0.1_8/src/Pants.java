@@ -4,7 +4,7 @@
  * @version 0.1_8
  *
  */
-public class Pants extends Gear {
+public class Pants extends Armor {
 	/**
 	 * default constructor for type TwoHanded
 	 */

@@ -4,7 +4,7 @@
  * @version 0.1_8
  *
  */
-public class Gloves extends Gear {
+public class Gloves extends Armor {
 	/**
 	 * default constructor for type Gloves
 	 */

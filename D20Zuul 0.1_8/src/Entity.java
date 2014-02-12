@@ -77,7 +77,7 @@ public class Entity
 	 */
 	private void setHP(int numberDice, int hpDie)
 	{
-		DiceSet hpDice = new DiceSet(numberDice, hpDie, getStatMod(stats.getStat("con")));
+		DiceSet hpDice = new DiceSet(numberDice, hpDie, getStatMod("con"));
 		int startHP = hpDice.getRoll();
 		if(startHP > 0){
 			hp[0] = startHP;
@@ -191,8 +191,8 @@ public class Entity
 	 */
 	public void setMP()
 	{
-		int startMP = getStatMod(stats.getStat("wis") + 
-				getStatMod(stats.getStat("intel")));
+		int startMP = getStatMod("wis") + 
+				getStatMod("intel");
 		if(startMP >= 0){
 			mp[0] = startMP;
 			mp[1] = startMP;
@@ -250,10 +250,10 @@ public class Entity
 	{
 		if(!gear.hasGear("Both Hands") || !gear.hasGear("Main Hand") ||
 		   !gear.getGear("Off Hand").getType().equals("1hweapon")){
-			return (damage.getRoll() + getStatMod(getStat("Str")));
+			return (damage.getRoll() + getStatMod("Str"));
 		}
 		else{
-			return gear.getDamage() + getStatMod(getStat("Str"));
+			return gear.getDamage() + getStatMod("Str");
 		}
 	}
 	
@@ -267,6 +267,17 @@ public class Entity
 	}
 	
 	/**
+	 * returns the unmodified base stat
+	 * @param stat
+	 * @return int
+	 */
+	public int getBaseStat(String stat)
+	{
+		return stats.getStat(stat);
+	}
+
+
+	/**
 	 * returns the value of a stat
 	 * @param stat
 	 * @return int
@@ -277,23 +288,13 @@ public class Entity
 	}
 	
 	/**
-	 * returns the unmodified base stat
-	 * @param stat
-	 * @return int
-	 */
-	public int getBaseStat(String stat)
-	{
-		return stats.getStat(stat);
-	}
-	
-	/**
 	 * returns the +/- mod of the stat
 	 * @param stat
 	 * @return int
 	 */
-	public int getStatMod(int stat)
+	public int getStatMod(String stat)
 	{
-		return ((stat/2)-5);
+		return ((getStat(stat)/2)-5);
 	}
 	
 	/**
@@ -317,7 +318,7 @@ public class Entity
 	
 	public void setInit(int init)
 	{
-		this.init = init + getStatMod(stats.getStat("dex"));
+		this.init = init + getStatMod("dex");
 	}
 	
 	/**
@@ -358,7 +359,7 @@ public class Entity
 	 */
 	public int getArmor()
 	{
-		return armor + getStatMod(stats.getStat("dex"));
+		return armor + getStatMod("dex");
 	}
 	
 	/**
@@ -367,7 +368,7 @@ public class Entity
 	 */
 	public int getMeleeAttackMod()
 	{
-		return gear.getAttackMod() + getStatMod(stats.getStat("str"));
+		return gear.getAttackMod() + getStatMod("str");
 	}
 	
 	/**
@@ -376,7 +377,7 @@ public class Entity
 	 */
 	public int getRangedAttackMod()
 	{
-		return gear.getAttackMod() + getStatMod(stats.getStat("dex"));
+		return gear.getAttackMod() + getStatMod("dex");
 	}
 	
 	/**

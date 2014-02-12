@@ -4,7 +4,7 @@
  * @version 0.1_8
  *
  */
-public class Helm extends Gear {
+public class Helm extends Armor {
 	/**
 	 * default constructor for type TwoHanded
 	 */

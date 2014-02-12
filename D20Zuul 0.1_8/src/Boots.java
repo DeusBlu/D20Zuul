@@ -4,7 +4,7 @@
  * @version 0.1_8
  *
  */
-public class Boots extends Gear {
+public class Boots extends Armor {
 	/**
 	 * default constructor for type boots
 	 */

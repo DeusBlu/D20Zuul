@@ -4,7 +4,7 @@
  * @version 0.1_8
  *
  */
-public class Shoulders extends Gear {
+public class Shoulders extends Armor {
 	/**
 	 * default constructor for type TwoHanded
 	 */
