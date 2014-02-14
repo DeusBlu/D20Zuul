@@ -5,15 +5,18 @@
  * @version 0.1_8
  *
  */
-public class MagicDevice extends Item {
+public abstract class MagicDevice extends Item {
 	private int charges;
 	private String type;
+	private boolean offensive;
+	private DiceSet effectValue;
 
-	public MagicDevice() {
+	public MagicDevice() 
+	{
 		super();
+		setEffectValue(new DiceSet());
 		setCharges(0);
-		setType();
-		
+		setOffensive(false);
 	}
 
 	/**
@@ -25,11 +28,12 @@ public class MagicDevice extends Item {
 	 * @param effect
 	 * @param effectValue
 	 */
-	public MagicDevice(double weight, int value, String name, int charges) 
+	public MagicDevice(double weight, int value, String name, int charges,DiceSet effectValue, boolean offensive) 
 	{
 		super(weight, value, name);
 		setCharges(charges);
-		setType();
+		setOffensive(offensive);
+		setEffectValue(effectValue);
 	}
 	
 	/**
@@ -45,13 +49,28 @@ public class MagicDevice extends Item {
 			throw new IllegalArgumentException("Charges of item " + getName() + " are negative");
 		}
 	}
-
+	
 	/**
-	 * sets the item type
+	 * sets the effect value, a damage object to hold dice and modifiers
+	 * @param effectValue
 	 */
-	private void setType()
+	private void setEffectValue(DiceSet effectValue)
 	{
-		type = "Magic Device";
+		if(effectValue != null){
+			this.effectValue = effectValue;
+		}
+		else{
+			throw new IllegalArgumentException("Damage item of " + getName() + " was null");
+		}
+	}
+	
+	/**
+	 * sets if the item is offensive or defensive
+	 * @param offensive
+	 */
+	private void setOffensive(Boolean offensive)
+	{
+		this.offensive = offensive;
 	}
 	
 	/**
@@ -64,10 +83,42 @@ public class MagicDevice extends Item {
 	}
 	
 	/**
+	 * returns the effect value as an int result of the roll
+	 * @return int
+	 */
+	public int getEffectValue()
+	{
+		return effectValue.getRoll();
+	}
+	
+	/**
+	 * uses a charge of the item
+	 */
+	public void useCharge()
+	{
+		charges--;
+	}
+	
+	/**
 	 * returns the item type
 	 */
 	public String getType()
 	{
 		return type;
 	}
+    
+	/**
+	 * returns true if the item is offensive
+	 * @return boolean true if offensive
+	 */
+    public boolean isOffensive()
+    {
+    	return offensive;
+    }
+	
+	/**
+	 * uses the item returns true if item can be used
+	 * @return boolean true if can be used
+	 */
+	public abstract boolean use(Entity target);
 }

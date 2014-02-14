@@ -242,7 +242,7 @@ public class EquipUI
 				System.out.println("------------------");
 				equipment.getGear("Both Hands").printDetails();
 				System.out.println();
-				System.out.print(">");
+				System.out.print("Y/N> ");
 				String input = reader.readString();
 				for(int i=0; i < Constant.YES.length; i++){
 	                if(input.equalsIgnoreCase(Constant.YES[i])){

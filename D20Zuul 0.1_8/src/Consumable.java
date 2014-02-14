@@ -6,10 +6,9 @@
  * @author desmond.jenkins
  *
  */
-public class Consumable extends MagicDevice {
-	private String effect;
-	private DiceSet effectValue;
+public abstract class Consumable extends MagicDevice {
 	private String type;
+	private String description;
 	
 	/**
 	 * default constructor for consumable items
@@ -17,8 +16,7 @@ public class Consumable extends MagicDevice {
 	public Consumable() 
 	{
 		super();
-		setEffect("misc");
-		setEffectValue(new DiceSet());
+		setDescription("misc");
 		setType();
 	}
 
@@ -30,40 +28,24 @@ public class Consumable extends MagicDevice {
 	 * @param effect
 	 * @param effectValue
 	 */
-	public Consumable(double weight, int value, String name, int charges, String effect, DiceSet effectValue) 
+	public Consumable(double weight, int value, String name, int charges, String description, DiceSet effectValue, boolean offensive) 
 	{
-		super(weight, value, name, charges);
-		setEffect(effect);
-		setEffectValue(effectValue);
+		super(weight, value, name, charges, effectValue, offensive);
+		setDescription(description);
 		setType();
-	}
-	
-	/**
-	 * sets the effect value, a damage object to hold dice and modifiers
-	 * @param effectValue
-	 */
-	private void setEffectValue(DiceSet effectValue)
-	{
-		if(effectValue != null){
-			this.effectValue = effectValue;
-		}
-		else{
-			throw new IllegalArgumentException("Damage item of " + getName() + " was null");
-		}
 	}
 	
 	/**
 	 * sets the effect type of the item, throws exception if the type is not valid
 	 * @param effect
 	 */
-	private void setEffect(String effect)
+	private void setDescription(String description)
 	{
-		for(int i = 0; i < Constant.EFFECT.length; i++){
-			if(effect.equalsIgnoreCase(Constant.EFFECT[i]))
-				this.effect = effect;
+		if(description != null && !description.isEmpty()){
+			this.description = description;
 		}
-		if(this.effect == null){
-			throw new IllegalArgumentException("Effect of item " + getName() + " is not a valid effect type");
+		else{
+			throw new IllegalArgumentException("Description string was empty or null on " + getName());
 		}
 	}
 	
@@ -76,21 +58,12 @@ public class Consumable extends MagicDevice {
 	}
 	
 	/**
-	 * returns the effect value as an int result of the roll
-	 * @return int
-	 */
-	public int getEffectValue()
-	{
-		return effectValue.getRoll();
-	}
-	
-	/**
 	 * returns the effect of the item as a string
 	 * @return String effect
 	 */
-	public String getEffect()
+	public String getDescription()
 	{
-		return effect;
+		return description;
 	}
 	
 	/**
@@ -101,4 +74,6 @@ public class Consumable extends MagicDevice {
 	{
 		return type;
 	}
+	
+	public abstract boolean use(Entity target);
 }

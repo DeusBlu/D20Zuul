@@ -118,6 +118,10 @@ public class Encounter
         	player.equip();
             turnDone = true;
         }
+        else if (commandWord.equals("item")){
+        	player.useItem(players, opponents);
+        	turnDone = true;
+        }
         else if (commandWord.equals("attack")){
         	Entity target = ui.getTarget();
         	combat.attack(player, target);
@@ -184,7 +188,9 @@ public class Encounter
     private void printHelp()
     {
         System.out.println("Combat Commands: ");
-        System.out.println("attack run equip status");
+        for(int i = 0; i < CombatCommands.validCommands.length; i++){
+        	System.out.println(CombatCommands.validCommands[i]+" ");
+        }
     }
     
     /**
