@@ -52,8 +52,8 @@ public class Creature extends Entity
 			  chr, armor, 
 			  numberDice, hpDie, 
 			  fort, reflex, 
-			  will, dDice, 
-			  dDie, dBonus);
+			  will, dBonus);
+		setHP(numberDice, hpDie);
 		setXpValue(xpValue);
 	}
 	
@@ -71,6 +71,30 @@ public class Creature extends Entity
 		}
 	}
 	
+	/**
+	 * sets the HP for the creature
+	 */
+	public void setHP(int numDice, int hpDie)
+	{
+		DiceSet hpDice = new DiceSet(numDice, hpDie, getStatMod("con"));
+		int startHP = hpDice.getRoll();
+		if(startHP > 0){
+			super.setHP(startHP);
+		}
+		else{
+			super.setHP(1);
+		}
+	}
+	
+	/**
+	 * returns the xp value for when creature is killed
+	 * @return xpValue
+	 */
+	public int getXpValue()
+	{
+		return xpValue;
+	}
+
 	/**
 	 * systematically equips the best items for the creature from their 
 	 * backpack - this will be any items that were looted to the monster
@@ -90,7 +114,7 @@ public class Creature extends Entity
 			}
 		}
 	}
-	
+
 	/**
 	 * determines the best place for this piece of gear based on what is
 	 * already equipped
@@ -140,7 +164,7 @@ public class Creature extends Entity
 			}
 		}
 	}
-	
+
 	/**
 	 * equips a piece of gear to the only spot it is able to be equipped to
 	 * @param newGear
@@ -171,14 +195,5 @@ public class Creature extends Entity
 				
 			}
 		}
-	}
-
-	/**
-	 * returns the xp value for when creature is killed
-	 * @return xpValue
-	 */
-	public int getXpValue()
-	{
-		return xpValue;
 	}
 }

@@ -8,6 +8,7 @@ import java.util.Stack;
 public class PlayerClass 
 {
 	private String className;
+    private XP xp;
 	private int hpDie;
 	private int fortSave;
 	private int reflexSave;
@@ -19,6 +20,7 @@ public class PlayerClass
 	 */
 	public PlayerClass()
 	{
+        xp = new XP();
 		setClassName("");
 		setHpDie(4);
 		setFortSave(0);
@@ -43,6 +45,7 @@ public class PlayerClass
 					   int willSave, int skillPoints,
 					   int attack)
 	{
+		xp = new XP();
 		setClassName(name);
 		setHpDie(hpDie);
 		setFortSave(forSave);
@@ -134,7 +137,7 @@ public class PlayerClass
 			this.skillPoints = 0;
 		}
 	}
-	
+
 	/**
 	 * returns the className as a string
 	 * @return className
@@ -202,5 +205,60 @@ public class PlayerClass
 			attacks.push(attack[i]);
 		}
 		return attacks;
+	}
+	
+	/**
+	 * prints the level and XP of the player
+	 */
+	public void showXP()
+	{
+		xp.printXP();
+	}
+	
+	/**
+	 * adds XP to the player
+	 * @param earnedXP
+	 * @return the level before xp added
+	 */
+	public int addXP(int earnedXP)
+	{
+		int level = xp.getLevel();
+		if(xp.addXP(earnedXP)){
+			
+		}
+		return level;
+	}
+	
+	/**
+	 * returns the level of the class as an int
+	 * @return level as an int
+	 */
+	public int getLevel()
+	{
+		return xp.getLevel();
+	}
+	
+	public void printXP()
+	{
+		xp.printXP();
+	}
+	
+	/**
+	 * returns the requested resist
+	 * @param resist
+	 * @return fort as int
+	 */
+	public int getResist(String resist)
+	{
+		if(resist.equalsIgnoreCase("fort")){
+			return fortSave;
+		}
+		if(resist.equalsIgnoreCase("reflex")){
+			return reflexSave;
+		}
+		if(resist.equalsIgnoreCase("will")){
+			return willSave;
+		}
+		throw new IllegalArgumentException("Resist not recognized");
 	}
 }

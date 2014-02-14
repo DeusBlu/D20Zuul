@@ -1,6 +1,5 @@
-
 public class BetterRandom {
-	private static long state = 0xCAFEBABE; // initial non-zero value
+	private static long state = System.currentTimeMillis(); // initial non-zero value
 
 	public static final long nextLong() {
 	  long a=state;

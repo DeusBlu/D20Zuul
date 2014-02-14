@@ -5,7 +5,7 @@ public class TestDice {
 	{
 		for(int i = 0; i < 400; i++){
 			Dice dice = new Dice();
-			dice.rollPrint(3, 6);
+			dice.rollPrint(3, 20);
 			System.out.println();
 		}
 	}

@@ -32,14 +32,13 @@ public class Entity
 		init = 0;
 		setName("");
 		setArmor(0);
-		setHP(0, 0);
 		setMP();
 	}
 	
 
 	public Entity(String name, int str, int dex, int con, 
 				  int intel, int wis, int chr,  int armor, 
-				  int numberDice,  int hpDie, int fort, int reflex, 
+				  int fort, int reflex, 
 				  int will, int dDice, int dDie, int dBonus)
 	{
 		hp = new int[2];
@@ -53,7 +52,6 @@ public class Entity
 		setDamage(dDice, dDie, dBonus);
 		setName(name);
 		setArmor(armor);
-		setHP(numberDice, hpDie);
 		setMP();
 	}
 
@@ -72,20 +70,29 @@ public class Entity
 	
 	/**
 	 * sets the beginning HP
-	 * @param numberDice
-	 * @param hpDie
+	 * @param starting HP of the creature
 	 */
-	private void setHP(int numberDice, int hpDie)
+	protected void setHP(int hp)
 	{
-		DiceSet hpDice = new DiceSet(numberDice, hpDie, getStatMod("con"));
-		int startHP = hpDice.getRoll();
-		if(startHP > 0){
-			hp[0] = startHP;
-			hp[1] = startHP;
+		if(hp > 0){
+			this.hp[0] = hp;
+			this.hp[1] = hp;
 		}
 		else{
-			hp[0] = 1;
-			hp[1] = 1;
+			this.hp[0] = 1;
+			this.hp[1] = 1;
+		}
+	}
+	
+	protected void addHP(int hp)
+	{
+		if(hp > 0){
+			this.hp[0] += hp;
+			this.hp[1] += hp;
+		}
+		else{
+			this.hp[0] += 1;
+			this.hp[1] += 1;
 		}
 	}
 	

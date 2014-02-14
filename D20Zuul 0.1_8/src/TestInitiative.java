@@ -3,10 +3,10 @@ public class TestInitiative {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) 
 	{
-		Player deus = new Player("Deus", 18, 11, 11, 11, 11, 11, 1, 10, 1, 1, 1, 19);
-		Player rush = new Player("Rush", 18, 11, 11, 11, 11, 11, 1, 10, 1, 1, 1, 19);
-		Player muru = new Player("Murutang", 18, 11, 11, 11, 11, 11, 1, 10, 1, 1, 1, 19);
-		Player sure = new Player("Surewould", 18, 11, 11, 11, 11, 11, 1, 10, 1, 1, 1, 19);
+		Player deus = new Player("Deus", 18, 11, 11, 11, 11, 11, 19, "fighter");
+		Player rush = new Player("Rush", 18, 11, 11, 11, 11, 11, 19, "fighter");
+		Player muru = new Player("Murutang", 18, 11, 11, 11, 11, 11, 19, "fighter");
+		Player sure = new Player("Surewould", 18, 11, 11, 11, 11, 11, 19, "fighter");
 		Party pcParty = new Party(true);
 		pcParty.join(deus);
 		pcParty.join(rush);

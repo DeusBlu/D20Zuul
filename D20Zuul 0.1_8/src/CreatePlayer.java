@@ -18,20 +18,20 @@ public class CreatePlayer
 	private int wis;
 	private int chr;
 	private int[] rolls;
+	private String playerClass;
 	
-	
-	@SuppressWarnings("unused")
 	public CreatePlayer()
 	{
 		reader = new InputReader();
 		rolls = new int[ROLLS];
-		int age = 0;
-		int str = 0;
-		int dex = 0;
-		int con = 0;
-		int intel = 0;
-		int wis = 0;
-		int chr = 0;
+		age = 0;
+		str = 0;
+		dex = 0;
+		con = 0;
+		intel = 0;
+		wis = 0;
+		chr = 0;
+		playerClass = "";
 	}
 	
 	public Player start()
@@ -42,7 +42,7 @@ public class CreatePlayer
 		getName();
 		System.out.println();
 		System.out.println("Help a poor blind man out and let me know your age");
-		getAge();
+		setAge();
 		System.out.println("Welcome to "+LAND+" "+name);
 		System.out.println("Lets see how the gods favor your prowess");
 		System.out.println();
@@ -61,7 +61,10 @@ public class CreatePlayer
 				setStats();
 			}
 		}
-		Player newPlayer = new Player(name, str, dex, con, intel, wis, chr, 1, 10, 1, 0, 0, age);
+		System.out.println("You seem a fine and able person!");
+		System.out.println("Pray tell what is your weapon of choice?");
+		setPlayerClass();
+		Player newPlayer = new Player(name, str, dex, con, intel, wis, chr, age, playerClass);
 		return newPlayer;
 	}
 	
@@ -81,7 +84,7 @@ public class CreatePlayer
 		}
 	}
 	
-	private void getAge()
+	private void setAge()
 	{
 		boolean done = false;
 		while(!done){
@@ -113,16 +116,21 @@ public class CreatePlayer
 				rolls[i] = 18;
 				has16 = true;
 			}
-			else if(!has16){
+			else if(!has16 && tempRoll < 16 && i >= 5){
 				rolls[i] = 16;
 				has16 = true;
 			}
-			else if(!has13){
+			else if(!has13 && tempRoll < 13 && i >= 5){
 				rolls[i] = 13;
-				has13 = true;
 			}
 			else{
 				rolls[i] = tempRoll;
+			}
+			if(tempRoll >= 16 && !has16){
+				has16 = true;
+			}
+			else if(tempRoll >= 13 && !has13){
+				has13 = true;
 			}
 		}
 	}
@@ -135,7 +143,7 @@ public class CreatePlayer
 		while(!set){
 			System.out.print("Enter #> ");
 			input = reader.readInt();
-			if(rolls[input-1] >= 0){
+			if(rolls[input-1] > 0){
 				if(stat.equalsIgnoreCase("str")){
 					str = rolls[input-1];
 					set = true;
@@ -148,7 +156,7 @@ public class CreatePlayer
 					con = rolls[input-1];
 					set = true;
 				}
-				else if(stat.equalsIgnoreCase("int")){
+				else if(stat.equalsIgnoreCase("intel")){
 					intel = rolls[input-1];
 					set = true;
 				}
@@ -164,6 +172,10 @@ public class CreatePlayer
 					System.out.println("Selection not valid");
 					printStatChoices();
 				}
+			}
+			else{
+				System.out.println("Selection not valid");
+				printStatChoices();
 			}
 		}
 		rolls[input-1] = 0;
@@ -220,5 +232,35 @@ public class CreatePlayer
 	private void printStat(int stat)
 	{
 		System.out.print("# "+(stat+1)+"-"+rolls[stat]);
+	}
+	
+	private void setPlayerClass()
+	{
+		InputReader reader = new InputReader();
+		int input = 0;
+		while(input == 0){
+			printClassOptions();
+			System.out.print("#> ");
+			input = reader.readInt();
+			if(input == 1){
+				playerClass = "fighter";
+			}
+			else{
+
+				System.out.print("Invalid Selection");
+				input = 0;
+			}
+		}
+	}
+	
+	private void printClassOptions()
+	{
+		System.out.println("Do you prefer:\n");
+		System.out.println("1. Fighter:");
+		System.out.println("-------------");
+		System.out.println("Masters of any gear the fighter can equip any armor or ");
+		System.out.println("weapon and use them with great skill.  The Fighter gains ");
+		System.out.println("access to many deadly skills with these weapons and has the ");
+		System.out.println("highest base HP of any class\n\n");
 	}
 }

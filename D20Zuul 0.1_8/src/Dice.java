@@ -21,10 +21,13 @@ public class Dice
      */
     public int rollPrint(int dice, int sides)
     {
+    	int aRoll = 0;
         int roll = 0;
         System.out.print("Your Rolls: ");
         for(int i = 0; i < dice; i++){
-            int aRoll = BetterRandom.random(sides)+1;
+        	for(int x = 0; x < 10; x++){
+                aRoll = BetterRandom.random(sides)+1;
+        	}
             roll += aRoll;
             System.out.print(" " + aRoll);
         }
@@ -38,9 +41,13 @@ public class Dice
      */
     public int roll(int dice, int sides)
     {
+    	int aRoll = 0;
         int roll = 0;
         for(int i = 0; i < dice; i++){
-            roll += BetterRandom.random(sides)+1;
+        	for(int x = 0; x < 7; x++){
+                aRoll = BetterRandom.random(sides)+1;
+        	}
+            roll += aRoll;
         }
         return roll;
     }
