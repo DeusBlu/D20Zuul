@@ -5,7 +5,7 @@ import java.util.Stack;
  * @version 0.1_8
  *
  */
-public class PlayerClass 
+public abstract class PlayerClass 
 {
 	private String className;
     private XP xp;

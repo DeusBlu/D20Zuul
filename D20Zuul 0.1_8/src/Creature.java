@@ -37,22 +37,26 @@ public class Creature extends Entity
 	 * @param dBonus
 	 * @param xpValue
 	 */
-	public Creature(String name, int str, 
-					int dex, int con, 
-					int intel, int wis, 
-					int chr, int armor, 
-					int numberDice, int hpDie, 
-					int fort, int reflex, 
-					int will, int dDice, 
-					int dDie, int dBonus, 
-					int xpValue) {
-		super(name, str, 
-			  dex, con, 
-			  intel, wis, 
-			  chr, armor, 
-			  numberDice, hpDie, 
-			  fort, reflex, 
-			  will, dBonus);
+	public Creature(String name, 
+					int str, 
+					int dex, 
+					int con, 
+					int intel, 
+					int wis, 
+					int chr, 
+					int armor, 
+					int numberDice, 
+					int hpDie, 
+					int fort, 
+					int reflex, 
+					int will, 
+					int dDice, 
+					int dDie, 
+					int dBonus, 
+					int xpValue,
+					int mpMod) {
+		super(name, str, dex, con, intel, wis, chr, armor, 
+				numberDice, hpDie, fort, reflex, will, dBonus, mpMod);
 		setHP(numberDice, hpDie);
 		setXpValue(xpValue);
 	}

@@ -8,6 +8,7 @@ public class Entity
 {
 	private int hp[];
 	private int mp[];
+	private SkillList skillList;
 	private String name;
 	private Stats stats;
 	private Resist resist;
@@ -24,6 +25,7 @@ public class Entity
 	{
 		hp = new int[2];
 		mp = new int[2];
+		skillList = new SkillList();
 		damage = new DiceSet();
 		backpack = new Inventory();
 		gear = new Equipment();
@@ -32,17 +34,29 @@ public class Entity
 		init = 0;
 		setName("");
 		setArmor(0);
-		setMP();
+		setMP(0);
 	}
 	
 
-	public Entity(String name, int str, int dex, int con, 
-				  int intel, int wis, int chr,  int armor, 
-				  int fort, int reflex, 
-				  int will, int dDice, int dDie, int dBonus)
+	public Entity(String name, 
+				  int str, 
+				  int dex, 
+				  int con, 
+				  int intel, 
+				  int wis, 
+				  int chr,  
+				  int armor, 
+				  int fort, 
+				  int reflex, 
+				  int will, 
+				  int dDice, 
+				  int dDie, 
+				  int dBonus,
+				  int mpMod)
 	{
 		hp = new int[2];
 		mp = new int[2];
+		skillList = new SkillList();
 		damage = new DiceSet();
 		stats = new Stats(str, dex, con, intel, wis, chr);
 		resist = new Resist(fort, reflex, will);
@@ -52,7 +66,7 @@ public class Entity
 		setDamage(dDice, dDie, dBonus);
 		setName(name);
 		setArmor(armor);
-		setMP();
+		setMP(mpMod);
 	}
 
 	/**
@@ -65,34 +79,6 @@ public class Entity
 		}
 		else{
 			this.name = "Unknown";
-		}
-	}
-	
-	/**
-	 * sets the beginning HP
-	 * @param starting HP of the creature
-	 */
-	protected void setHP(int hp)
-	{
-		if(hp > 0){
-			this.hp[0] = hp;
-			this.hp[1] = hp;
-		}
-		else{
-			this.hp[0] = 1;
-			this.hp[1] = 1;
-		}
-	}
-	
-	protected void addHP(int hp)
-	{
-		if(hp > 0){
-			this.hp[0] += hp;
-			this.hp[1] += hp;
-		}
-		else{
-			this.hp[0] += 1;
-			this.hp[1] += 1;
 		}
 	}
 	
@@ -122,6 +108,61 @@ public class Entity
 		}
 	}
 	
+	/**
+	 * sets the beginning HP
+	 * @param starting HP of the creature
+	 */
+	protected void setHP(int hp)
+	{
+		if(hp > 0){
+			this.hp[0] = hp;
+			this.hp[1] = hp;
+		}
+		else{
+			this.hp[0] = 1;
+			this.hp[1] = 1;
+		}
+	}
+
+
+	protected void addHP(int hp)
+	{
+		if(hp > 0){
+			this.hp[0] += hp;
+			this.hp[1] += hp;
+		}
+		else{
+			this.hp[0] += 1;
+			this.hp[1] += 1;
+		}
+	}
+
+
+	/**
+	 * sets the starting MP based on Intel and Wis
+	 */
+	protected void setMP(int level)
+	{
+		int startMP = getStatMod("wis") + 
+				getStatMod("intel");
+		if(startMP + level >= 0){
+			mp[0] = startMP + level;
+			mp[1] = startMP + level;
+		}
+		else{
+			mp[0] = 0;
+			mp[1] = 0;
+		}
+	}
+	
+	protected void addSkill(Skill skill)
+	{
+		if(skill != null){
+			skillList.addSkill(skill);
+		}
+	}
+
+
 	/**
 	 * returns the players current HP
 	 * @return current HP as int
@@ -158,6 +199,121 @@ public class Entity
 		return mp[1];
 	}
 	
+	public SkillList getSkills()
+	{
+		return skillList;
+	}
+	
+	/**
+	 * returns the name
+	 * @return String
+	 */
+	public String getName()
+	{
+		return name;
+	}
+
+
+	/**
+	 * returns the unmodified base stat
+	 * @param stat
+	 * @return int
+	 */
+	public int getBaseStat(String stat)
+	{
+		return stats.getStat(stat);
+	}
+
+
+	/**
+	 * returns the value of a stat
+	 * @param stat
+	 * @return int
+	 */
+	public int getStat(String stat)
+	{
+		return gear.getStatMod(stat) + stats.getStat(stat);
+	}
+
+
+	/**
+	 * returns the +/- mod of the stat
+	 * @param stat
+	 * @return int
+	 */
+	public int getStatMod(String stat)
+	{
+		return ((getStat(stat)/2)-5);
+	}
+
+
+	/**
+	 * returns the value of the resist
+	 * @param resist
+	 * @return int
+	 */
+	public int getResist(String resist)
+	{
+		return this.resist.getResist(resist);
+	}
+
+
+	/**
+	 * returns the armor mod for combat
+	 * @return int
+	 */
+	public int getArmor()
+	{
+		return armor + getStatMod("dex");
+	}
+
+
+	/**
+	 * returns the initiative with the dex mod included for combat
+	 * @return int
+	 */
+	public int getInit()
+	{
+		return init;
+	}
+
+
+	/**
+	 * returns the Inventory item for managing
+	 * @return Inventory
+	 */
+	public Inventory getBackpack()
+	{
+		return backpack;
+	}
+
+
+	/**
+	 * returns the Gear item for managing
+	 * @return Equipment
+	 */
+	public Equipment getGear()
+	{
+		return gear;
+	}
+
+
+	/**
+	 * returns the randomized and modified damage for the entity
+	 * @return int
+	 */
+	public int getDamage()
+	{
+		if(!gear.hasGear("Both Hands") || !gear.hasGear("Main Hand") ||
+		   !gear.getGear("Off Hand").getType().equals("1hweapon")){
+			return (damage.getRoll() + getStatMod("Str"));
+		}
+		else{
+			return gear.getDamage() + getStatMod("Str");
+		}
+	}
+
+
 	/**
 	 * deal damage to the life total returns true if dead
 	 * @param damage
@@ -174,7 +330,8 @@ public class Entity
 			return false;
 		}
 	}
-	
+
+
 	/**
 	 * heals the player for the amount and returns the overheal
 	 * @param healing
@@ -192,24 +349,23 @@ public class Entity
 		}
 		return overheal;
 	}
-	
+
+
 	/**
-	 * sets the starting MP based on Intel and Wis
+	 * returns true the entity is dead
+	 * @return boolean
 	 */
-	public void setMP()
+	public boolean isDead()
 	{
-		int startMP = getStatMod("wis") + 
-				getStatMod("intel");
-		if(startMP >= 0){
-			mp[0] = startMP;
-			mp[1] = startMP;
+		if(hp[0] <= 0){
+			return true;
 		}
 		else{
-			mp[0] = 0;
-			mp[1] = 0;
+			return false;
 		}
 	}
-	
+
+
 	/**
 	 * spends the mp returns true if the spell was cast
 	 * @param damage
@@ -249,142 +405,9 @@ public class Entity
 		return mp[1] - mp[0];
 	}
 	
-	/**
-	 * returns the randomized and modified damage for the entity
-	 * @return int
-	 */
-	public int getDamage()
-	{
-		if(!gear.hasGear("Both Hands") || !gear.hasGear("Main Hand") ||
-		   !gear.getGear("Off Hand").getType().equals("1hweapon")){
-			return (damage.getRoll() + getStatMod("Str"));
-		}
-		else{
-			return gear.getDamage() + getStatMod("Str");
-		}
-	}
-	
-	/**
-	 * returns the name
-	 * @return String
-	 */
-	public String getName()
-	{
-		return name;
-	}
-	
-	/**
-	 * returns the unmodified base stat
-	 * @param stat
-	 * @return int
-	 */
-	public int getBaseStat(String stat)
-	{
-		return stats.getStat(stat);
-	}
-
-
-	/**
-	 * returns the value of a stat
-	 * @param stat
-	 * @return int
-	 */
-	public int getStat(String stat)
-	{
-		return gear.getStatMod(stat) + stats.getStat(stat);
-	}
-	
-	/**
-	 * returns the +/- mod of the stat
-	 * @param stat
-	 * @return int
-	 */
-	public int getStatMod(String stat)
-	{
-		return ((getStat(stat)/2)-5);
-	}
-	
-	/**
-	 * returns the value of the resist
-	 * @param resist
-	 * @return int
-	 */
-	public int getResist(String resist)
-	{
-		return this.resist.getResist(resist);
-	}
-	
-	/**
-	 * returns the initiative with the dex mod included for combat
-	 * @return int
-	 */
-	public int getInit()
-	{
-		return init;
-	}
-	
 	public void setInit(int init)
 	{
 		this.init = init + getStatMod("dex");
-	}
-	
-	/**
-	 * returns the Inventory item for managing
-	 * @return Inventory
-	 */
-	public Inventory getBackpack()
-	{
-		return backpack;
-	}
-	
-	/**
-	 * returns the Gear item for managing
-	 * @return Equipment
-	 */
-	public Equipment getGear()
-	{
-		return gear;
-	}
-	
-	/**
-	 * returns true the entity is dead
-	 * @return boolean
-	 */
-	public boolean isDead()
-	{
-		if(hp[0] <= 0){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
-	
-	/**
-	 * returns the armor mod for combat
-	 * @return int
-	 */
-	public int getArmor()
-	{
-		return armor + getStatMod("dex");
-	}
-	
-	/**
-	 * returns the modifier tohit for melee weapons
-	 * @return int
-	 */
-	public int getMeleeAttackMod()
-	{
-		return gear.getAttackMod() + getStatMod("str");
-	}
-	
-	/**
-	 * returns the toHit mod for ranged weapons
-	 * @return int
-	 */
-	public int getRangedAttackMod()
-	{
-		return gear.getAttackMod() + getStatMod("dex");
 	}
 	
 	/**
@@ -404,5 +427,25 @@ public class Entity
 	public void loot(Item item)
 	{
 		backpack.lootItem(item);
+	}
+
+
+	/**
+	 * returns the modifier tohit for melee weapons
+	 * @return int
+	 */
+	public int getMeleeAttackMod()
+	{
+		return gear.getAttackMod() + getStatMod("str");
+	}
+
+
+	/**
+	 * returns the toHit mod for ranged weapons
+	 * @return int
+	 */
+	public int getRangedAttackMod()
+	{
+		return gear.getAttackMod() + getStatMod("dex");
 	}
 }

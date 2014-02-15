@@ -17,7 +17,7 @@ public class EquipUI
 	 */
 	public EquipUI()
 	{
-		toEquip = new Gear();
+		toEquip = null;
 		reader = new InputReader();
 		equipment = new Equipment();
 		backpack = new Inventory();
@@ -32,7 +32,7 @@ public class EquipUI
 	public EquipUI(Equipment equipment, 
 				   Inventory inventory)
 	{
-		toEquip = new Gear();
+		toEquip = null;
 		reader = new InputReader();
 		setEquip(equipment);
 		setInventory(inventory);

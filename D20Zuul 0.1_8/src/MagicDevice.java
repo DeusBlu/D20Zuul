@@ -14,7 +14,7 @@ public abstract class MagicDevice extends Item {
 	public MagicDevice() 
 	{
 		super();
-		setEffectValue(new DiceSet());
+		setEffectValue(0, 0, 0);
 		setCharges(0);
 		setOffensive(false);
 	}
@@ -28,12 +28,12 @@ public abstract class MagicDevice extends Item {
 	 * @param effect
 	 * @param effectValue
 	 */
-	public MagicDevice(double weight, int value, String name, int charges,DiceSet effectValue, boolean offensive) 
+	public MagicDevice(double weight, int value, String name, int charges,int damDice, int damDie, int damMod, boolean offensive) 
 	{
 		super(weight, value, name);
 		setCharges(charges);
 		setOffensive(offensive);
-		setEffectValue(effectValue);
+		setEffectValue(damDice, damDie, damMod);
 	}
 	
 	/**
@@ -54,13 +54,14 @@ public abstract class MagicDevice extends Item {
 	 * sets the effect value, a damage object to hold dice and modifiers
 	 * @param effectValue
 	 */
-	private void setEffectValue(DiceSet effectValue)
+	private void setEffectValue(int damDice, int damDie, int damMod)
 	{
-		if(effectValue != null){
-			this.effectValue = effectValue;
+		if(damDice >= 0 && damDie >= 0 && damMod >= 0){
+			effectValue = new DiceSet(damDice, damDie, damMod);
 		}
 		else{
-			throw new IllegalArgumentException("Damage item of " + getName() + " was null");
+			throw new IllegalArgumentException(getName()+
+					" had negative value in effect "+damDice+" "+damDie+" "+damMod);
 		}
 	}
 	

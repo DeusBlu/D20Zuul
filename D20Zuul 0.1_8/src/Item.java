@@ -5,7 +5,7 @@
  * @author (DeusBlu) 
  * @version (0.1_6)
  */
-public class Item
+public abstract class Item
 {
     private double weight;
     private int value;

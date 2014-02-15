@@ -33,12 +33,12 @@ public class Constant
 		"helm", "shoulders", "chest", "gloves", 
 		"pants", "boots","misc", "key"
 	};
-	public static final String[] ARMOR_PROF = {
+	public static final String[] ARMOR_FEAT = {
 		"light", "medium", "heavy"
 	};
 	public static final String[] WEAP_PROF = {
-		"sword", "mace", "axe", "dagger", "staff",
-		"2hsword", "2hmace", "2haxe", "crossbow", "bow"
+		"Sword", "Mace", "Axe", "Dagger", "Staff",
+		"2H Sword", "2H Mace", "2H Axe", "Crossbow", "Bow"
 	};
 	public static final int MAX_PLAYERS = 4;
     public static final int MAX_PARTY = 10;

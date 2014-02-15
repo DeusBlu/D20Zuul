@@ -3,7 +3,7 @@
  * @author Deus
  *
  */
-public class Armor extends Gear {
+public abstract class Armor extends Gear {
 
 	public Armor() {
 		super();

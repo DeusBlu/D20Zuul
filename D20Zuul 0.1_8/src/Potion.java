@@ -27,9 +27,11 @@ public class Potion extends Consumable {
 				  String name, 
 				  int charges,
 				  String description, 
-				  DiceSet effectValue,
+				  int damDice,
+				  int damDie,
+				  int damMod,
 				  boolean offensive) {
-		super(weight, value, name, charges, description, effectValue, offensive);
+		super(weight, value, name, charges, description, damDice, damDie, damMod, offensive);
 		
 	}
 

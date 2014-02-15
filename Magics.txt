@@ -1,6 +1,6 @@
 THIS IS IN NO WAY NEAR COMPLETE
 
-After 2 points in one are chosen it is a specialty and one other sphere is completely locked out
+At creation a specialty is chosen and two other spheres are completely locked out
 each can have up to 5 points in it
 
 Abjuration - prohibits Evocation & Conjuration
@@ -35,6 +35,6 @@ Enchantment - prohibits Conjuration & Necromancy
 Spells that embue the recipient with some property (eg buffs, debuffs, etc)
 
 
-Evocation - Abjuration & Evocation
+Evocation - Abjuration & Necromancy
 ----------
 Spells that Manipulate energy or create something from nothing

@@ -28,9 +28,17 @@ public abstract class Consumable extends MagicDevice {
 	 * @param effect
 	 * @param effectValue
 	 */
-	public Consumable(double weight, int value, String name, int charges, String description, DiceSet effectValue, boolean offensive) 
+	public Consumable(double weight, 
+					  int value, 
+					  String name, 
+					  int charges, 
+					  String description, 
+					  int damDice, 
+					  int damDie, 
+					  int damMod, 
+					  boolean offensive) 
 	{
-		super(weight, value, name, charges, effectValue, offensive);
+		super(weight, value, name, charges, damDice, damDie, damMod, offensive);
 		setDescription(description);
 		setType();
 	}

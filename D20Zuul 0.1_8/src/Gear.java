@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * @author DeusBlu
  * @version 0.1_8
  */
-public class Gear extends Item
+public abstract class Gear extends Item
 {
 	private int defense;
 	private int damageMod;

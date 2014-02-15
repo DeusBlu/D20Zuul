@@ -16,7 +16,7 @@ public class Player extends Entity
     public Player()
     {
     	super();
-        playerClass = new PlayerClass();
+        setPlayerClass("fighter");
         setAge(Constant.MIN_AGE);
     }
     
@@ -36,16 +36,17 @@ public class Player extends Entity
      * @param will
      * @param age
      */
-	public Player(String name, int str, 
-				  int dex, int con, 
-				  int intel, int wis, 
-				  int chr, int age, 
-				  String playerClass) {
-		super(name, str, 
-				dex, con, 
-				intel, wis, 
-				chr, Constant.BASE_AC, 
-				0, 0, 0, 1, 3, 0);
+	public Player(String name, 
+				  int str, 
+				  int dex, 
+				  int con, 
+				  int intel, 
+				  int wis, 
+				  int chr, 
+				  int age, 
+				  String playerClass) 
+	{
+		super(name, str, dex, con, intel, wis, chr, Constant.BASE_AC, 0, 0, 0, 1, 3, 0, 1);
 		setPlayerClass(playerClass);
 		setAge(age);
 		setHP();
@@ -137,7 +138,7 @@ public class Player extends Entity
 			int i = playerClass.getLevel() - lastLevel;
 			for(; i > 0; i--){
 				addHP();
-				super.setMP();
+				super.setMP(playerClass.getLevel());
 			}
 		}
 	}

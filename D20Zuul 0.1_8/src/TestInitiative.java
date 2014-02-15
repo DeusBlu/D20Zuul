@@ -8,16 +8,16 @@ public class TestInitiative {
 		Player muru = new Player("Murutang", 18, 11, 11, 11, 11, 11, 19, "fighter");
 		Player sure = new Player("Surewould", 18, 11, 11, 11, 11, 11, 19, "fighter");
 		Party pcParty = new Party(true);
-		Potion potion = new Potion(0.1, 10, "Potion of Healing", 1, "Heals for 1d6", new DiceSet(1, 6, 0), false);
+		Potion potion = new Potion(0.1, 10, "Potion of Healing", 1, "Heals for 1d6", 1, 6, 4, false);
 		deus.loot(potion);
 		pcParty.join(deus);
 		pcParty.join(rush);
 		pcParty.join(muru);
 		pcParty.join(sure);
-		Creature gob1 = new Creature("Goblin A", 8, 8, 8, 8, 8, 8, 3, 1, 6, 0, 0, 0, 1, 2, 0, 35);
-		Creature gob2 = new Creature("Goblin B", 8, 8, 8, 8, 8, 8, 3, 1, 6, 0, 0, 0, 1, 2, 0, 35);
-		Creature gob3 = new Creature("Goblin C", 8, 8, 8, 8, 8, 8, 3, 1, 6, 0, 0, 0, 1, 2, 0, 35);
-		Creature gob4 = new Creature("Goblin D", 8, 8, 8, 8, 8, 8, 3, 1, 6, 0, 0, 0, 1, 2, 0, 35);
+		Creature gob1 = new Creature("Goblin A", 8, 8, 8, 8, 8, 8, 3, 1, 6, 0, 0, 0, 1, 2, 0, 35, 0);
+		Creature gob2 = new Creature("Goblin B", 8, 8, 8, 8, 8, 8, 3, 1, 6, 0, 0, 0, 1, 2, 0, 35, 0);
+		Creature gob3 = new Creature("Goblin C", 8, 8, 8, 8, 8, 8, 3, 1, 6, 0, 0, 0, 1, 2, 0, 35, 0);
+		Creature gob4 = new Creature("Goblin D", 8, 8, 8, 8, 8, 8, 3, 1, 6, 0, 0, 0, 1, 2, 0, 35, 0);
 		Party monParty = new Party();
 		TwoHanded greataxe5 = new TwoHanded(6.0, 5002000, "Greataxe +5", 1, 12, 0, 0, 5, 5, "none", 0);
 	    MainHand longSword = new MainHand(5.0, 2000, "Long Sword", 1, 10, 0, 0, 0, 0, "none", 0);
@@ -43,8 +43,6 @@ public class TestInitiative {
 		monParty.join(gob2);
 		monParty.join(gob3);
 		monParty.join(gob4);
-		//Initiative init = new Initiative();
-		//Stack<Entity> initiative = init.pcInit(pcParty, monParty);
 		Encounter testFight = new Encounter(pcParty, monParty);
 		testFight.fight();
 	}

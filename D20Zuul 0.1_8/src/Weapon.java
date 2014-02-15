@@ -3,7 +3,7 @@
  * @author DeusBlu
  *
  */
-public class Weapon extends Gear 
+public abstract class Weapon extends Gear 
 {
 	private DiceSet diceSet;
 
