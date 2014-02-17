@@ -1,11 +1,12 @@
 import java.util.HashMap;
+import java.util.Stack;
 /**
- * This class is the framework for creating skills
+ * This class is the framework for creating abilitys
  * @author DeusBlu
  * @version 0.1_8
  *
  */
-public abstract class Skill 
+public abstract class Ability 
 {
 	private String name;
 	private int rank;
@@ -18,9 +19,9 @@ public abstract class Skill
 	private String description;
 	
 	/**
-	 * default constructor for Skill objects
+	 * default constructor for Ability objects
 	 */
-	public Skill()
+	public Ability()
 	{
 		setName("unknown");
 		setRank(1);
@@ -29,7 +30,7 @@ public abstract class Skill
 		setOffensive(false);
 		setActive(false);
 		setValidClass("unknown");
-		setDescription("unknown skill");
+		setDescription("unknown ability");
 		requirements = new HashMap<String, Integer>();
 	}
 	
@@ -45,7 +46,7 @@ public abstract class Skill
 	 * @param validClass
 	 * @param description
 	 */
-	public Skill(String name, 
+	public Ability(String name, 
 				 int maxRank,
 				 int dmgDice,
 				 int dmgDie,
@@ -81,7 +82,7 @@ public abstract class Skill
 	}
 		
 	/**
-	 * set the current rank of the skill usually set to 1
+	 * set the current rank of the ability usually set to 1
 	 * @param rank
 	 */
 	private void setRank(int rank)
@@ -95,7 +96,7 @@ public abstract class Skill
 	}
 	
 	/**
-	 * sets the max rank of the skill should be set by class skill subclass
+	 * sets the max rank of the ability should be set by class ability subclass
 	 * @param maxRank
 	 */
 	private void setMaxRank(int maxRank)
@@ -109,7 +110,7 @@ public abstract class Skill
 	}
 	
 	/**
-	 * sets the effectValue of the skill to a set of dice
+	 * sets the effectValue of the ability to a set of dice
 	 * @param dmgDice
 	 * @param dmgDie
 	 * @param dmgMod
@@ -140,7 +141,7 @@ public abstract class Skill
 	}
 	
 	/**
-	 * sets if the skill is active of passive
+	 * sets if the ability is active of passive
 	 * @param active
 	 */
 	private void setActive(boolean active)
@@ -149,8 +150,8 @@ public abstract class Skill
 	}
 	
 	/**
-	 * sets the class that can use the skill, should be set by the skill
-	 * superclass eg FighterSkill, ClericSkill
+	 * sets the class that can use the ability, should be set by the ability
+	 * superclass eg FighterAbility, ClericAbility
 	 * @param validClass
 	 */
 	private void setValidClass(String validClass)
@@ -163,7 +164,7 @@ public abstract class Skill
 		}
 	}
 	
-	private void setDescription(String description)
+	protected void setDescription(String description)
 	{
 		if(description != null && !description.isEmpty()){
 			this.description = description;
@@ -174,7 +175,7 @@ public abstract class Skill
 	}
 	
 	/**
-	 * sets the requirements to learn the skill eg 16 str
+	 * sets the requirements to learn the ability eg 16 str
 	 * @param stat
 	 * @param value
 	 */
@@ -184,7 +185,7 @@ public abstract class Skill
 	}
 	
 	/**
-	 * returns the name of the skill as a string
+	 * returns the name of the ability as a string
 	 * @return String name
 	 */
 	public String getName()	
@@ -193,7 +194,7 @@ public abstract class Skill
 	}
 	
 	/**
-	 * returns the current rank of the skill
+	 * returns the current rank of the ability
 	 * @return int current rank
 	 */
 	public int getRank()
@@ -202,7 +203,7 @@ public abstract class Skill
 	}
 	
 	/**
-	 * returns the maximum rank of the skill
+	 * returns the maximum rank of the ability
 	 * @return int max rank
 	 */
 	public int getMaxRank()
@@ -247,7 +248,7 @@ public abstract class Skill
 	}
 	
 	/**
-	 * returns the class that can use the skill as a String
+	 * returns the class that can use the ability as a String
 	 * @return PlayerClass that can use as String
 	 */
 	public String getValidClass()
@@ -256,7 +257,7 @@ public abstract class Skill
 	}
 	
 	/**
-	 * returns a HashMap of all the requirements of the skill
+	 * returns a HashMap of all the requirements of the ability
 	 * eg. Str 10, Dex 12
 	 * @return HashMap of requirements <String, int>
 	 */
@@ -271,15 +272,19 @@ public abstract class Skill
 	}
 	
 	/**
-	 * the method to use an active skill prints cannot be used if 
-	 * not activated
+	 * activates the skill when used
+	 * @param attacks
+	 * @param player
 	 * @param target
+	 * @return Stack<Integer> the remaining attacks of the player
 	 */
-	public abstract void use(Entity target);
+	public abstract Stack<Integer> use(Stack<Integer> attacks, 
+								Player player, Entity target);
 	
 	/**
-	 * applies the static effects of the skill to the player
+	 * the passive effect of the skill
 	 * @param player
+	 * @param target
 	 */
-	public abstract void passive(Player player);
-}
+	public abstract void passive(Player player, Entity target);
+	}

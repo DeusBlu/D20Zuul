@@ -104,7 +104,7 @@ public class ItemUI
 	{
 		int input = 0;
 		while(input == 0){
-			players.shortStatus();
+			players.shortPartyStatus();
 			System.out.println("Use on who?");
 			System.out.print("#> ");
 			input = reader.readInt();
@@ -119,7 +119,7 @@ public class ItemUI
 	{
 		int input = 0;
 		while(input == 0){
-			monsters.shortStatus();
+			monsters.shortMonsterStatus();
 			System.out.println("Use on who?");
 			System.out.print("#> ");
 			input = reader.readInt();

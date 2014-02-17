@@ -56,4 +56,9 @@ public class Proficiency
 	public int getRank() {
 		return rank;
 	}
+	
+	public void rankUp()
+	{
+		rank++;
+	}
 }

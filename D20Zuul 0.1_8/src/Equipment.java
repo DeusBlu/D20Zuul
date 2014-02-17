@@ -156,6 +156,21 @@ public class Equipment
         return damage;
     }
     
+    public String getWeapProf()
+    {
+    	if(hasGear("Both Hands")){
+    		Weapon weapon = (Weapon)equipment.get("Both Hands");
+    		return weapon.getWeapProf();
+    	}
+    	else if(hasGear("Main Hand")){
+    		Weapon weapon = (Weapon)equipment.get("Main Hand");
+    		return weapon.getWeapProf();
+    	}
+    	else{
+    		return null;
+    	}
+    }
+    
     /**
      * returns the ToHit modifier for the attack
      * @return int

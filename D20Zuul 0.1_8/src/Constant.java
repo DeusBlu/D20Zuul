@@ -37,7 +37,7 @@ public class Constant
 		"light", "medium", "heavy"
 	};
 	public static final String[] WEAP_PROF = {
-		"Sword", "Mace", "Axe", "Dagger", "Staff",
+		"Sword", "Mace", "Axe", "Dagger", "Staff", "Unarmed",
 		"2H Sword", "2H Mace", "2H Axe", "Crossbow", "Bow"
 	};
 	public static final int MAX_PLAYERS = 4;

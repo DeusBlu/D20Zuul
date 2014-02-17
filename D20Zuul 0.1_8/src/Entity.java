@@ -8,7 +8,7 @@ public class Entity
 {
 	private int hp[];
 	private int mp[];
-	private SkillList skillList;
+	private AbilityList abilityList;
 	private String name;
 	private Stats stats;
 	private Resist resist;
@@ -25,7 +25,7 @@ public class Entity
 	{
 		hp = new int[2];
 		mp = new int[2];
-		skillList = new SkillList();
+		abilityList = new AbilityList();
 		damage = new DiceSet();
 		backpack = new Inventory();
 		gear = new Equipment();
@@ -56,7 +56,7 @@ public class Entity
 	{
 		hp = new int[2];
 		mp = new int[2];
-		skillList = new SkillList();
+		abilityList = new AbilityList();
 		damage = new DiceSet();
 		stats = new Stats(str, dex, con, intel, wis, chr);
 		resist = new Resist(fort, reflex, will);
@@ -155,10 +155,10 @@ public class Entity
 		}
 	}
 	
-	protected void addSkill(Skill skill)
+	protected void addAbility(Ability ability)
 	{
-		if(skill != null){
-			skillList.addSkill(skill);
+		if(ability != null){
+			abilityList.addAbility(ability);
 		}
 	}
 
@@ -199,9 +199,9 @@ public class Entity
 		return mp[1];
 	}
 	
-	public SkillList getSkills()
+	public AbilityList getAbilitys()
 	{
-		return skillList;
+		return abilityList;
 	}
 	
 	/**
@@ -427,6 +427,20 @@ public class Entity
 	public void loot(Item item)
 	{
 		backpack.lootItem(item);
+	}
+	
+	/**
+	 * adds a ability to the list of abilitys of the entity
+	 * @param ability
+	 */
+	public void learnAbility(Ability ability)
+	{
+		if(ability != null){
+			abilityList.addAbility(ability);
+		}
+		else{
+			throw new IllegalArgumentException(getName()+" ability was null");
+		}
 	}
 
 

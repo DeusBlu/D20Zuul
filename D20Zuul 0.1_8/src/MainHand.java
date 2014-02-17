@@ -4,7 +4,7 @@
  * @version 0.1_8
  *
  */
-public class MainHand extends Weapon {
+public abstract class MainHand extends Weapon {
 	/**
 	 * default constructor for type MainHand
 	 */
@@ -26,10 +26,20 @@ public class MainHand extends Weapon {
 	 * @param String - statToMod
 	 * @param int - statMod
 	 */
-	public MainHand(double weight, int value, String name, int dice, int sides, int plus, int defense, 
-			int damageMod, int hitMod, String statToMod, int statMod) {
+	public MainHand(double weight, 
+					int value, 
+					String name, 
+					int dice, 
+					int sides, 
+					int plus, 
+					int defense, 
+					int damageMod, 
+					int hitMod, 
+					String statToMod, 
+					int statMod, 
+					String weapProf) {
 		super(weight, value, name, dice, sides, plus, defense, damageMod,
-				hitMod, statToMod, statMod, "mhweapon");
+				hitMod, statToMod, statMod, "mhweapon", weapProf);
 		sendEquipSpots();
 	}
 	/**

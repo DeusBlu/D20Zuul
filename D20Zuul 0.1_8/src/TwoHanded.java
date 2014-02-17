@@ -4,7 +4,7 @@
  * @version 0.1_8
  *
  */
-public class TwoHanded extends Weapon {
+public abstract class TwoHanded extends Weapon {
 	/**
 	 * default constructor for type TwoHanded
 	 */
@@ -27,17 +27,20 @@ public class TwoHanded extends Weapon {
 	 * @param int - statMod
 	 */
 	public TwoHanded(double weight, 
-					 int value, String name, 
-					 int dice, int sides, 
-					 int plus, int defense, 
-					 int damageMod, int hitMod, 
-					 String statToMod, int statMod) {
-		super(weight, value, 
-				name, dice, 
-				sides, plus, 
-				defense, damageMod,
-				hitMod, statToMod, 
-				statMod, "2hweapon");
+					 int value, 
+					 String name, 
+					 int dice, 
+					 int sides, 
+					 int plus, 
+					 int defense, 
+					 int damageMod, 
+					 int hitMod, 
+					 String statToMod, 
+					 int statMod, 
+					 String weapProf) {
+		super(weight, value, name, dice, sides, plus, 
+				defense, damageMod, hitMod, statToMod, 
+				statMod, "2hweapon", weapProf);
 		sendEquipSpots();
 	}
 	/**

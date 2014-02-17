@@ -102,16 +102,36 @@ public class Party
     /**
      * prints the status of the party in short form
      */
-    public void shortStatus()
+    public void shortMonsterStatus()
     {
         for(int i = 0; i < players.length; i++){
             if(players[i] != null){
-                System.out.print("#" + (i+1) + ":  Name: " + players[i].getName());
-                if(players[i].isDead()){
-                	System.out.print(" - Dead");
+            	if(players[i].isDead()){
+            		System.out.print("<Defeated>");
                 }
+            	else{
+                    System.out.print("#" + (i+1) + ":  Name: " + players[i].getName());
+            	}
                 System.out.println();
             }
+        }
+    }/**
+     * prints the status of the party in short form
+     */
+    public void shortPartyStatus()
+    {
+        for(int i = 0; i < players.length; i++){
+            if(players[i] != null){
+                System.out.print("#"+(i+1)+":  Name: "+players[i].getName());
+                if(players[i].getName().length() <= 4){
+                	System.out.print("\t\t");
+                }
+                else if(players[i].getName().length() > 4){
+                	System.out.print("\t");
+                }
+                System.out.print("HP: "+players[i].getCurrentHP()+"/"+players[i].getMaxHP());
+            }
+            System.out.println();
         }
     }
     

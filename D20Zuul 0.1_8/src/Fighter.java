@@ -1,4 +1,3 @@
-import java.util.Stack;
 /**
  * The basic Fighter class for players
  * @author DeusBlu
@@ -18,7 +17,7 @@ public class Fighter extends PlayerClass {
 	 * @param attack
 	 */
 	public Fighter() {
-		super("Warrior", 10, 2, 0, 0, 2, 1);
+		super("Warrior", 10, 2, 0, 0, 2, 1, 5, 5);
 		setBonusFeat();
 	}
 	
@@ -27,11 +26,12 @@ public class Fighter extends PlayerClass {
 		bonusFeat = 1;
 	}
 	
-	public Stack<Integer> getAttacks(int level)
+	@Override
+	public int[] getAttacks()
 	{
-		int numAttacks = getNumAttacks(level);
+		int numAttacks = getNumAttacks(getLevel());
 		int[] attacks = new int[numAttacks];
-		for(int i = 0; i <= level; i++){
+		for(int i = 0; i <= getLevel(); i++){
 			if(i > 0){
 				attacks[0]++;
 			}
@@ -45,7 +45,7 @@ public class Fighter extends PlayerClass {
 				attacks[3]++;
 			}
 		}
-		return super.getAttacks(attacks);
+		return attacks;
 	}
 	
 	private int getNumAttacks(int level)

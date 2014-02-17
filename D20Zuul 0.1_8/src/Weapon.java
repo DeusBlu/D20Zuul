@@ -6,24 +6,42 @@
 public abstract class Weapon extends Gear 
 {
 	private DiceSet diceSet;
+	private String weapProf;
 
 	public Weapon() {
 		super();
 		diceSet = new DiceSet();
 	}
 
-	public Weapon(double weight, int value, 
-				  String name, int dice, 
-				  int sides, int modifier, 
-				  int defense, int damageMod, 
-				  int hitMod, String statToMod, 
-				  int statMod, String type) {
-		super(weight, value, 
-				name, defense, 
-				damageMod, hitMod, 
-				statToMod, statMod, 
-				type);
+	public Weapon(double weight, 
+				  int value, 
+				  String name, 
+				  int dice, 
+				  int sides, 
+				  int modifier, 
+				  int defense, 
+				  int damageMod, 
+				  int hitMod, 
+				  String statToMod, 
+				  int statMod, 
+				  String type,
+				  String weapProf) {
+		super(weight, value, name, defense, damageMod, hitMod, 
+				statToMod, statMod, type);
 		diceSet = new DiceSet(dice, sides, modifier);
+		setWeapProf(weapProf);
+	}
+	
+	private void setWeapProf(String weapProf)
+	{
+		for(int i = 0; i < Constant.WEAP_PROF.length; i++){
+			if(weapProf.equals(Constant.WEAP_PROF[i])){
+				this.weapProf = weapProf;
+			}
+		}
+		if(this.weapProf == null){
+			throw new IllegalArgumentException("weapProf was invalid");
+		}
 	}
 	
 	/**
@@ -34,6 +52,11 @@ public abstract class Weapon extends Gear
 	public int getDamage()
 	{
 		return (diceSet.getRoll() + diceSet.getModifier());
+	}
+	
+	public String getWeapProf()
+	{
+		return weapProf;
 	}
 	
 	/**

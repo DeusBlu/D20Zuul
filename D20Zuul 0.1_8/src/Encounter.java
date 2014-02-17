@@ -62,8 +62,12 @@ public class Encounter
         			initiative.pop();
         		}
         		else{
-        			if(!players.isDefeated() && !opponents.isDefeated())
-        			takeTurn(initiative.pop());
+        			if(!players.isDefeated() && !opponents.isDefeated()){
+        				takeTurn(initiative.pop());
+        			}
+        			else{
+        				initiative.clear();
+        			}
         		}
         	}
         	if(players.isDefeated() || opponents.isDefeated()){
@@ -200,10 +204,10 @@ public class Encounter
     {
         System.out.println("Remaining Monsters:");
         System.out.println("-------------------------------");
-        opponents.shortStatus();;
+        opponents.shortMonsterStatus();
         System.out.println();
         System.out.println("Party Status:");
         System.out.println("-------------------------------");
-        players.shortStatus();
+        players.shortPartyStatus();
     }
 }

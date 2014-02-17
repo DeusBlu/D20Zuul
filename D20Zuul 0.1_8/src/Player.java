@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 /**
  * This class is used to create players, it can make NPC's, PC's, and can be stored in the party for
  * controlling multiple characters
@@ -8,6 +10,7 @@
 public class Player extends Entity 
 {
     private int age;
+    private Proficiencies weapProf;
     private PlayerClass playerClass;
 
     /**
@@ -16,6 +19,7 @@ public class Player extends Entity
     public Player()
     {
     	super();
+    	weapProf = new Proficiencies();
         setPlayerClass("fighter");
         setAge(Constant.MIN_AGE);
     }
@@ -47,9 +51,11 @@ public class Player extends Entity
 				  String playerClass) 
 	{
 		super(name, str, dex, con, intel, wis, chr, Constant.BASE_AC, 0, 0, 0, 1, 3, 0, 1);
+		weapProf = new Proficiencies();
 		setPlayerClass(playerClass);
 		setAge(age);
 		setHP();
+		setMaxWeapProf(this.playerClass.getMaxWeapProf());
 	}
 
 	/**
@@ -66,6 +72,10 @@ public class Player extends Entity
 		}
 	}
 	
+	/**
+	 * sets the class of the player eg "fighter"
+	 * @param playerClass
+	 */
 	private void setPlayerClass(String playerClass)
 	{
 		if(playerClass.equalsIgnoreCase("fighter")){
@@ -73,6 +83,33 @@ public class Player extends Entity
 		}
 	}
 	
+	/**
+	 * sets the max value for a characters weapon proficiencies
+	 * @param maxWeapProf
+	 */
+	private void setMaxWeapProf(int maxWeapProf)
+	{
+		weapProf.setMaxProf(maxWeapProf);
+	}
+	
+	/**
+	 * adds a weapon proficiency to the player
+	 * @param prof
+	 */
+	public void learnWeapProf(String prof)
+	{
+		Proficiency proficiency = null;
+		for(int i = 0; i < Constant.WEAP_PROF.length; i++){
+			if(Constant.WEAP_PROF[i].equalsIgnoreCase(prof)){
+				proficiency = new Proficiency(prof, 1);
+				weapProf.learnProficiency(proficiency);
+			}
+		}
+	}
+	
+	/**
+	 * adds HP to the character, called during level up
+	 */
 	public void addHP()
 	{
 		DiceSet hpDice = new DiceSet(1, playerClass.getHpDie(), getStatMod("con"));
@@ -85,6 +122,9 @@ public class Player extends Entity
 		}
 	}
 	
+	/**
+	 * sets the starting HP of a character used once during creation
+	 */
 	public void setHP()
 	{
 		DiceSet hpDice = new DiceSet(1, playerClass.getHpDie(), getStatMod("con"));
@@ -122,6 +162,11 @@ public class Player extends Entity
 		new EquipUI(getGear(), getBackpack());
 	}
 	
+	/**
+	 * opens the useItem UI during combat
+	 * @param players
+	 * @param monsters
+	 */
 	public void useItem(Party players, Party monsters)
 	{
 		new ItemUI(getBackpack(), players, monsters);
@@ -169,6 +214,21 @@ public class Player extends Entity
 	}
 	
 	/**
+	 * gets the players bonus from proficiency with the current weapon
+	 * @return to hit bonus with weapon as int from weapProf's
+	 */
+	public int getProfBonus()
+	{
+		int bonus = (weapProf.getProficiency(getGear().getWeapProf()));
+		if(bonus == 0){
+			return -4;
+		}
+		else{
+			return bonus-1;
+		}
+	}
+	
+	/**
 	 * returns the value of the resist
 	 * @param resist
 	 * @return int
@@ -177,5 +237,35 @@ public class Player extends Entity
 	public int getResist(String resist)
 	{
 		return super.getResist(resist) + playerClass.getResist(resist);
+	}
+	
+	/**
+	 * returns the melee attack bonus
+	 */
+	@Override
+	public int getMeleeAttackMod()
+	{
+		return getGear().getAttackMod() + getStatMod("str") + getProfBonus();
+	}
+	
+	/**
+	 * returns a stack of attack bonus' for the combat to use, returns multiple values
+	 * if there are multiple attacks for the person in a round
+	 * @param attack
+	 * @return attacks as Stack<Integer>
+	 */
+	public Stack<Integer> getAttacks()
+	{
+		int[] attack = playerClass.getAttacks();
+		Stack<Integer> attacks = new Stack<Integer>();
+		for(int i = attack.length-1; i >= 0; i--){
+			attacks.push(attack[i] + getMeleeAttackMod());
+		}
+		return attacks;
+	}
+	
+	public int getStartingProfs()
+	{
+		return playerClass.getStartingProfs();
 	}
 }

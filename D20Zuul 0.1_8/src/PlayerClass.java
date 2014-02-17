@@ -1,4 +1,3 @@
-import java.util.Stack;
 /**
  * Base item type of classes for the PlayerCharacter
  * @author DeusBlu
@@ -14,6 +13,8 @@ public abstract class PlayerClass
 	private int reflexSave;
 	private int willSave;
 	private int skillPoints;
+	private int startingProfs;
+	private int maxWeapProf;
 	
 	/**
 	 * default constructor for Class
@@ -27,6 +28,8 @@ public abstract class PlayerClass
 		setReflexSave(0);
 		setWillSave(0);
 		setSkillPoints(0);
+		setStartingProfs(1);
+		setMaxWeapProf(1);
 	}
 	
 	/**
@@ -40,10 +43,15 @@ public abstract class PlayerClass
 	 * @param skillPoints
 	 * @param attack
 	 */
-	public PlayerClass(String name, int hpDie,
-					   int forSave, int reflexSave,
-					   int willSave, int skillPoints,
-					   int attack)
+	public PlayerClass(String name, 
+					   int hpDie,
+					   int forSave, 
+					   int reflexSave,
+					   int willSave, 
+					   int skillPoints,
+					   int attack,
+					   int startingProfs,
+					   int maxWeapProf)
 	{
 		xp = new XP();
 		setClassName(name);
@@ -52,6 +60,8 @@ public abstract class PlayerClass
 		setReflexSave(reflexSave);
 		setWillSave(willSave);
 		setSkillPoints(skillPoints);
+		setStartingProfs(startingProfs);
+		setMaxWeapProf(maxWeapProf);
 	}
 	
 	/**
@@ -64,7 +74,7 @@ public abstract class PlayerClass
 			this.className = ClassName;
 		}
 		else{
-			this.className = "CLASS";
+			throw new IllegalArgumentException("className was null or empty");
 		}
 	}
 	
@@ -78,7 +88,7 @@ public abstract class PlayerClass
 			this.hpDie = hpDie;
 		}
 		else{
-			this.hpDie = 4;
+			throw new IllegalArgumentException("hpDie out of range");
 		}
 	}
 	
@@ -92,7 +102,7 @@ public abstract class PlayerClass
 			this.fortSave = fortSave;
 		}
 		else{
-			this.fortSave = 0;
+			throw new IllegalArgumentException("fortSave was less than 0");
 		}
 	}
 	
@@ -106,7 +116,7 @@ public abstract class PlayerClass
 			this.reflexSave = reflexSave;
 		}
 		else{
-			this.reflexSave = 0;
+			throw new IllegalArgumentException("reflexSave was less than 0");
 		}
 	}
 	
@@ -120,7 +130,7 @@ public abstract class PlayerClass
 			this.willSave = willSave;
 		}
 		else{
-			this.willSave = 0;
+			throw new IllegalArgumentException("willSave was less than 0");
 		}
 	}
 	
@@ -134,7 +144,31 @@ public abstract class PlayerClass
 			this.skillPoints = skillPoints;
 		}
 		else{
-			this.skillPoints = 0;
+			throw new IllegalArgumentException("skill points was less than 0");
+		}
+	}
+	
+	private void setStartingProfs(int startingProfs)
+	{
+		if(startingProfs >= 1){
+			this.startingProfs = startingProfs;
+		}
+		else{
+			throw new IllegalArgumentException("startingProfs was 0 or less");
+		}
+	}
+	
+	/**
+	 * sets the maximum for weapon proficiences based on the class
+	 * @param maxWeapProf
+	 */
+	private void setMaxWeapProf(int maxWeapProf)
+	{
+		if(maxWeapProf >= 1){
+			this.maxWeapProf = maxWeapProf;
+		}
+		else{
+			throw new IllegalArgumentException("maxWeapProf as out of bounds");
 		}
 	}
 
@@ -193,18 +227,21 @@ public abstract class PlayerClass
 	}
 	
 	/**
-	 * returns a stack of attack bonus' for the combat to use, returns multiple values
+	 * returns an array of attack bonus' for the combat to use, returns multiple values
 	 * if there are multiple attacks for the person in a round
 	 * @param attack
 	 * @return attacks as Stack<Integer>
 	 */
-	public Stack<Integer> getAttacks(int[] attack)
+	public abstract int[] getAttacks();
+	
+	public int getStartingProfs()
 	{
-		Stack<Integer> attacks = new Stack<Integer>();
-		for(int i = attack.length; i > 0; i--){
-			attacks.push(attack[i]);
-		}
-		return attacks;
+		return startingProfs;
+	}
+	
+	public int getMaxWeapProf()
+	{
+		return maxWeapProf;
 	}
 	
 	/**

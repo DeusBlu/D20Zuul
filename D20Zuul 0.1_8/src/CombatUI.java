@@ -39,12 +39,15 @@ public class CombatUI
 		Entity target = null;
 		int input = 0;
 		while(target == null){
-			options.shortStatus();
+			options.shortMonsterStatus();
 			System.out.println("Monster to attack?");
 			System.out.print(">");
 			input = reader.readInt();
-			if(options.getPlayers()[input-1] != null){
+			if(options.getPlayers()[input-1] != null && !options.getPlayers()[input-1].isDead()){
 				target = options.getPlayers()[input-1];
+			}
+			else if(options.getPlayers()[input-1].isDead()){
+				System.out.println("That target is dead");
 			}
 			else{
 				System.out.println("That is not a valid target");
