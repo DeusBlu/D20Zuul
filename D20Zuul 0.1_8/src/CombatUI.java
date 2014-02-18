@@ -48,26 +48,34 @@ public class CombatUI
      */
     public boolean fight()
     {
-        boolean combatDone = false;
-        System.out.println("Enemies Encountered!\n");
-        printStatus();
+    	printEncounter();
+        printPlayers();
         int round = 1;
-        while(!combatDone){
+        while(!players.isDefeated() && !monsters.isDefeated()){
         	System.out.println("Round "+round+"!\n");
+        	round++;
+        	reader.readString();
+            Console.clearConsole();
         	encounter.setInitiative();
         	Entity turn = new Entity();
-        	while(turn != null){
+        	while(!encounter.initEmpty() && !players.isDefeated() 
+        			&& !monsters.isDefeated()){
         		turn = encounter.getNextTurn();
         		if(turn != null){
         			takeTurn(turn);
         		}
         	}
-        	if(players.isDefeated() || monsters.isDefeated()){
-        		combatDone = true;
-        	}
-        	round++;
         }
         return finishCombat();
+    }
+    
+    private void printEncounter()
+    {
+        System.out.println("Enemies Encountered!\n");
+        System.out.println("You see before you "+monsters.getNumberPlayers()+" creatures");
+        monsters.shortStatus();
+        reader.readString();
+        Console.clearConsole();
     }
     
     /**
@@ -110,15 +118,16 @@ public class CombatUI
             printHelp();
         }
         else if (commandWord.equals("status")){
-            printStatus();
+            printMonsters();
+            printPlayers();
         }
         else if (commandWord.equals("equip")){
-        	new EquipUI(player.getGear(), player.getBackpack());
-            turnDone = true;
+        	EquipUI equip = new EquipUI(player.getGear(), player.getBackpack());
+            turnDone = equip.equipUI();
         }
         else if (commandWord.equals("item")){
-        	new ItemUI(player.getBackpack(), players, monsters);
-        	turnDone = true;
+        	ItemUI useItem = new ItemUI(player.getBackpack(), players, monsters);
+        	turnDone = useItem.useItem();
         }
         else if (commandWord.equals("attack")){
         	attack(player, getTarget());
@@ -166,15 +175,20 @@ public class CombatUI
     /**
      * prints the status of the battle
      */
-    private void printStatus()
+    private void printMonsters()
     {
         System.out.println("Remaining Monsters:");
         System.out.println("-------------------------------");
         monsters.shortStatus();
         System.out.println();
+    }
+    
+    private void printPlayers()
+    {
         System.out.println("Party Status:");
         System.out.println("-------------------------------");
         players.shortStatus();
+        System.out.println();
     }
 	
 	/**
@@ -190,12 +204,14 @@ public class CombatUI
 			System.out.println("Monster to attack?");
 			System.out.print("#> ");
 			input = reader.readInt();
-			if(monsters.getPlayers()[input-1] != null && 
-					!monsters.getPlayers()[input-1].isDead()){
-				target = monsters.getPlayers()[input-1];
-			}
-			else if(monsters.getPlayers()[input-1].isDead()){
-				System.out.println("That target is dead");
+			if(input-1 >= 0 && input-1 < monsters.getPlayers().length && 
+					monsters.getPlayers()[input-1] != null){
+				if(!monsters.getPlayers()[input-1].isDead()){
+					target = monsters.getPlayers()[input-1];
+				}
+				else if(monsters.getPlayers()[input-1].isDead()){
+					System.out.println("That target is dead");
+				}
 			}
 			else{
 				System.out.println("That is not a valid target");
@@ -204,21 +220,30 @@ public class CombatUI
 		return target;
 	}
 	
-	public void printCrit(Entity attacker, Entity target, int damage)
+	private void printCrit(Entity attacker, Entity target, int damage)
 	{
+		System.out.println(attacker.getName()+" rolls "+encounter.getRoll());
 		System.out.println(attacker.getName()+" crits "+target.getName()
 				+" for "+damage+" damage!!");
+		reader.readString();
+        Console.clearConsole();
 	}
 	
-	public void printHit(Entity attacker, Entity target, int damage)
+	private void printHit(Entity attacker, Entity target, int damage)
 	{
+		System.out.println(attacker.getName()+" rolls "+encounter.getRoll());
 		System.out.println(attacker.getName()+" hits "+target.getName()
 				+" for "+damage+" damage!!");
+		reader.readString();
+        Console.clearConsole();
 	}
 	
-	public void printMiss(Entity attacker, Entity target)
+	private void printMiss(Entity attacker, Entity target)
 	{
+		System.out.println(attacker.getName()+" rolls "+encounter.getRoll());
 		System.out.println(attacker.getName()+" missed "+target.getName());
+		reader.readString();
+        Console.clearConsole();
 	}
 	
 	private void attack(Entity player, Entity target)
@@ -238,6 +263,8 @@ public class CombatUI
     	if(target.isDead()){
     		System.out.println(target.getName() + 
     				" has been defeated!");
+    		reader.readString();
+            Console.clearConsole();
     	}
 	}
 	

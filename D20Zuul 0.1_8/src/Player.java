@@ -127,8 +127,7 @@ public class Player extends Entity
 	 */
 	public void setHP()
 	{
-		DiceSet hpDice = new DiceSet(1, playerClass.getHpDie(), getStatMod("con"));
-		int startHP = hpDice.getRoll();
+		int startHP = playerClass.getHpDie() + getStatMod("con");
 		if(startHP > 0){
 			super.setHP(startHP);
 		}

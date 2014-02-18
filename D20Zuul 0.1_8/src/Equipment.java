@@ -103,6 +103,16 @@ public class Equipment
         return hasGear;
     }
     
+    public boolean hasWeapon()
+    {
+    	if(hasGear("Both Hands") || hasGear("Main Hand")){
+    		return true;
+    	}
+    	else{
+    		return false;
+    	}
+    }
+    
     /**
      * takes a String and searches for gear corresponding to the equip local and returns the item
      * @return Item

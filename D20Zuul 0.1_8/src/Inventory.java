@@ -67,6 +67,17 @@ public class Inventory
         }
     }
     
+    public boolean isEmpty()
+    {
+    	boolean empty = true;
+    	for(int i = 0; i < backpack.length; i++){
+    		if(backpack[i] != null){
+    			empty = false;
+    		}
+    	}
+    	return empty;
+    }
+    
     /**
      * shows the details of the item at requested bag index
      * @param int - the item #

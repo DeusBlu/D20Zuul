@@ -63,6 +63,9 @@ public class Combat
     private int hit(Entity player, Entity opponent)
     {
         int delt = player.getDamage();
+        if(delt <= 0){
+        	delt = 1;
+        }
         opponent.takeDamage(delt);
         return delt;
     }

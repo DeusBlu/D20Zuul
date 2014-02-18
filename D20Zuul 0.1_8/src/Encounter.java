@@ -61,26 +61,62 @@ public class Encounter
         }
     }
     
+    /**
+     * sets the initiative on all of the player objects
+     */
     public void setInitiative()
     {
     	turnOrder = initiative.pcInit(players, monsters);
     }
     
-    public Entity getNextTurn()
+    /**
+     * returns the current combat roll as an int
+     * @return combat roll as int
+     */
+    public int getRoll()
     {
-    	if(!turnOrder.empty()){
-    		if(!turnOrder.peek().isDead()){
-    			return turnOrder.pop();
-    		}
-    		else{
-    			return null;
-    		}
+    	return combat.getRoll();
+    }
+    
+    /**
+     * returns true if the initiative stack is empty
+     * @return true if stack empty
+     */
+    public boolean initEmpty()
+    {
+    	if(turnOrder.empty()){
+    		return true;
     	}
     	else{
-    		return null;
+    		return false;
     	}
     }
     
+    /**
+     * returns the next Entity in the stack of turn orders returns null
+     * if there is no next or the next is dead
+     * @return Entity for next turn
+     */
+    public Entity getNextTurn()
+    {
+    	Entity nextTurn = null;
+    	if(!turnOrder.empty()){
+    		if(!turnOrder.peek().isDead()){
+    			nextTurn = turnOrder.pop();
+    		}
+    		else{
+    			turnOrder.pop();
+    		}
+    	}
+    	return nextTurn;
+    }
+    
+    /**
+     * checks to see if the entity successfully hit the target
+     * @param player
+     * @param target
+     * @return
+     */
     public boolean successHit(Entity player, Entity target)
     {
     	int roll = combat.setRoll();

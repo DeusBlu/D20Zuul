@@ -28,7 +28,6 @@ public class ItemUI
 		setMonsters(monsters);
 		item = null;
 		target = null;
-		useItem();
 	}
 	
 	private void setBackpack(Inventory backpack)
@@ -61,60 +60,114 @@ public class ItemUI
 		}
 	}
 	
-	public void useItem()
+	public boolean useItem()
 	{
-		while(item == null){
-			item = getItem();
+		int input = 1;
+		while(item == null && !backpack.isEmpty()){
+			input = getItem();
+			if(input >= 0){
+				item = (MagicDevice)backpack.removeItem(input);
+			}
+			if(input == -1){
+				System.out.println("Exiting use item");
+				break;
+			}
 		}
-		Entity target = null;
-		while(target == null){
+		while(target == null && item != null){
 			if(item.isOffensive()){
-				monsters.shortStatus();
-				target = getTarget(players);
+				input = getTarget(monsters);
+				if(input >= 0){
+					target = monsters.getPlayers()[input];
+				}
 			}
 			else{
-				players.shortStatus();
-				target = getTarget(monsters);
+				input = getTarget(players);
+				if(input >= 0){
+					target = players.getPlayers()[input];
+				}
 			}
-		}
-		boolean confirm = confirm();
-		if(confirm){
-			boolean spent = item.use(target);
-			if(!spent){
+			if(input == -1){
+				System.out.println("Exiting use item");
 				backpack.lootItem(item);
+				break;
 			}
-			use();
 		}
+		if(item != null && target != null){
+			boolean confirm = confirm();
+			if(confirm){
+				boolean spent = item.use(target);
+				if(!spent){
+					backpack.lootItem(item);
+				}
+				use();
+				return true;
+			}
+		}
+		if(backpack.isEmpty()){
+			System.out.println("Your inventory is empty");
+		}
+		return false;
 	}
 	
-	private MagicDevice getItem()
+	private int getItem()
 	{
 		int input = 0;
 		item = null;
 		while(input == 0){
 			backpack.showBag();
-			System.out.println("Use which item?");
+			System.out.println("Use which item, use -1 to escape?");
 			System.out.print("#> ");
 			input = reader.readInt();
-			if(backpack.getItem(input-1) != null && backpack.getItem(input-1) instanceof MagicDevice){
-				return item = (MagicDevice)backpack.removeItem(input-1);
+			if(input == -1){
+				return -1;
+			}
+			else if(input <= 0){
+				System.out.println("Invalid Item");
+				input = 0;
+			}
+			else if(input-1 > backpack.length()){
+				System.out.println("Invalid Item");
+				input = 0;
+			}
+			else if(backpack.getItem(input-1) == null){
+				System.out.println("Invalid Item");
+				input = 0;
+			}
+			else if(backpack.getItem(input-1) != null && backpack.getItem(input-1) instanceof MagicDevice){
+				return input-1;
 			}
 		}
-		return null;
+		return -1;
 	}
 	
-	private Entity getTarget(Party targets)
+	private int getTarget(Party targets)
 	{
 		int input = 0;
 		while(input == 0){
-			System.out.println("Use on who?");
+			targets.shortStatus();
+			System.out.println("Use on who, use -1 to escape?");
 			System.out.print("#> ");
 			input = reader.readInt();
-			if(targets.getPlayers()[input-1] != null){
-				target = targets.getPlayers()[input-1];
+			if(input == -1){
+				return -1;
+			}
+			else if(input <= 0){
+				System.out.println("Invalid Target");
+				input = 0;
+			}
+			else if(input-1 > targets.getPlayers().length){
+				System.out.println("Invalid Target");
+				input = 0;
+			}
+			else if(targets.getPlayers()[input-1] == null){
+				System.out.println("Invalid Target");
+				input = 0;
+			}
+			else if(targets.getPlayers()[input-1] != null){
+				return input-1;
 			}
 		}
-		return target;
+		return -1;
 	}
 	
 	private boolean confirm()

@@ -315,6 +315,9 @@ public class Entity
 	
 	public int getCritMod()
 	{
+		if(!gear.hasWeapon()){
+			return 2;
+		}
 		return getGear().getCritMod();
 	}
 

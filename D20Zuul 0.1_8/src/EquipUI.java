@@ -37,7 +37,6 @@ public class EquipUI
 		setEquip(equipment);
 		setInventory(inventory);
 		wasEquipped = new Inventory();
-		equipUI();
 	}
 	
 	/**
@@ -71,8 +70,9 @@ public class EquipUI
 	/**
 	 * the main interface for equiping a character
 	 */
-	private void equipUI()
+	public boolean equipUI()
 	{
+		boolean itemEquipped = false;
 		boolean finished = false;
 		int input = 0;
 		while(!finished){
@@ -86,15 +86,19 @@ public class EquipUI
 					toEquip = backpack.removeGear(input-1);
 					if(toEquip.getType().equals("2hweapon")){
 						equip2H();
+						itemEquipped = true;
 					}
 					else if(toEquip.getType().equals("1hweapon")){
 						equipWeapon(weaponEquip());
+						itemEquipped = true;
 					}
 					else if(toEquip.getType().equals("mhweapon")){
 						equipWeapon("Main Hand");
+						itemEquipped = true;
 					}
 					else{
 						equipGear();
+						itemEquipped = true;
 					}
 				}
 			}
@@ -103,6 +107,7 @@ public class EquipUI
 			backpack.sort();
 			finished = equipAgain();
 		}
+		return itemEquipped;
 	}
 	
 	/**
