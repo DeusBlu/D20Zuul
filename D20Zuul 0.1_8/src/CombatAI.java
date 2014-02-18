@@ -35,7 +35,8 @@ public class CombatAI
 		Entity toAttack = null;
 		int lowestHP = Integer.MAX_VALUE;
 		for(int i = 0; i < players.getPlayers().length; i++){
-			if(players.getPlayers()[i].getCurrentHP() < lowestHP){
+			if(players.getPlayers()[i].getCurrentHP() < lowestHP 
+					&& !players.getPlayers()[i].isDead()){
 				toAttack = players.getPlayers()[i];
 				lowestHP = players.getPlayers()[i].getCurrentHP();
 			}

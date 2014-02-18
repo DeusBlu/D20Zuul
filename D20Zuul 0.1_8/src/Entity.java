@@ -312,6 +312,11 @@ public class Entity
 			return gear.getDamage() + getStatMod("Str");
 		}
 	}
+	
+	public int getCritMod()
+	{
+		return getGear().getCritMod();
+	}
 
 
 	/**

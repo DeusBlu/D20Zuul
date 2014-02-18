@@ -12,9 +12,9 @@ public class TestEquipUI
 	{
 	    Inventory inventory = new Inventory();
 	    Equipment equipment = new Equipment();
-	    ThAxe battleaxe5 = new ThAxe(10.0, 4000, "Battle Axe +5", 2, 10, 0, 0, 5, 5, "none", 0);
-	    MainHand longSword = new MhSword(5.0, 2000, "Long Sword", 1, 10, 0, 0, 0, 0, "none", 0);
-	    OhSword shortSword = new OhSword(1.5, 600, "Short Sword", 1, 6, 0, 0, 0, 0, "none", 0);
+	    ThAxe battleaxe5 = new ThAxe(10.0, 4000, "Battle Axe +5", 2, 10, 0, 2, 0, 5, 5, "none", 0);
+	    MainHand longSword = new MhSword(5.0, 2000, "Long Sword", 1, 10, 0, 2, 0, 0, 0, "none", 0);
+	    OhSword shortSword = new OhSword(1.5, 600, "Short Sword", 1, 6, 0, 2, 0, 0, 0, "none", 0);
 	    Helm skullCap = new Helm(1.0, 500, "Skullcap", 0, 0, 0, 1, 0, 0, "none", 0);
 	    Shoulders spikedShoulder = new Shoulders(3.8, 700, "Spiked Shoulders", 0, 0, 1, 3, 0, 0, "none", 0);
 	    Chest chainmail = new Chest(10.0, 8000, "Chainmail", 0, 0, 0, 5, 0, 0, "none", 0);

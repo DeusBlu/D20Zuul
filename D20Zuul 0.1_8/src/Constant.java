@@ -31,7 +31,7 @@ public class Constant
 	public static final String[] ITEMTYPE = {
 		"2hweapon", "mhweapon", "1hweapon", "shield", 
 		"helm", "shoulders", "chest", "gloves", 
-		"pants", "boots","misc", "key"
+		"pants", "boots", "misc", "key", "potion"
 	};
 	public static final String[] ARMOR_FEAT = {
 		"light", "medium", "heavy"

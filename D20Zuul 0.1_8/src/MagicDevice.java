@@ -28,9 +28,9 @@ public abstract class MagicDevice extends Item {
 	 * @param effect
 	 * @param effectValue
 	 */
-	public MagicDevice(double weight, int value, String name, int charges,int damDice, int damDie, int damMod, boolean offensive) 
+	public MagicDevice(double weight, int value, String name, int charges,int damDice, int damDie, int damMod, boolean offensive, String type) 
 	{
-		super(weight, value, name);
+		super(weight, value, type, name);
 		setCharges(charges);
 		setOffensive(offensive);
 		setEffectValue(damDice, damDie, damMod);

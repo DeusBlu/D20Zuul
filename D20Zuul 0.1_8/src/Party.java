@@ -102,37 +102,33 @@ public class Party
     /**
      * prints the status of the party in short form
      */
-    public void shortMonsterStatus()
+    public void shortStatus()
     {
         for(int i = 0; i < players.length; i++){
             if(players[i] != null){
-            	if(players[i].isDead()){
-            		System.out.print("<Defeated>");
-                }
-            	else{
-                    System.out.print("#" + (i+1) + ":  Name: " + players[i].getName());
+            	if(!players[i].isDead()){
+            		printStatus(players[i], i);
             	}
-                System.out.println();
+            	else if(players[i] instanceof Player){
+            		printStatus(players[i], i);
+            	}
             }
         }
-    }/**
-     * prints the status of the party in short form
-     */
-    public void shortPartyStatus()
+    }
+    
+    private void printStatus(Entity player, int i)
     {
-        for(int i = 0; i < players.length; i++){
-            if(players[i] != null){
-                System.out.print("#"+(i+1)+":  Name: "+players[i].getName());
-                if(players[i].getName().length() <= 4){
-                	System.out.print("\t\t");
-                }
-                else if(players[i].getName().length() > 4){
-                	System.out.print("\t");
-                }
-                System.out.print("HP: "+players[i].getCurrentHP()+"/"+players[i].getMaxHP());
-            }
-            System.out.println();
-        }
+    	System.out.print("#"+(i+1)+":  Name: "+player.getName());
+		if(player.getName().length() <= 4){
+			System.out.print("\t\t");
+		}
+		else if(player.getName().length() > 4){
+			System.out.print("\t");
+		}
+		if(player instanceof Player){
+			System.out.print("HP: "+player.getCurrentHP()+"/"+player.getMaxHP());
+		}
+		System.out.println();
     }
     
     /**

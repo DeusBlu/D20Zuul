@@ -32,18 +32,16 @@ public abstract class OneHand extends Weapon {
 				   int dice, 
 				   int sides, 
 				   int plus, 
+				   int critMod,
 				   int defense, 
 				   int damageMod, 
 				   int hitMod, 
 				   String statToMod, 
 				   int statMod, 
 				   String weapProf) {
-		super(weight, value, 
-			  name, dice, 
-			  sides, plus, 
-			  defense, damageMod,
-			  hitMod, statToMod, 
-			  statMod, "1hweapon", weapProf);
+		super(weight, value, name, dice, sides, plus, critMod,
+			  defense, damageMod, hitMod, statToMod, statMod, 
+			  "1hweapon", weapProf);
 		sendEquipSpots();
 	}
 	/**

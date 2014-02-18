@@ -163,16 +163,6 @@ public class Player extends Entity
 	}
 	
 	/**
-	 * opens the useItem UI during combat
-	 * @param players
-	 * @param monsters
-	 */
-	public void useItem(Party players, Party monsters)
-	{
-		new ItemUI(getBackpack(), players, monsters);
-	}
-	
-	/**
 	 * adds XP to the player
 	 * @param earnedXP
 	 */

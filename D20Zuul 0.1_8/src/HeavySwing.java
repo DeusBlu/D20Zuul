@@ -31,6 +31,11 @@ public class HeavySwing extends SwordAbility
 		return (getRank()/2)+1;
 	}
 	
+	private int getHitMod()
+	{
+		return (getRank()-6);
+	}
+	
 	/**
 	 * sets the description so it can be updated easily
 	 */
@@ -40,13 +45,14 @@ public class HeavySwing extends SwordAbility
 	}
 
 	@Override
-	public Stack<Integer> use(Stack<Integer> attacks, Player player, Entity target) 
+	public int use(Stack<Integer> attacks, Player player, Entity target) 
 	{
+		int damage = player.getDamage() + getDmgMod();
 		int roll = die.roll(1, 20);
-		if(attacks.pop() + roll + getRank() - 6 > target.getArmor()){
-			target.takeDamage(player.getDamage() + getDmgMod());
+		if(attacks.pop() + roll + getHitMod() > target.getArmor()){
+			target.takeDamage(damage);
 		}
-		return attacks;
+		return damage;
 	}
 
 	@Override

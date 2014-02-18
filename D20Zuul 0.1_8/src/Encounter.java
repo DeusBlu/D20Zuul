@@ -9,24 +9,20 @@ import java.util.Stack;
 public class Encounter
 {
     private Party players;
-    private Party opponents;
+    private Party monsters;
     private Combat combat;
-    private Parser parser;
-    private Stack<Entity> initiative;
-    private CombatAI ai;
-    private CombatUI ui;
+    private Stack<Entity> turnOrder;
+    private Initiative initiative;
     /**
      * default constructor for class Encounter
      */
     public Encounter()
     {
         players = new Party();
-        opponents = new Party();
+        monsters = new Party();
         combat = new Combat();
-        parser = new Parser();
-        initiative = new Stack<Entity>();
-        ai = new CombatAI();
-        ui = new CombatUI();
+        turnOrder = new Stack<Entity>();
+        initiative = new Initiative();
     }
     
     /**
@@ -34,110 +30,13 @@ public class Encounter
      * @param Party - the players party
      * @param Party - the part of monsters to fight
      */
-    public Encounter(Party players, Party opponents)
+    public Encounter(Party players, Party monsters)
     {
         setPlayers(players);
-        setMonsters(opponents);
+        setMonsters(monsters);
         combat = new Combat();
-        parser = new Parser();
-        initiative = new Stack<Entity>();
-        ai = new CombatAI(players);
-        ui = new CombatUI(opponents);
-    }
-    
-    /**
-     * the main combat method
-     */
-    public void fight()
-    {
-        boolean combatDone = false;
-        System.out.println("Enemies Encountered!");
-        printStatus();
-        int round = 1;
-        while(!combatDone){
-        	System.out.println("Round " + round + "!");
-        	initiative = new Initiative().pcInit(players, opponents);
-        	while(!initiative.isEmpty()){
-        		if(initiative.peek().isDead()){
-        			initiative.pop();
-        		}
-        		else{
-        			if(!players.isDefeated() && !opponents.isDefeated()){
-        				takeTurn(initiative.pop());
-        			}
-        			else{
-        				initiative.clear();
-        			}
-        		}
-        	}
-        	if(players.isDefeated() || opponents.isDefeated()){
-        		combatDone = true;
-        	}
-        	round++;
-        }
-        finishCombat();
-    }
-    
-    /**
-     * makes the entity take turn
-     * @param takingTurn
-     */
-    private void takeTurn(Entity takingTurn)
-    {
-    	System.out.println(takingTurn.getName() + "'s turn");
-    	if(takingTurn instanceof Player){
-    		boolean turnDone = false;
-    		while(!turnDone){
-    			System.out.println("What do you do?");
-    			Command command = parser.combatCommand();
-    			turnDone = processCommand(command, ((Player)takingTurn));
-    		}
-    	}
-    	else{
-    		combat.attack(takingTurn, ai.attackWho());
-    	}
-    }
-    
-    /**
-     * Given a command, process (that is: execute) the command.
-     * @param command The command to be processed.
-     * @return true If the command ends the game, false otherwise.
-     */
-    private boolean processCommand(Command command, Player player) 
-    {
-    	boolean turnDone = false;
-        while(command.isUnknown()) {
-            System.out.println("I don't know what you mean...");
-            command = parser.combatCommand();
-        }
-        
-        String commandWord = command.getCommandWord();
-        if (commandWord.equals("help")){
-            printHelp();
-        }
-        else if (commandWord.equals("status")){
-            printStatus();
-        }
-        else if (commandWord.equals("equip")){
-        	player.equip();
-            turnDone = true;
-        }
-        else if (commandWord.equals("item")){
-        	player.useItem(players, opponents);
-        	turnDone = true;
-        }
-        else if (commandWord.equals("attack")){
-        	Entity target = ui.getTarget();
-        	combat.attack(player, target);
-        	if(target.isDead()){
-        		System.out.println(target.getName() + " has been defeated!");
-        	}
-            turnDone = true;
-        }
-        else if(commandWord.equals("run")){
-            turnDone = true;
-        }
-        return turnDone;
+        turnOrder = new Stack<Entity>();
+        initiative = new Initiative();
     }
     
     /**
@@ -158,56 +57,81 @@ public class Encounter
     private void setMonsters(Party party)
     {
         if(party != null && !party.isEmpty()){
-            opponents = party;
+            monsters = party;
         }
     }
     
-    private void finishCombat()
+    public void setInitiative()
     {
-		System.out.println();
-    	if(opponents.isDefeated()){
-    		System.out.println("You have won!");
-    		int earnedXP = 0;
-    		for(int i = 0; i < opponents.getPlayers().length; i++){
-    			if(opponents.getPlayers()[i] instanceof Creature){
-    				Creature defeated = ((Creature)opponents.getPlayers()[i]);
-    				earnedXP += defeated.getXpValue();
-    			}
+    	turnOrder = initiative.pcInit(players, monsters);
+    }
+    
+    public Entity getNextTurn()
+    {
+    	if(!turnOrder.empty()){
+    		if(!turnOrder.peek().isDead()){
+    			return turnOrder.pop();
     		}
-    		for(int i = 0; i < players.getPlayers().length; i++){
-    			if(players.getPlayers()[i] instanceof Player){
-    				Player player = ((Player)players.getPlayers()[i]);
-    				if(!player.isDead()){
-    					System.out.println(player.getName() + " earned " + earnedXP + "xp");
-    					((Player)players.getPlayers()[i]).addXP(earnedXP);
-    				}
-    			}
+    		else{
+    			return null;
     		}
+    	}
+    	else{
+    		return null;
     	}
     }
     
-    /**
-     * prints the help menu for combat
-     */
-    private void printHelp()
+    public boolean successHit(Entity player, Entity target)
     {
-        System.out.println("Combat Commands: ");
-        for(int i = 0; i < CombatCommands.validCommands.length; i++){
-        	System.out.println(CombatCommands.validCommands[i]+" ");
-        }
+    	int roll = combat.setRoll();
+    	if(roll == 20){
+    		return true;
+    	}
+    	else if(roll == 1){
+    		return false;
+    	}
+    	else if(player.getMeleeAttackMod() + roll > target.getArmor()){
+    		return true;
+    	}
+    	else{
+    		return false;
+    	}
     }
     
-    /**
-     * prints the status of the battle
-     */
-    private void printStatus()
+    public int attack(Entity player, Entity target)
     {
-        System.out.println("Remaining Monsters:");
-        System.out.println("-------------------------------");
-        opponents.shortMonsterStatus();
-        System.out.println();
-        System.out.println("Party Status:");
-        System.out.println("-------------------------------");
-        players.shortPartyStatus();
+    	return combat.attack(player, target);
     }
+    
+    public boolean critHit()
+    {
+    	if(combat.getRoll() == 20){
+    		return true;
+    	}
+    	else{
+    		return false;
+    	}
+    }
+	
+	public int finishCombat()
+	{
+		int exp = 0;
+		if(!players.isDefeated()){
+			Entity[] defeated = monsters.getPlayers();
+			for(int i = 0; i < defeated.length; i++){
+				if(defeated[i] != null){
+					exp += ((Creature)defeated[i]).getXpValue();
+				}
+			}
+			Entity[] victor = players.getPlayers();
+			for(int i = 0; i < victor.length; i++){
+				if(!victor[i].isDead()){
+					if(victor[i] != null){
+						((Player)victor[i]).addXP(exp);
+					}
+				}
+			}
+		}
+		return exp;
+	}
 }

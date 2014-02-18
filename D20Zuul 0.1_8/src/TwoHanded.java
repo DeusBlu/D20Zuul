@@ -32,13 +32,14 @@ public abstract class TwoHanded extends Weapon {
 					 int dice, 
 					 int sides, 
 					 int plus, 
+					 int critMod,
 					 int defense, 
 					 int damageMod, 
 					 int hitMod, 
 					 String statToMod, 
 					 int statMod, 
 					 String weapProf) {
-		super(weight, value, name, dice, sides, plus, 
+		super(weight, value, name, dice, sides, plus, critMod,
 				defense, damageMod, hitMod, statToMod, 
 				statMod, "2hweapon", weapProf);
 		sendEquipSpots();

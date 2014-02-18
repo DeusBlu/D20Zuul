@@ -19,7 +19,7 @@ public abstract class Item
     {
     	setWeight(0);
     	setValue(0);
-    	setType();
+    	setType("misc");
     	setName("unknownItem");
     }
     
@@ -30,11 +30,11 @@ public abstract class Item
      * @param String - the item type
      * @param String - the name of the item
      */
-    public Item(double weight, int value, String name)
+    public Item(double weight, int value, String type, String name)
     {
     	setWeight(weight);
     	setValue(value);
-    	setType();
+    	setType(type);
     	setName(name);
     }
     
@@ -65,15 +65,24 @@ public abstract class Item
     		this.value = 0;
     	}    	
     }
-    
-    /**
-     * sets the item type
-     * @param String type
-     */
-    private void setType()
-    {
-    	this.type = "misc";
-    }
+	
+	/**
+	 * sets the type of gear this item is passed from child Class
+	 * @param String
+	 */
+	public void setType(String type)
+	{
+		boolean set = false;
+		for(int i = 0; i < Constant.ITEMTYPE.length; i++){
+			if(Constant.ITEMTYPE[i].equals(type)){
+				this.type = type;
+				set = true;
+			}
+		}
+		if(!set){
+			throw new IllegalArgumentException(getName()+" type was unrecognized");
+		}
+	}
     
     /**
      * set the item name

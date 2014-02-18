@@ -225,4 +225,17 @@ public class Equipment
     	}
     	return statMod;
     }
+    
+    public int getCritMod()
+    {
+    	for(String gearSpot : equipment.keySet()){
+    		Gear weapon = equipment.get(gearSpot);
+    		if(weapon instanceof Weapon){
+    			if(!weapon.getEquipString().equals("Off Hand")){
+    				return ((Weapon)weapon).getCritMod();
+    			}
+    		}
+    	}
+    	return 0;
+    }
 }

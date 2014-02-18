@@ -68,10 +68,13 @@ public class ItemUI
 		}
 		Entity target = null;
 		while(target == null){
-			if(item.isOffensive())
-				target = getMonster();
+			if(item.isOffensive()){
+				monsters.shortStatus();
+				target = getTarget(players);
+			}
 			else{
-				target = getPlayer();
+				players.shortStatus();
+				target = getTarget(monsters);
 			}
 		}
 		boolean confirm = confirm();
@@ -100,31 +103,15 @@ public class ItemUI
 		return null;
 	}
 	
-	private Entity getPlayer()
+	private Entity getTarget(Party targets)
 	{
 		int input = 0;
 		while(input == 0){
-			players.shortPartyStatus();
 			System.out.println("Use on who?");
 			System.out.print("#> ");
 			input = reader.readInt();
-			if(players.getPlayers()[input-1] != null){
-				target = players.getPlayers()[input-1];
-			}
-		}
-		return target;
-	}
-	
-	private Entity getMonster()
-	{
-		int input = 0;
-		while(input == 0){
-			monsters.shortMonsterStatus();
-			System.out.println("Use on who?");
-			System.out.print("#> ");
-			input = reader.readInt();
-			if(monsters.getPlayers()[input-1] != null){
-				target = monsters.getPlayers()[input-1];
+			if(targets.getPlayers()[input-1] != null){
+				target = targets.getPlayers()[input-1];
 			}
 		}
 		return target;

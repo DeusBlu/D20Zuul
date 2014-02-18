@@ -31,7 +31,7 @@ public class Potion extends Consumable {
 				  int damDie,
 				  int damMod,
 				  boolean offensive) {
-		super(weight, value, name, charges, description, damDice, damDie, damMod, offensive);
+		super(weight, value, name, charges, description, damDice, damDie, damMod, offensive, "potion");
 		
 	}
 

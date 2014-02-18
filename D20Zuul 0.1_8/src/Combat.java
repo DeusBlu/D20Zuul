@@ -6,6 +6,7 @@
  */
 public class Combat
 {
+	private int roll;
     private Dice dice;
     
     /**
@@ -13,48 +14,56 @@ public class Combat
      */
     public Combat()
     {
+    	roll = 0;
         dice = new Dice();
+    }
+    
+    public int setRoll()
+    {
+    	roll = dice.roll(1, 20);
+    	return roll;
+    }
+    
+    public int getRoll()
+    {
+    	return roll;
     }
     
     /**
      * makes the object player melee attack the object opponent
      */
-    public void attack(Entity player, Entity opponent)
+    public int attack(Entity player, Entity monster)
     {
-        int roll = dice.roll(1, 20);
-        roll++;
         if(roll == 20){
-            hit(player, opponent);
-        }
-        else if(roll == 1){
-            miss(player, opponent);
+        	return crit(player, monster);
         }
         else{
-            if(roll + player.getMeleeAttackMod() > opponent.getArmor()){
-                hit(player, opponent);
-            }
-            else{
-                miss(player, opponent);
+            if(roll + player.getMeleeAttackMod()
+            		> monster.getArmor()){
+              return hit(player, monster);
             }
         }
+        return 0;
     }
     
     /**
      * makes the object player damage the object opponent
      */
-    private void hit(Entity player, Entity opponent)
+    private int crit(Entity player, Entity opponent)
     {
         int delt = player.getDamage();
-        System.out.println(player.getName() + " hit " + opponent.getName());
-        System.out.println(opponent.getName() + " takes " + delt + " damage!");
-        opponent.takeDamage(delt);
+        int crit = player.getCritMod();
+        opponent.takeDamage(delt*crit);
+        return delt*crit;
     }
     
     /**
      * makes the player object swing and miss
      */
-    private void miss(Entity player, Entity opponent)
+    private int hit(Entity player, Entity opponent)
     {
-        System.out.println(player.getName() + " missed " + opponent.getName());
+        int delt = player.getDamage();
+        opponent.takeDamage(delt);
+        return delt;
     }
 }

@@ -46,7 +46,7 @@ public abstract class FighterAbility extends Ability
 	 * @param target
 	 * @return Stack<Integer> the remaining attacks of the player
 	 */
-	public abstract Stack<Integer> use(Stack<Integer> attacks, 
+	public abstract int use(Stack<Integer> attacks, 
 								Player player, Entity target);
 	
 	/**

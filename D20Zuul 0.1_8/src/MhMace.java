@@ -28,17 +28,18 @@ public class MhMace extends MainHand {
 	 * @param weapProf
 	 */
 	public MhMace(double weight, 
-				 int value, 
-				 String name, 
-				 int dice, 
-				 int sides,
-				 int plus, 
-				 int defense, 
-				 int damageMod, 
-				 int hitMod, 
-				 String statToMod,
-				 int statMod) {
-		super(weight, value, name, dice, sides, plus, defense, damageMod,
+			 int value, 
+			 String name, 
+			 int dice, 
+			 int sides,
+			 int plus, 
+			 int critMod,
+			 int defense, 
+			 int damageMod, 
+			 int hitMod, 
+			 String statToMod,
+			 int statMod) {
+	super(weight, value, name, dice, sides, plus, critMod, defense, damageMod,
 				hitMod, statToMod, statMod, "Mace");
 	}
 

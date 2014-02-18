@@ -4,7 +4,7 @@ public class TestInitiative {
 	public static void main(String[] args) 
 	{
 		Player deus = new Player("Deus", 18, 11, 11, 11, 11, 11, 19, "fighter");
-		MhSword longSword = new MhSword(5.0, 2000, "Long Sword", 1, 10, 0, 0, 0, 0, "none", 0);
+		MhSword longSword = new MhSword(5.0, 2000, "Long Sword", 1, 10, 0, 2, 0, 0, 0, "none", 0);
 		deus.equip("Main Hand", longSword);
 		Player rush = new Player("Rush", 18, 11, 11, 11, 11, 11, 19, "fighter");
 		Player muru = new Player("Murutang", 18, 11, 11, 11, 11, 11, 19, "fighter");
@@ -21,9 +21,9 @@ public class TestInitiative {
 		Creature gob3 = new Creature("Goblin C", 8, 8, 8, 8, 8, 8, 3, 1, 6, 0, 0, 0, 1, 2, 0, 35, 0);
 		Creature gob4 = new Creature("Goblin D", 8, 8, 8, 8, 8, 8, 3, 1, 6, 0, 0, 0, 1, 2, 0, 35, 0);
 		Party monParty = new Party();
-		ThAxe greataxe5 = new ThAxe(6.0, 5002000, "Greataxe +5", 1, 12, 0, 0, 5, 5, "none", 0);
-	    MhSword longSword2 = new MhSword(5.0, 2000, "Long Sword", 1, 10, 0, 0, 0, 0, "none", 0);
-	    OhSword shortSword = new OhSword(1.5, 600, "Short Sword", 1, 6, 0, 0, 0, 0, "none", 0);
+		ThAxe greataxe5 = new ThAxe(6.0, 5002000, "Greataxe +5", 1, 12, 0, 2, 0, 5, 5, "none", 0);
+	    MhSword longSword2 = new MhSword(5.0, 2000, "Long Sword", 1, 10, 0, 2, 0, 0, 0, "none", 0);
+	    OhSword shortSword = new OhSword(1.5, 600, "Short Sword", 1, 6, 0, 2, 0, 0, 0, "none", 0);
 	    Helm skullCap = new Helm(1.0, 500, "Skullcap", 0, 0, 0, 1, 0, 0, "none", 0);
 	    Shoulders spikedShoulder = new Shoulders(3.8, 700, "Spiked Shoulders", 0, 0, 1, 3, 0, 0, "none", 0);
 	    Chest chainmail = new Chest(10.0, 8000, "Chainmail", 0, 0, 0, 5, 0, 0, "none", 0);
@@ -45,7 +45,7 @@ public class TestInitiative {
 		monParty.join(gob2);
 		monParty.join(gob3);
 		monParty.join(gob4);
-		Encounter testFight = new Encounter(pcParty, monParty);
+		CombatUI testFight = new CombatUI(pcParty, monParty);
 		testFight.fight();
 	}
 

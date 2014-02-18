@@ -37,12 +37,13 @@ public class MhAxe extends MainHand {
 				 int dice, 
 				 int sides,
 				 int plus, 
+				 int critMod,
 				 int defense, 
 				 int damageMod, 
 				 int hitMod, 
 				 String statToMod,
 				 int statMod) {
-		super(weight, value, name, dice, sides, plus, defense, damageMod,
+		super(weight, value, name, dice, sides, plus, critMod, defense, damageMod,
 				hitMod, statToMod, statMod, "Axe");
 	}
 

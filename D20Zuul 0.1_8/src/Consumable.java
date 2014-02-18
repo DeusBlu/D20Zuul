@@ -36,9 +36,10 @@ public abstract class Consumable extends MagicDevice {
 					  int damDice, 
 					  int damDie, 
 					  int damMod, 
-					  boolean offensive) 
+					  boolean offensive,
+					  String type) 
 	{
-		super(weight, value, name, charges, damDice, damDie, damMod, offensive);
+		super(weight, value, name, charges, damDice, damDie, damMod, offensive, type);
 		setDescription(description);
 		setType();
 	}

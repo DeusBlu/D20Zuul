@@ -11,7 +11,6 @@ public abstract class Gear extends Item
 	private int hitMod;
 	private String statToMod;
 	private int statMod;
-	private String type;
 	private ArrayList<String> equipSpots;
 	
 	/**
@@ -48,13 +47,12 @@ public abstract class Gear extends Item
 			    String statToMod, int statMod, 
 			    String type)
 	{
-		super(weight, value, name);
+		super(weight, value, type, name);
 		equipSpots = new ArrayList<String>();
 		setDefense(defense);
 		setDamageMod(damageMod);
 		setHitMod(hitMod);
 		setStatMod(statToMod, statMod);
-		setType(type);
 	}
 	
 	/**
@@ -109,15 +107,6 @@ public abstract class Gear extends Item
 			this.statToMod = "none";
 			this.statMod = 0;
 		}
-	}
-	
-	/**
-	 * sets the type of gear this item is passed from child Class
-	 * @param String
-	 */
-	public void setType(String type)
-	{
-		this.type = type;
 	}
 	
 	/**
@@ -180,15 +169,6 @@ public abstract class Gear extends Item
 	public int getStatMod()
 	{
 		return statMod;
-	}
-	
-	/**
-	 * returns the item type
-	 * @return String
-	 */
-	public String getType()
-	{
-		return type;
 	}
 	
     /**

@@ -7,10 +7,12 @@ public abstract class Weapon extends Gear
 {
 	private DiceSet diceSet;
 	private String weapProf;
+	private int critMod;
 
 	public Weapon() {
 		super();
 		diceSet = new DiceSet();
+		setCritMod(1);
 	}
 
 	public Weapon(double weight, 
@@ -19,17 +21,18 @@ public abstract class Weapon extends Gear
 				  int dice, 
 				  int sides, 
 				  int modifier, 
+				  int critMod, 
 				  int defense, 
-				  int damageMod, 
+				  int damageMod,
 				  int hitMod, 
 				  String statToMod, 
 				  int statMod, 
 				  String type,
 				  String weapProf) {
-		super(weight, value, name, defense, damageMod, hitMod, 
-				statToMod, statMod, type);
+		super(weight, value, name, defense, damageMod, hitMod, statToMod, statMod, type);
 		diceSet = new DiceSet(dice, sides, modifier);
 		setWeapProf(weapProf);
+		setCritMod(critMod);
 	}
 	
 	private void setWeapProf(String weapProf)
@@ -41,6 +44,16 @@ public abstract class Weapon extends Gear
 		}
 		if(this.weapProf == null){
 			throw new IllegalArgumentException("weapProf was invalid");
+		}
+	}
+	
+	private void setCritMod(int critMod)
+	{
+		if(critMod >= 0){
+			this.critMod = critMod;
+		}
+		else{
+			throw new IllegalArgumentException(getName()+" crit mod out of bounds");
 		}
 	}
 	
@@ -57,6 +70,11 @@ public abstract class Weapon extends Gear
 	public String getWeapProf()
 	{
 		return weapProf;
+	}
+	
+	public int getCritMod()
+	{
+		return critMod;
 	}
 	
 	/**
