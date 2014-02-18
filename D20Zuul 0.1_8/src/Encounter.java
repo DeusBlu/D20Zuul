@@ -112,10 +112,11 @@ public class Encounter
     }
     
     /**
-     * checks to see if the entity successfully hit the target
+     * checks to see if the entity successfully hit the target and returns
+     * true if it hit
      * @param player
      * @param target
-     * @return
+     * @return true if hit
      */
     public boolean successHit(Entity player, Entity target)
     {
