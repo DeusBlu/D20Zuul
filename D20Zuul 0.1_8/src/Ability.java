@@ -287,4 +287,16 @@ public abstract class Ability
 	 * @param target
 	 */
 	public abstract void passive(Player player, Entity target);
+	
+	/**
+	 * returns the hit modifier for the skill
+	 * @return hit mod as an int
+	 */
+	public abstract int getHitMod();
+	
+	/**
+	 * returns the damage mod for the skill
+	 * @return damage modifier as an int
+	 */
+	public abstract int getDmgMod();
 	}

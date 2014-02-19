@@ -13,7 +13,8 @@ public class CombatCommands
 {
     // a constant array that holds all valid command words
     public static final String[] validCommands = {
-        "help", "status", "equip", "attack", "run", "item"
+        "help", "status", "equip", "attack", "run", "item", 
+        "ability"
     };
 
     /**

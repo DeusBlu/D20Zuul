@@ -7,6 +7,7 @@ import java.util.Stack;
  */
 public abstract class FighterAbility extends Ability 
 {
+	private String profType;
 
 	/**
 	 * 
@@ -14,6 +15,7 @@ public abstract class FighterAbility extends Ability
 	public FighterAbility() 
 	{
 		super();
+		setProfType("Unarmed");
 	}
 
 	/**
@@ -33,10 +35,11 @@ public abstract class FighterAbility extends Ability
 						int dmgMod, 
 						boolean offensive, 
 						boolean active,
+						String profType,
 						String description) 
 	{
 		super(name, 5, dmgDice, dmgDie, dmgMod, offensive, active, "fighter", description);
-		// TODO Auto-generated constructor stub
+		setProfType(profType);
 	}
 	
 	/**
@@ -55,5 +58,33 @@ public abstract class FighterAbility extends Ability
 	 * @param target
 	 */
 	public abstract void passive(Player player, Entity target);
-
+	
+	private void setProfType(String profType)
+	{
+		for(int i = 0; i < Constant.WEAP_PROF.length; i++){
+			if(Constant.WEAP_PROF[i].equals(profType)){
+				this.profType = profType;
+			}
+		}
+		if(this.profType == null){
+			throw new IllegalArgumentException(profType+" was an unrecognized weapon prof");
+		}
+	}
+	
+	public String getProfType()
+	{
+		return profType;
+	}
+	
+	/**
+	 * returns the hit modifier for the skill
+	 * @return hit mod as an int
+	 */
+	public abstract int getHitMod();
+	
+	/**
+	 * returns the damage mod for the skill
+	 * @return damage modifier as an int
+	 */
+	public abstract int getDmgMod();
 }

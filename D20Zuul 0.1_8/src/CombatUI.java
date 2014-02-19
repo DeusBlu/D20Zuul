@@ -130,8 +130,13 @@ public class CombatUI
         	turnDone = useItem.useItem();
         }
         else if (commandWord.equals("attack")){
-        	attack(player, getTarget());
+        	Entity target = getTarget();
+        	attack(player, target);
+        	printDefeated(target);
             turnDone = true;
+        }
+        else if(commandWord.equals("ability")){
+        	AbilityUI useAbility = new AbilityUI(players, monsters, player, )
         }
         else if(commandWord.equals("run")){
             turnDone = true;
@@ -260,6 +265,10 @@ public class CombatUI
     	else{
     		printMiss(player, target);
     	}
+	}
+	
+	private void printDefeated(Entity target)
+	{
     	if(target.isDead()){
     		System.out.println(target.getName() + 
     				" has been defeated!");

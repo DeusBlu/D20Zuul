@@ -181,6 +181,21 @@ public class Equipment
     	}
     }
     
+    public Weapon getWeapon()
+    {
+    	if(hasGear("Both Hands")){
+    		Weapon weapon = (Weapon)equipment.get("Both Hands");
+    		return weapon;
+    	}
+    	else if(hasGear("Main Hand")){
+    		Weapon weapon = (Weapon)equipment.get("Main Hand");
+    		return weapon;
+    	}
+    	else{
+    		return null;
+    	}
+    }
+    
     /**
      * returns the ToHit modifier for the attack
      * @return int

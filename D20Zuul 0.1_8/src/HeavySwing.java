@@ -17,6 +17,7 @@ public class HeavySwing extends SwordAbility
 				0, 
 				true, 
 				true, 
+				"Sword",
 				"Heavy Swing");
 		die = new Dice();
 		setDescription();
@@ -26,12 +27,12 @@ public class HeavySwing extends SwordAbility
 	 * returns the damage added by the ability
 	 * @return dmgMod as int
 	 */
-	private int getDmgMod()
+	public int getDmgMod()
 	{
 		return (getRank()/2)+1;
 	}
 	
-	private int getHitMod()
+	public int getHitMod()
 	{
 		return (getRank()-6);
 	}

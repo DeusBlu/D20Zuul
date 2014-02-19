@@ -257,4 +257,14 @@ public class Player extends Entity
 	{
 		return playerClass.getStartingProfs();
 	}
+	
+	public PlayerClass getPlayerClass()
+	{
+		return playerClass;
+	}
+	
+	public Weapon getWeapon()
+	{
+		return getGear().getWeapon();
+	}
 }

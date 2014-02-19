@@ -30,10 +30,11 @@ public abstract class SwordAbility extends FighterAbility
 						int dmgMod,
 						boolean offensive, 
 						boolean active, 
+						String profType,
 						String description) 
 	{
-		super(name, dmgDice, dmgDie, dmgMod, offensive, active, description);
-		// TODO Auto-generated constructor stub
+		super(name, dmgDice, dmgDie, dmgMod, offensive, active, profType, description);
+		
 	}
 	
 	/**
@@ -52,4 +53,16 @@ public abstract class SwordAbility extends FighterAbility
 	 * @param target
 	 */
 	public abstract void passive(Player player, Entity target);
+	
+	/**
+	 * returns the hit modifier for the skill
+	 * @return hit mod as an int
+	 */
+	public abstract int getHitMod();
+	
+	/**
+	 * returns the damage mod for the skill
+	 * @return damage modifier as an int
+	 */
+	public abstract int getDmgMod();
 }
