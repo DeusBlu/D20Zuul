@@ -1,3 +1,4 @@
+import java.util.Stack;
 /**
  * a base class for anything living in the game
  * @author DeusBlu
@@ -17,6 +18,7 @@ public class Entity
 	private Inventory backpack;
 	private Equipment gear;
 	private DiceSet damage;
+	private int[] baseAttacks;
 	
 	/**
 	 * default constructor for Entity
@@ -31,6 +33,9 @@ public class Entity
 		gear = new Equipment();
 		stats = new Stats();
 		resist = new Resist();
+		int[] attacks = new int[1];
+		attacks[0] = 1;
+		setBaseAttacks(attacks);
 		init = 0;
 		setName("");
 		setArmor(0);
@@ -52,6 +57,7 @@ public class Entity
 				  int dDice, 
 				  int dDie, 
 				  int dBonus,
+				  int[] attacks,
 				  int mpMod)
 	{
 		hp = new int[2];
@@ -64,6 +70,7 @@ public class Entity
 		gear = new Equipment();
 		init = 0;
 		setDamage(dDice, dDie, dBonus);
+		setBaseAttacks(attacks);
 		setName(name);
 		setArmor(armor);
 		setMP(mpMod);
@@ -105,6 +112,14 @@ public class Entity
 		}
 		else{
 			damage = new DiceSet(1, 3, 0);
+		}
+	}
+	
+	private void setBaseAttacks(int[] attacks)
+	{
+		baseAttacks = new int[attacks.length];
+		for(int i = 0; i < attacks.length; i++){
+			baseAttacks[i] = attacks[i];
 		}
 	}
 	
@@ -304,8 +319,7 @@ public class Entity
 	 */
 	public int getDamage()
 	{
-		if(!gear.hasGear("Both Hands") || !gear.hasGear("Main Hand") ||
-		   !gear.getGear("Off Hand").getType().equals("1hweapon")){
+		if(!gear.hasWeapon()){
 			return (damage.getRoll() + getStatMod("Str"));
 		}
 		else{
@@ -313,6 +327,25 @@ public class Entity
 		}
 	}
 	
+	/**
+	 * returns a stack of attack bonus' for the combat to use, returns multiple values
+	 * if there are multiple attacks for the person in a round
+	 * @param attack
+	 * @return attacks as Stack<Integer>
+	 */
+	public Stack<Integer> getAttacks()
+	{
+		Stack<Integer> attacks = new Stack<Integer>();
+		for(int i = baseAttacks.length-1; i >= 0; i--){
+			attacks.push(baseAttacks[i] + getMeleeAttackMod());
+		}
+		return attacks;
+	}
+	
+	/**
+	 * gets the modifier for crit damage
+	 * @return critMod as int for multiple
+	 */
 	public int getCritMod()
 	{
 		if(!gear.hasWeapon()){

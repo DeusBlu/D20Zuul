@@ -118,26 +118,14 @@ public class Encounter
      * @param target
      * @return true if hit
      */
-    public boolean successHit(Entity player, Entity target)
+    public boolean successHit(int hitMod, Entity target)
     {
-    	int roll = combat.setRoll();
-    	if(roll == 20){
-    		return true;
-    	}
-    	else if(roll == 1){
-    		return false;
-    	}
-    	else if(player.getMeleeAttackMod() + roll > target.getArmor()){
-    		return true;
-    	}
-    	else{
-    		return false;
-    	}
+    	return combat.successHit(hitMod, target);
     }
     
-    public int attack(Entity player, Entity target)
+    public int attack(int hitMod, Entity player, Entity target)
     {
-    	return combat.attack(player, target);
+    	return combat.attack(hitMod, player, target);
     }
     
     public boolean critHit()
@@ -157,7 +145,7 @@ public class Encounter
 			Entity[] defeated = monsters.getPlayers();
 			for(int i = 0; i < defeated.length; i++){
 				if(defeated[i] != null){
-					exp += ((Creature)defeated[i]).getXpValue();
+					exp += ((Creature)defeated[i]).getChallengeRating();
 				}
 			}
 			Entity[] victor = players.getPlayers();

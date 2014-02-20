@@ -143,4 +143,55 @@ public class Party
         players[spot] = null;
         return removed;
     }
+    
+    public int getAverageLevel()
+    {
+    	int totalLevel = 0;
+    	for (int i = 0; i < players.length; i++){
+    		if(players[i] instanceof Player){
+    			totalLevel += ((Player)players[i]).getPlayerClass().getLevel();
+    		}
+    	}
+    	int avgLevel = 0;
+    	if(totalLevel > 0){
+    		avgLevel = totalLevel/players.length;
+    	}
+    	return avgLevel;
+    }
+    
+    public int getTotalCR()
+    {
+    	double cr = 0;
+    	for(int i = 0; i < players.length; i++){
+    		if(players[i] instanceof Creature){
+    			cr += ((Creature)players[i]).getChallengeRating();
+    		}
+    	}
+    	int finalCR = 0;
+    	finalCR += cr;
+    	return finalCR;
+    }
+    
+    private int getLiving()
+    {
+    	int living = 0;
+    	for(int i = 0; i < players.length; i++){
+    		if(!players[i].isDead()){
+    			living++;
+    		}
+    	}
+    	return living;
+    }
+    
+    public int gainXP(int totalXPGained)
+    {
+    	int standingPlayers = getLiving();
+    	int playerXP = totalXPGained/standingPlayers;
+    	for(int i = 0; i < players.length; i++){
+    		if(!players[i].isDead()){
+    			((Player)players[i]).addXP(playerXP);
+    		}
+    	}
+    	return playerXP;
+    }
 }

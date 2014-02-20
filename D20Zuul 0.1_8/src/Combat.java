@@ -18,7 +18,7 @@ public class Combat
         dice = new Dice();
     }
     
-    public int setRoll()
+    private int setRoll()
     {
     	roll = dice.roll(1, 20);
     	return roll;
@@ -29,17 +29,33 @@ public class Combat
     	return roll;
     }
     
+    public boolean successHit(int hitMod, Entity target)
+    {
+    	int roll = setRoll();
+    	if(roll == 20){
+    		return true;
+    	}
+    	else if(roll == 1){
+    		return false;
+    	}
+    	else if(hitMod + roll > target.getArmor()){
+    		return true;
+    	}
+    	else{
+    		return false;
+    	}
+    }
+    
     /**
      * makes the object player melee attack the object opponent
      */
-    public int attack(Entity player, Entity monster)
+    public int attack(int hitMod, Entity player, Entity monster)
     {
         if(roll == 20){
         	return crit(player, monster);
         }
         else{
-            if(roll + player.getMeleeAttackMod()
-            		> monster.getArmor()){
+            if(roll + hitMod > monster.getArmor()){
               return hit(player, monster);
             }
         }

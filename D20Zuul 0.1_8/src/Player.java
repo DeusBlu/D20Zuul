@@ -12,6 +12,7 @@ public class Player extends Entity
     private int age;
     private Proficiencies weapProf;
     private PlayerClass playerClass;
+    static int[] attacks = new int[]{0};
 
     /**
      * default constructor for testing players
@@ -50,7 +51,7 @@ public class Player extends Entity
 				  int age, 
 				  String playerClass) 
 	{
-		super(name, str, dex, con, intel, wis, chr, Constant.BASE_AC, 0, 0, 0, 1, 3, 0, 1);
+		super(name, str, dex, con, intel, wis, chr, Constant.BASE_AC, 0, 0, 0, 1, 3, 0, attacks, 1);
 		weapProf = new Proficiencies();
 		setPlayerClass(playerClass);
 		setAge(age);
@@ -243,6 +244,7 @@ public class Player extends Entity
 	 * @param attack
 	 * @return attacks as Stack<Integer>
 	 */
+	@Override
 	public Stack<Integer> getAttacks()
 	{
 		int[] attack = playerClass.getAttacks();

@@ -91,26 +91,34 @@ public class AbilityUI
 		}
 	}
 	
-	public void useAbility()
+	public boolean useAbility()
 	{
 		String selectAbility = null;
-		while(selectAbility == null || !selectAbility.equalsIgnoreCase("end")){
+		while(selectAbility == null){
 			if(player.getPlayerClass() instanceof Fighter){
 				printFighterAbility();
 			}
 			selectAbility = selectAbility();
+			if(selectAbility != null && selectAbility.equalsIgnoreCase("end")){
+				break;
+			}
 		}
 		ability = getAbility(selectAbility);
 		String selectTarget = null;
-		while(selectTarget == null || !selectTarget.equalsIgnoreCase("end")){
+		while(selectTarget == null){
 			if(ability.getOffensive()){
 				selectTarget = selectOffTarget();
+				if(selectTarget.equalsIgnoreCase("end")){
+					break;
+				}
 			}
 		}
 		target = getTarget(selectTarget);
 		if(confirm()){
-			useStAbility();
+			useStOffAbility();
+			return true;
 		}
+		return false;
 	}
 	
 	private void printFighterAbility()
@@ -146,7 +154,7 @@ public class AbilityUI
 	private Ability getAbility(String selectAbility)
 	{
 		for(Ability ability : abilities){
-			if(ability.getName().equalsIgnoreCase("selectAbility")){
+			if(ability.getName().equalsIgnoreCase(selectAbility)){
 				return ability;
 			}
 		}
@@ -266,17 +274,35 @@ public class AbilityUI
 		return confirm;
 	}
 	
-	private void useStAbility()
+	private void useStOffAbility()
 	{
 		System.out.println(player.getName()+" used "+ability.getName()+
 				" on "+target.getName());
 		reader.readString();
-		int roll = combat.setRoll();
-		if(attacks.pop()+ability.getHitMod()+roll > target.getArmor()){
-			int damage = player.getDamage()+ability.getDmgMod();
-			System.out.println(player.getName()+" hits "+target.getName()+
-					" for "+damage+" damage!");
-			target.takeDamage(damage);
+		int attack = attacks.peek();
+		if(combat.successHit(attack+ability.getHitMod(), target)){
+			int roll = combat.getRoll();
+			System.out.println(player.getName()+" rolls "+roll);
+			if(attack+ability.getHitMod()+roll > target.getArmor()){
+				int damage = player.getDamage()+ability.getDmgMod();
+				System.out.println(player.getName()+" hits "+target.getName()+
+						" for "+damage+" damage!");
+				target.takeDamage(damage);
+				printDefeated(target);
+			}
 		}
+		else{
+			System.out.println(player.getName()+" missed");
+		}
+	}
+	
+	private void printDefeated(Entity target)
+	{
+    	if(target.isDead()){
+    		System.out.println(target.getName() + 
+    				" has been defeated!");
+    		reader.readString();
+            Console.clearConsole();
+    	}
 	}
 }

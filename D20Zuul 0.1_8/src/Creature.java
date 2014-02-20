@@ -6,7 +6,7 @@
  */
 public class Creature extends Entity 
 {
-	private int xpValue;
+	private double challengeRating;
 	
 	/**
 	 * default constructor for type Creture
@@ -14,7 +14,7 @@ public class Creature extends Entity
 	public Creature() 
 	{
 		super();
-		setXpValue(1);
+		setChallengeRating(0.25);
 	}
 
 	/**
@@ -53,25 +53,28 @@ public class Creature extends Entity
 					int dDice, 
 					int dDie, 
 					int dBonus, 
-					int xpValue,
+					int[] attacks,
+					double challengeRating,
 					int mpMod) {
-		super(name, str, dex, con, intel, wis, chr, armor, 
-				numberDice, hpDie, fort, reflex, will, dBonus, mpMod);
+		super(name, str, dex, con, 
+			  intel, wis, chr, armor, 
+			  fort, reflex, will, dDice, 
+			  dDie, dBonus, attacks, mpMod);
 		setHP(numberDice, hpDie);
-		setXpValue(xpValue);
+		setChallengeRating(challengeRating);
 	}
 	
 	/**
 	 * sets the xp value of the monster for when it is killed
 	 * @param xpValue
 	 */
-	private void setXpValue(int xpValue)
+	private void setChallengeRating(double challengeRating)
 	{
-		if(xpValue > 0){
-			this.xpValue = xpValue;
+		if(challengeRating > 0){
+			this.challengeRating = challengeRating;
 		}
 		else{
-			this.xpValue = 1;
+			throw new IllegalArgumentException("Challenge Rating was below 0");
 		}
 	}
 	
@@ -94,9 +97,9 @@ public class Creature extends Entity
 	 * returns the xp value for when creature is killed
 	 * @return xpValue
 	 */
-	public int getXpValue()
+	public double getChallengeRating()
 	{
-		return xpValue;
+		return challengeRating;
 	}
 
 	/**
