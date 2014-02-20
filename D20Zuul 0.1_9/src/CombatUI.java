@@ -136,8 +136,7 @@ public class CombatUI
         }
         else if (commandWord.equals("attack")){
         	AttackUI attack = new AttackUI(encounter);
-        	attack.attack(attacks.peek(), player);
-            turnDone = true;
+        	turnDone = attack.attack(attacks.peek(), player);
         }
         else if(commandWord.equals("ability")){
         	AbilityUI ability = new AbilityUI(players, monsters, player, attacks);

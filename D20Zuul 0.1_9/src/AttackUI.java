@@ -12,12 +12,14 @@ public class AttackUI
 	private Party targets;
 	private InputReader reader;
 	private CombatAI ai;
+	private Entity target;
 	
 	public AttackUI()
 	{
 		encounter = new Encounter();
 		targets = new Party();
 		reader = new InputReader();
+		target = null;
 		ai = new CombatAI();
 	}
 	
@@ -25,6 +27,7 @@ public class AttackUI
 	{
 		setTargets(encounter.getMonsters());
 		setEncounter(encounter);
+		target = null;
 		reader = new InputReader();
 		ai = new CombatAI(encounter.getPlayers());
 	}
@@ -47,35 +50,6 @@ public class AttackUI
 		else{
 			throw new IllegalArgumentException("encounter was null");
 		}
-	}
-	
-	/**
-	 * returns the target the user has selected to attack
-	 * @return entity to attack
-	 */
-	private Entity getTarget()
-	{
-		Entity target = null;
-		int input = 0;
-		while(target == null){
-			targets.shortStatus();
-			System.out.println("Monster to attack?");
-			System.out.print("#> ");
-			input = reader.readInt();
-			if(input-1 >= 0 && input-1 < targets.getPlayers().length && 
-					targets.getPlayers()[input-1] != null){
-				if(!targets.getPlayers()[input-1].isDead()){
-					target = targets.getPlayers()[input-1];
-				}
-				else if(targets.getPlayers()[input-1].isDead()){
-					System.out.println("That target is dead");
-				}
-			}
-			else{
-				System.out.println("That is not a valid target");
-			}
-		}
-		return target;
 	}
 	
 	private void printCrit(Entity attacker, Entity target, int damage)
@@ -103,7 +77,17 @@ public class AttackUI
 	
 	public boolean attack(int hitMod, Entity player)
 	{
-		Entity target = getTarget();
+		String selectTarget = null;
+		while(selectTarget == null){
+			targets.shortStatus();
+			System.out.println("Who do you attack?");
+			System.out.print("#/Name> ");
+			selectTarget = selectTarget();
+			if(selectTarget != null && selectTarget.equalsIgnoreCase("end")){
+				return false;
+			}
+		}
+		target = getTarget(selectTarget);
     	if(encounter.successHit(hitMod, target)){
 			int damage = encounter.attack(hitMod, player, target);
     		if(encounter.critHit()){
@@ -124,6 +108,47 @@ public class AttackUI
     		reader.readString();
     		return true;
     	}
+	}
+	
+	private String selectTarget()
+	{
+		String selectTarget = reader.readString();
+		if(selectTarget.equalsIgnoreCase("end")){
+			return selectTarget;
+		}
+		for(int i = 1; i <= targets.getPlayers().length; i++){
+			if(selectTarget.equals(((Integer)i).toString()) && 
+			targets.getPlayers()[i-1] != null){
+				return selectTarget;
+			}
+		}
+		for(int i = 0; i < targets.getPlayers().length; i++){
+			if(targets.getPlayers()[i] != null &&
+					targets.getPlayers()[i].getName().equalsIgnoreCase(selectTarget)){
+				return selectTarget;
+			}
+		}
+		System.out.println("That was not a valid target, please enter the name");
+		System.out.println("or the # of the target or type end to exit");
+		reader.readString();
+		return null;
+	}
+	
+	private Entity getTarget(String target)
+	{
+		for(int i = 1; i <= targets.getPlayers().length; i++){
+			if(target.equals(((Integer)i).toString()) && 
+			targets.getPlayers()[i-1] != null){
+				return targets.getPlayers()[i-1];
+			}
+		}
+		for(int i = 0; i < targets.getPlayers().length; i++){
+			if(targets.getPlayers()[i] != null &&
+					targets.getPlayers()[i].getName().equalsIgnoreCase(target)){
+				return targets.getPlayers()[i];
+			}
+		}
+		return null;
 	}
 	
 	public void attackUI(int hitMod, Entity player)

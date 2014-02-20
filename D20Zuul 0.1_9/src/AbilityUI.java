@@ -100,20 +100,25 @@ public class AbilityUI
 			}
 			selectAbility = selectAbility();
 			if(selectAbility != null && selectAbility.equalsIgnoreCase("end")){
-				break;
+				return false;
 			}
 		}
 		ability = getAbility(selectAbility);
 		String selectTarget = null;
+		Party targets = null;
 		while(selectTarget == null){
 			if(ability.getOffensive()){
-				selectTarget = selectOffTarget();
-				if(selectTarget.equalsIgnoreCase("end")){
-					break;
-				}
+				targets = monsters;
+			}
+			else{
+				targets = players;
+			}
+			selectTarget = selectTarget(targets);
+			if(selectTarget.equalsIgnoreCase("end")){
+				return false;
 			}
 		}
-		target = getTarget(selectTarget);
+		target = getTarget(selectTarget, targets);
 		if(confirm()){
 			useStOffAbility();
 			return true;
@@ -148,6 +153,8 @@ public class AbilityUI
 		}
 		System.out.println("That is not a valid ability please enter the name");
 		System.out.println("of the ability or type end to leave the menu");
+		reader.readString();
+		Console.clearConsole();
 		return null;
 	}
 	
@@ -161,108 +168,42 @@ public class AbilityUI
 		return null;
 	}
 	
-	private String selectOffTarget()
+	private String selectTarget(Party targets)
 	{
-		monsters.shortStatus();
+		targets.shortStatus();
 		System.out.println("Use on who?");
 		System.out.print("#/Name> ");
-		String input = reader.readString();
-		if(input.equalsIgnoreCase("end")){
-			return input;
-		}
-		else if(input.equals("1") && monsters.getPlayers()[0] != null){
-			if(!monsters.getPlayers()[0].isDead()){
-				return input;
+		String selectTarget = reader.readString();
+		for(int i = 1; i <= targets.getPlayers().length; i++){
+			if(selectTarget.equals(((Integer)i).toString()) && 
+			targets.getPlayers()[i-1] != null){
+				return selectTarget;
 			}
 		}
-		else if(input.equals("2") && monsters.getPlayers()[1] != null){
-			if(!monsters.getPlayers()[1].isDead()){
-				return input;
+		for(int i = 0; i < targets.getPlayers().length; i++){
+			if(targets.getPlayers()[i] != null &&
+					targets.getPlayers()[i].getName().equalsIgnoreCase(selectTarget)){
+				return selectTarget;
 			}
 		}
-		else if(input.equals("3") && monsters.getPlayers()[2] != null){
-			if(!monsters.getPlayers()[2].isDead()){
-				return input;
-			}
-		}
-		else if(input.equals("4") && monsters.getPlayers()[3] != null){
-			if(!monsters.getPlayers()[3].isDead()){
-				return input;
-			}
-		}
-		else if(input.equals("5") && monsters.getPlayers()[4] != null){
-			if(!monsters.getPlayers()[4].isDead()){
-				return input;
-			}
-		}
-		else if(input.equals("6") && monsters.getPlayers()[5] != null){
-			if(!monsters.getPlayers()[5].isDead()){
-				return input;
-			}
-		}
-		else if(input.equals("7") && monsters.getPlayers()[6] != null){
-			if(!monsters.getPlayers()[6].isDead()){
-				return input;
-			}
-		}
-		else if(input.equals("8") && monsters.getPlayers()[7] != null){
-			if(!monsters.getPlayers()[7].isDead()){
-				return input;
-			}
-		}
-		else if(input.equals("9") && monsters.getPlayers()[8] != null){
-			if(!monsters.getPlayers()[8].isDead()){
-				return input;
-			}
-		}
-		else if(input.equals("10") && monsters.getPlayers()[9] != null){
-			if(!monsters.getPlayers()[9].isDead()){
-				return input;
-			}
-		}
-		for(int i = 0; i < monsters.getPlayers().length; i++){
-			if(input.equalsIgnoreCase(monsters.getPlayers()[i].getName())){
-				return input;
-			}
-		}
+		System.out.println("That was not a valid target, please enter the name");
+		System.out.println("or the # of the target or type end to exit");
+		reader.readString();
 		return null;
 	}
 	
-	private Entity getTarget(String selectTarget)
+	private Entity getTarget(String target, Party targets)
 	{
-		if(selectTarget.equals("1") && monsters.getPlayers()[0] != null){
-			if(!monsters.getPlayers()[0].isDead()){
-				return monsters.getPlayers()[0];
+		for(int i = 1; i <= targets.getPlayers().length; i++){
+			if(target.equals(((Integer)i).toString()) && 
+			targets.getPlayers()[i-1] != null){
+				return targets.getPlayers()[i-1];
 			}
 		}
-		else if(selectTarget.equals("2") && monsters.getPlayers()[1] != null){
-			if(!monsters.getPlayers()[1].isDead()){
-				return monsters.getPlayers()[1];
-			}
-		}
-		else if(selectTarget.equals("3") && monsters.getPlayers()[2] != null){
-			if(!monsters.getPlayers()[2].isDead()){
-				return monsters.getPlayers()[2];
-			}
-		}
-		else if(selectTarget.equals("4") && monsters.getPlayers()[3] != null){
-			if(!monsters.getPlayers()[3].isDead()){
-				return monsters.getPlayers()[3];
-			}
-		}
-		else if(selectTarget.equals("5") && monsters.getPlayers()[4] != null){
-			if(!monsters.getPlayers()[4].isDead()){
-				return monsters.getPlayers()[4];
-			}
-		}
-		else if(selectTarget.equals("6") && monsters.getPlayers()[5] != null){
-			if(!monsters.getPlayers()[5].isDead()){
-				return monsters.getPlayers()[5];
-			}
-		}
-		for(int i = 0; i < monsters.getPlayers().length; i++){
-			if(selectTarget.equalsIgnoreCase(monsters.getPlayers()[i].getName())){
-				return monsters.getPlayers()[i];
+		for(int i = 0; i < targets.getPlayers().length; i++){
+			if(targets.getPlayers()[i] != null &&
+					targets.getPlayers()[i].getName().equalsIgnoreCase(target)){
+				return targets.getPlayers()[i];
 			}
 		}
 		return null;

@@ -71,7 +71,7 @@ public class ItemUI
 			System.out.print("#/Name> ");
 			selectItem = selectItem();
 			if(selectItem != null && selectItem.equalsIgnoreCase("end")){
-				break;
+				return false;
 			}
 		}
 		item = getItem(selectItem);
@@ -86,7 +86,7 @@ public class ItemUI
 			selectTarget = selectTarget(targets);
 			if(selectTarget != null && selectItem.equalsIgnoreCase("end")){
 				backpack.lootItem(item);
-				break;
+				return false;
 			}
 		}
 		target = getTarget(selectTarget, targets);
