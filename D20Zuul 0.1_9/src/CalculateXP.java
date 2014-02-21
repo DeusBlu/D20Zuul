@@ -20,13 +20,30 @@ public class CalculateXP {
 		double neededXP = calculateNeededXP(players.getAverageLevel());
 		int battleCR = monsters.getTotalCR();
 		int avgLevel = players.getAverageLevel();
-		while(battleCR > avgLevel+2){
-			neededXP *= 2;
-			avgLevel+=2;
+		if(avgLevel+5 >= battleCR){
+			avgLevel = 0;
+			battleCR = 0;
+			neededXP = 0;
 		}
-		while(battleCR > avgLevel){
-			neededXP *= 1.5;
-			avgLevel++;
+		if(battleCR > avgLevel){
+			while(battleCR > avgLevel+2){
+				neededXP *= 2;
+				avgLevel+=2;
+			}
+			while(battleCR > avgLevel){
+				neededXP *= 1.5;
+				avgLevel++;
+			}
+		}
+		if(avgLevel > battleCR){
+			while(avgLevel > battleCR+2){
+				neededXP *= 2;
+				avgLevel-=2;
+			}
+			while(avgLevel > battleCR){
+				neededXP *= 1.5;
+				avgLevel--;
+			}
 		}
 		int gainedEXP = 0;
 		gainedEXP += neededXP/23.33;

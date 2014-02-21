@@ -5,7 +5,7 @@
  *
  */
 
-public class CombatUI 
+public class CombatUI
 {
 	private Encounter encounter;
     private Party players;
@@ -54,10 +54,9 @@ public class CombatUI
         	reader.readString();
             Console.clearConsole();
         	encounter.setInitiative();
-        	encounter.setCurrentTurn();
         	while(!encounter.initEmpty() && !players.isDefeated() 
         			&& !monsters.isDefeated()){
-        		encounter.setCurrentTurn();
+            	encounter.setCurrentTurn();
         		if(encounter.getCurrentTurn() != null){
     				encounter.setAttacks(encounter.getCurrentTurn().getAttacks());
         			while(!encounter.attacksEmpty()  && !players.isDefeated() 
