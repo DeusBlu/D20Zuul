@@ -1,9 +1,6 @@
 /**
- * 
- */
-
-/**
- * @author desmond.jenkins
+ * @author DeusBlu
+ * @version 0.1_9
  *
  */
 public class AttackUI 
@@ -75,8 +72,9 @@ public class AttackUI
 		System.out.println();
 	}
 	
-	public boolean attack(int hitMod, Entity player)
+	public boolean attack()
 	{
+		Entity player = encounter.getCurrentTurn();
 		String selectTarget = null;
 		while(selectTarget == null){
 			targets.shortStatus();
@@ -88,8 +86,8 @@ public class AttackUI
 			}
 		}
 		target = getTarget(selectTarget);
-    	if(encounter.successHit(hitMod, target)){
-			int damage = encounter.attack(hitMod, player, target);
+    	if(encounter.successHit(encounter.getAttack(), target)){
+			int damage = encounter.attack(encounter.getAttack(), player, target);
     		if(encounter.critHit()){
     			printCrit(player, target, damage);
     			reader.readString();
@@ -118,12 +116,14 @@ public class AttackUI
 		}
 		for(int i = 1; i <= targets.getPlayers().length; i++){
 			if(selectTarget.equals(((Integer)i).toString()) && 
-			targets.getPlayers()[i-1] != null){
+			targets.getPlayers()[i-1] != null && 
+			!targets.getPlayers()[i-1].isDead()){
 				return selectTarget;
 			}
 		}
 		for(int i = 0; i < targets.getPlayers().length; i++){
 			if(targets.getPlayers()[i] != null &&
+					!targets.getPlayers()[i].isDead() &&
 					targets.getPlayers()[i].getName().equalsIgnoreCase(selectTarget)){
 				return selectTarget;
 			}

@@ -32,18 +32,15 @@ public class AbilityUI
 		setAbilities();
 	}
 
-	public AbilityUI(Party players, 
-					 Party monsters,
-					 Player player,
-					 Stack<Integer> attacks)
+	public AbilityUI(Encounter encounter)
 	{
 		reader = new InputReader();
 		combat = new Combat();
-		setPlayers(players);
-		setMonsters(monsters);
-		setPlayer(player);
+		setPlayers(encounter.getPlayers());
+		setMonsters(encounter.getMonsters());
+		setPlayer((Player)encounter.getCurrentTurn());
 		setAbilities();
-		setAttacks(attacks);
+		setAttacks(encounter.getAttacks());
 	}
 	
 	private void setMonsters(Party monsters) 
@@ -176,12 +173,14 @@ public class AbilityUI
 		String selectTarget = reader.readString();
 		for(int i = 1; i <= targets.getPlayers().length; i++){
 			if(selectTarget.equals(((Integer)i).toString()) && 
-			targets.getPlayers()[i-1] != null){
+			targets.getPlayers()[i-1] != null && 
+			!targets.getPlayers()[i-1].isDead()){
 				return selectTarget;
 			}
 		}
 		for(int i = 0; i < targets.getPlayers().length; i++){
 			if(targets.getPlayers()[i] != null &&
+					!targets.getPlayers()[i].isDead() &&
 					targets.getPlayers()[i].getName().equalsIgnoreCase(selectTarget)){
 				return selectTarget;
 			}

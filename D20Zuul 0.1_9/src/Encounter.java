@@ -13,6 +13,8 @@ public class Encounter
     private Combat combat;
     private Stack<Entity> turnOrder;
     private Initiative initiative;
+    private Stack<Integer> attacks;
+    private Entity currentTurn;
     /**
      * default constructor for class Encounter
      */
@@ -23,6 +25,8 @@ public class Encounter
         combat = new Combat();
         turnOrder = new Stack<Entity>();
         initiative = new Initiative();
+        attacks = new Stack<Integer>();
+        currentTurn = null;
     }
     
     /**
@@ -37,6 +41,8 @@ public class Encounter
         combat = new Combat();
         turnOrder = new Stack<Entity>();
         initiative = new Initiative();
+        attacks = new Stack<Integer>();
+        currentTurn = null;
     }
     
     /**
@@ -61,7 +67,30 @@ public class Encounter
         }
     }
     
-    public Party getPlayers()
+    /**
+	 * sets the initiative on all of the player objects
+	 */
+	public void setInitiative()
+	{
+		turnOrder = initiative.pcInit(players, monsters);
+	}
+	
+	public void setAttacks(Stack<Integer> attacks)
+	{
+		if(attacks != null){
+			this.attacks = attacks;
+		}
+		else{
+			throw new IllegalArgumentException("attacks stack was null");
+		}
+	}
+	
+	public void setCurrentTurn()
+	{
+		currentTurn = getNextTurn();
+	}
+
+	public Party getPlayers()
     {
     	return players;
     }
@@ -69,14 +98,6 @@ public class Encounter
     public Party getMonsters()
     {
     	return monsters;
-    }
-    
-    /**
-     * sets the initiative on all of the player objects
-     */
-    public void setInitiative()
-    {
-    	turnOrder = initiative.pcInit(players, monsters);
     }
     
     /**
@@ -89,6 +110,40 @@ public class Encounter
     }
     
     /**
+	 * returns the next Entity in the stack of turn orders returns null
+	 * if there is no next or the next is dead
+	 * @return Entity for next turn
+	 */
+	private Entity getNextTurn()
+	{
+		Entity nextTurn = null;
+		if(!turnOrder.empty()){
+			if(!turnOrder.peek().isDead()){
+				nextTurn = turnOrder.pop();
+			}
+			else{
+				turnOrder.pop();
+			}
+		}
+		return nextTurn;
+	}
+	
+	public Stack<Integer> getAttacks()
+	{
+		return attacks;
+	}
+	
+	public int getAttack()
+	{
+		return attacks.peek();
+	}
+	
+	public Entity getCurrentTurn()
+	{
+		return currentTurn;
+	}
+
+	/**
      * returns true if the initiative stack is empty
      * @return true if stack empty
      */
@@ -100,25 +155,6 @@ public class Encounter
     	else{
     		return false;
     	}
-    }
-    
-    /**
-     * returns the next Entity in the stack of turn orders returns null
-     * if there is no next or the next is dead
-     * @return Entity for next turn
-     */
-    public Entity getNextTurn()
-    {
-    	Entity nextTurn = null;
-    	if(!turnOrder.empty()){
-    		if(!turnOrder.peek().isDead()){
-    			nextTurn = turnOrder.pop();
-    		}
-    		else{
-    			turnOrder.pop();
-    		}
-    	}
-    	return nextTurn;
     }
     
     /**
@@ -162,5 +198,15 @@ public class Encounter
 			}
 		}
 		return exp;
+	}
+	
+	public boolean attacksEmpty()
+	{
+		if(attacks.empty()){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 }

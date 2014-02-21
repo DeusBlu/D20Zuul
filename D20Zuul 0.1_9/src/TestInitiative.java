@@ -9,7 +9,7 @@ public class TestInitiative {
 		Player rush = new Player("Rush", 18, 11, 11, 11, 11, 11, 19, "fighter");
 		Player muru = new Player("Murutang", 18, 11, 11, 11, 11, 11, 19, "fighter");
 		Player sure = new Player("Surewould", 18, 11, 11, 11, 11, 11, 19, "fighter");
-		Party pcParty = new Party(true);
+		Party pcParty = new Party(4);
 		Potion potion = new Potion(0.1, 10, "Potion of Healing", 1, "Heals for 1d6+4", 1, 6, 4, false);
 		deus.addXP(20000);
 		deus.loot(potion);

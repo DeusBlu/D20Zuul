@@ -22,9 +22,9 @@ public class Party
      * party max size
      * @param boolean true or false will set the max players to MAX_PLAYERS
      */
-    public Party(boolean forPlayers)
+    public Party(int numPlayers)
     {
-        this.players = new Entity[Constant.MAX_PLAYERS];
+        this.players = new Entity[numPlayers];
     }
 
     /**

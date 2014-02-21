@@ -1,4 +1,3 @@
-import java.util.Stack;
 /**
  * determines who the monster should attack
  * @author DeusBlu
@@ -13,7 +12,6 @@ public class CombatUI
     private Party monsters;
 	private InputReader reader;
     private Parser parser;
-    private Stack<Integer> attacks;
 	
 	/**
 	 * default constructor for the CombatUI
@@ -23,7 +21,6 @@ public class CombatUI
 		encounter = new Encounter();
 		reader = new InputReader();
 		parser = new Parser();
-    	attacks = new Stack<Integer>();
 		setPlayers(new Party());
 		setMonsters(new Party());
 		
@@ -38,7 +35,6 @@ public class CombatUI
 		encounter = new Encounter(players, monsters);
 		reader = new InputReader();
 		parser = new Parser();
-    	attacks = new Stack<Integer>();
 		setPlayers(players);
 		setMonsters(monsters);
 		
@@ -58,15 +54,15 @@ public class CombatUI
         	reader.readString();
             Console.clearConsole();
         	encounter.setInitiative();
-        	Entity turn = null;
+        	encounter.setCurrentTurn();
         	while(!encounter.initEmpty() && !players.isDefeated() 
         			&& !monsters.isDefeated()){
-        		turn = encounter.getNextTurn();
-        		if(turn != null){
-    				attacks = turn.getAttacks();
-        			while(!attacks.empty()  && !players.isDefeated() 
+        		encounter.setCurrentTurn();
+        		if(encounter.getCurrentTurn() != null){
+    				encounter.setAttacks(encounter.getCurrentTurn().getAttacks());
+        			while(!encounter.attacksEmpty()  && !players.isDefeated() 
         					&& !monsters.isDefeated()){
-        				takeTurn(turn);
+        				takeTurn(encounter.getCurrentTurn());
         			}
         		}
         	}
@@ -131,22 +127,24 @@ public class CombatUI
             turnDone = equip.equipUI();
         }
         else if (commandWord.equals("item")){
-        	ItemUI useItem = new ItemUI(player.getBackpack(), players, monsters);
+        	ItemUI useItem = new ItemUI(encounter);
         	turnDone = useItem.useItem();
         }
         else if (commandWord.equals("attack")){
         	AttackUI attack = new AttackUI(encounter);
-        	turnDone = attack.attack(attacks.peek(), player);
+        	turnDone = attack.attack();
         }
         else if(commandWord.equals("ability")){
-        	AbilityUI ability = new AbilityUI(players, monsters, player, attacks);
+        	AbilityUI ability = new AbilityUI(encounter);
         	turnDone = ability.useAbility();
         }
         else if(commandWord.equals("run")){
             turnDone = true;
         }
         if(turnDone){
-        	attacks.pop();
+        	if(!encounter.attacksEmpty()){
+        		encounter.getAttacks().pop();
+        	}
         }
         return turnDone;
     }
@@ -158,7 +156,7 @@ public class CombatUI
     private void takeTurn(Entity takingTurn)
     {
     	if(takingTurn != null && !players.isDefeated() && !monsters.isDefeated()){
-    		System.out.println(takingTurn.getName() + " has "+attacks.size()+" attacks left");
+    		System.out.println(takingTurn.getName() + " has "+encounter.getAttacks().size()+" attacks left");
     		if(takingTurn instanceof Player){
     			boolean turnDone = false;
     			while(!turnDone && !players.isDefeated() && !monsters.isDefeated()){
@@ -169,7 +167,7 @@ public class CombatUI
     		}
     		else{
             	AttackUI attack = new AttackUI(encounter);
-            	attack.attackUI(attacks.pop(), takingTurn);
+            	attack.attackUI(encounter.getAttacks().pop(), takingTurn);
             	reader.readString();
     		}
     	}

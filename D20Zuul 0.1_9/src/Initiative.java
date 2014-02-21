@@ -114,7 +114,7 @@ public class Initiative
      */
     private Party mergeParties(Party players, Party opponents)
     {
-    	Party combatants = new Party();
+    	Party combatants = new Party(20);
     	for(int i = 0; i < players.getPlayers().length; i++){
             if(players.getPlayers()[i] != null){
                 combatants.getPlayers()[i] = players.getPlayers()[i];

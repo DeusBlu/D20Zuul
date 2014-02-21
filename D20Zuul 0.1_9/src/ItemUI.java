@@ -22,12 +22,12 @@ public class ItemUI
 		reader = new InputReader();
 	}
 	
-	public ItemUI(Inventory backpack, Party players, Party monsters)
+	public ItemUI(Encounter encounter)
 	{
 		reader = new InputReader();
-		setBackpack(backpack);
-		setPlayers(players);
-		setMonsters(monsters);
+		setBackpack(encounter.getCurrentTurn().getBackpack());
+		setPlayers(encounter.getPlayers());
+		setMonsters(encounter.getMonsters());
 		item = null;
 		target = null;
 	}
@@ -166,12 +166,14 @@ public class ItemUI
 		String selectTarget = reader.readString();
 		for(int i = 1; i <= targets.getPlayers().length; i++){
 			if(selectTarget.equals(((Integer)i).toString()) && 
-			targets.getPlayers()[i-1] != null){
+			targets.getPlayers()[i-1] != null && 
+			!targets.getPlayers()[i-1].isDead()){
 				return selectTarget;
 			}
 		}
 		for(int i = 0; i < targets.getPlayers().length; i++){
 			if(targets.getPlayers()[i] != null &&
+					!targets.getPlayers()[i].isDead() &&
 					targets.getPlayers()[i].getName().equalsIgnoreCase(selectTarget)){
 				return selectTarget;
 			}
