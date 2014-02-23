@@ -1,12 +1,7 @@
 import java.util.ArrayList;
-import java.util.Stack;
 /**
- * 
- */
-
-/**
- * @author Nicole
- *
+ * @author DeusBlu
+ * @version 0.1_9
  */
 public class AbilityUI 
 {
@@ -17,15 +12,14 @@ public class AbilityUI
 	private Ability ability;
 	private Entity target;
 	private InputReader reader;
-	private Stack<Integer> attacks;
-	private Combat combat;
+	private Encounter encounter;
 	
 	public AbilityUI()
 	{
 		reader = new InputReader();
 		target = null;
 		ability = null;
-		combat = new Combat();
+		setEncounter(new Encounter());
 		setPlayer(new Player());
 		setPlayers(new Party());
 		setMonsters(new Party());
@@ -35,12 +29,11 @@ public class AbilityUI
 	public AbilityUI(Encounter encounter)
 	{
 		reader = new InputReader();
-		combat = new Combat();
+		setEncounter(encounter);
 		setPlayers(encounter.getPlayers());
 		setMonsters(encounter.getMonsters());
 		setPlayer((Player)encounter.getCurrentTurn());
 		setAbilities();
-		setAttacks(encounter.getAttacks());
 	}
 	
 	private void setMonsters(Party monsters) 
@@ -78,13 +71,13 @@ public class AbilityUI
 		abilities = player.getAbilitys().getAbilitys();
 	}
 	
-	private void setAttacks(Stack<Integer> attacks)
+	private void setEncounter(Encounter encounter)
 	{
-		if(attacks != null && !attacks.empty()){
-			this.attacks = attacks;
+		if(encounter != null){
+			this.encounter = encounter;
 		}
 		else{
-			throw new IllegalArgumentException("attacks stack was null or empty");
+			throw new IllegalArgumentException("encounter object was null");
 		}
 	}
 	
@@ -117,7 +110,7 @@ public class AbilityUI
 		}
 		target = getTarget(selectTarget, targets);
 		if(confirm()){
-			useStOffAbility();
+			useTargetOffAbility();
 			return true;
 		}
 		return false;
@@ -234,22 +227,19 @@ public class AbilityUI
 		return confirm;
 	}
 	
-	private void useStOffAbility()
+	private void useTargetOffAbility()
 	{
 		System.out.println(player.getName()+" used "+ability.getName()+
 				" on "+target.getName());
 		reader.readString();
-		int attack = attacks.peek();
-		if(combat.successHit(attack+ability.getHitMod(), target)){
-			int roll = combat.getRoll();
-			System.out.println(player.getName()+" rolls "+roll);
-			if(attack+ability.getHitMod()+roll > target.getArmor()){
-				int damage = player.getDamage()+ability.getDmgMod();
-				System.out.println(player.getName()+" hits "+target.getName()+
-						" for "+damage+" damage!");
-				target.takeDamage(damage);
-				printDefeated(target);
-			}
+		int attack = encounter.getAttacks().peek();
+		int roll = encounter.setRoll();
+		System.out.println(player.getName()+" rolls "+roll);
+		if(attack+ability.getHitMod()+roll > target.getArmor()){
+			int damage = ability.use(target, encounter);
+			System.out.println(player.getName()+" hits "+target.getName()+
+					" for "+damage+" damage!");
+			printDefeated(target);
 		}
 		else{
 			System.out.println(player.getName()+" missed");

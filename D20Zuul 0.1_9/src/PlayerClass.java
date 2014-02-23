@@ -1,7 +1,7 @@
 /**
  * Base item type of classes for the PlayerCharacter
  * @author DeusBlu
- * @version 0.1_8
+ * @version 0.1_9
  *
  */
 public abstract class PlayerClass 
@@ -15,6 +15,9 @@ public abstract class PlayerClass
 	private int skillPoints;
 	private int startingProfs;
 	private int maxWeapProf;
+	private int levelsPerAttack;
+	private int levelsPerExtraAttack;
+	private int baseAttack;
 	
 	/**
 	 * default constructor for Class
@@ -30,6 +33,9 @@ public abstract class PlayerClass
 		setSkillPoints(0);
 		setStartingProfs(1);
 		setMaxWeapProf(1);
+		setLevelsPerAttack(4);
+		setLevelsPerExtraAttack(20);
+		setBaseAttack(0);
 	}
 	
 	/**
@@ -45,23 +51,28 @@ public abstract class PlayerClass
 	 */
 	public PlayerClass(String name, 
 					   int hpDie,
-					   int forSave, 
+					   int fortSave, 
 					   int reflexSave,
 					   int willSave, 
 					   int skillPoints,
-					   int attack,
+					   int levelsPerAttack,
+					   int levelsPerExtraAttack,
+					   int baseAttack,
 					   int startingProfs,
 					   int maxWeapProf)
 	{
 		xp = new XP();
 		setClassName(name);
 		setHpDie(hpDie);
-		setFortSave(forSave);
+		setFortSave(fortSave);
 		setReflexSave(reflexSave);
 		setWillSave(willSave);
 		setSkillPoints(skillPoints);
 		setStartingProfs(startingProfs);
 		setMaxWeapProf(maxWeapProf);
+		setLevelsPerAttack(levelsPerAttack);
+		setLevelsPerExtraAttack(levelsPerExtraAttack);
+		setBaseAttack(baseAttack);
 	}
 	
 	/**
@@ -171,6 +182,36 @@ public abstract class PlayerClass
 			throw new IllegalArgumentException("maxWeapProf as out of bounds");
 		}
 	}
+	
+	private void setBaseAttack(int baseAttack)
+	{
+		if(baseAttack >= 0){
+			this.baseAttack = baseAttack;
+		}
+		else{
+			throw new IllegalArgumentException("baseAttack cannot be negative");
+		}
+	}
+	
+	protected void setLevelsPerAttack(int levelsPerAttack)
+	{
+		if(levelsPerAttack >= 0){
+			this.levelsPerAttack = levelsPerAttack;
+		}
+		else{
+			throw new IllegalArgumentException("levelsPerAttack was out of bounds");
+		}
+	}
+	
+	protected void setLevelsPerExtraAttack(int levelsPerExtraAttack)
+	{
+		if(levelsPerExtraAttack >= 0){
+			this.levelsPerExtraAttack = levelsPerExtraAttack;
+		}
+		else{
+			throw new IllegalArgumentException("levelsPerExtraAttack was out of bounds");
+		}
+	}
 
 	/**
 	 * returns the className as a string
@@ -226,13 +267,35 @@ public abstract class PlayerClass
 		return skillPoints;
 	}
 	
-	/**
-	 * returns an array of attack bonus' for the combat to use, returns multiple values
-	 * if there are multiple attacks for the person in a round
-	 * @param attack
-	 * @return attacks as Stack<Integer>
-	 */
-	public abstract int[] getAttacks();
+	public int[] getAttacks()
+	{
+		int numAttacks = getNumAttacks(getLevel());
+		int[] attacks = new int[numAttacks];
+		for(int i = 0; i <= getLevel(); i++){
+			if(levelsPerAttack == 0 || (i % levelsPerAttack == 0)){
+				int x = 0;
+				int attack = 0;
+				while(x < i){
+					attacks[attack]++;
+					attack++;
+					x = attack*levelsPerExtraAttack;
+				}
+			}
+		}
+		return attacks;
+	}
+	
+	private int getNumAttacks(int level)
+	{
+		int numAttacks;
+		if((level % levelsPerExtraAttack) == 0){
+			numAttacks = level / levelsPerExtraAttack;
+		}
+		else{
+			numAttacks = (level / levelsPerExtraAttack)+1;
+		}
+		return numAttacks;
+	}
 	
 	public int getStartingProfs()
 	{
@@ -242,6 +305,16 @@ public abstract class PlayerClass
 	public int getMaxWeapProf()
 	{
 		return maxWeapProf;
+	}
+	
+	public int getLevelsPerAttack()
+	{
+		return levelsPerAttack;
+	}
+	
+	protected int getBaseAttack()
+	{
+		return baseAttack;
 	}
 	
 	/**

@@ -1,9 +1,8 @@
 import java.util.HashMap;
-import java.util.Stack;
 /**
  * This class is the framework for creating abilitys
  * @author DeusBlu
- * @version 0.1_8
+ * @version 0.1_9
  *
  */
 public abstract class Ability 
@@ -278,8 +277,7 @@ public abstract class Ability
 	 * @param target
 	 * @return Stack<Integer> the remaining attacks of the player
 	 */
-	public abstract int use(Stack<Integer> attacks, 
-								Player player, Entity target);
+	public abstract int use(Entity target, Encounter encounter);
 	
 	/**
 	 * the passive effect of the skill

@@ -1,8 +1,8 @@
 /**
  * Write a description of class Combat here.
  * 
- * @author (DeusBlu) 
- * @version (0.1_5)
+ * @author DeusBlu
+ * @version 0.1_9
  */
 public class Combat
 {
@@ -18,7 +18,7 @@ public class Combat
         dice = new Dice();
     }
     
-    private int setRoll()
+    public int setRoll()
     {
     	roll = dice.roll(1, 20);
     	return roll;
@@ -31,7 +31,6 @@ public class Combat
     
     public boolean successHit(int hitMod, Entity target)
     {
-    	int roll = setRoll();
     	if(roll == 20){
     		return true;
     	}

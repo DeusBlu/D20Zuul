@@ -86,6 +86,7 @@ public class AttackUI
 			}
 		}
 		target = getTarget(selectTarget);
+		encounter.setRoll();
     	if(encounter.successHit(encounter.getAttack(), target)){
 			int damage = encounter.attack(encounter.getAttack(), player, target);
     		if(encounter.critHit()){
@@ -151,9 +152,10 @@ public class AttackUI
 		return null;
 	}
 	
-	public void attackUI(int hitMod, Entity player)
+	public void attackAI(int hitMod, Entity player)
 	{
 		Entity target = ai.attackWho();
+		encounter.setRoll();
     	if(encounter.successHit(hitMod, target)){
 			int damage = encounter.attack(hitMod, player, target);
     		if(encounter.critHit()){

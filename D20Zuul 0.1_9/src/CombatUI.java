@@ -1,7 +1,7 @@
 /**
  * determines who the monster should attack
  * @author DeusBlu
- * @version 0.1_8
+ * @version 0.1_9
  *
  */
 
@@ -166,8 +166,7 @@ public class CombatUI
     		}
     		else{
             	AttackUI attack = new AttackUI(encounter);
-            	attack.attackUI(encounter.getAttacks().pop(), takingTurn);
-            	reader.readString();
+            	attack.attackAI(encounter.getAttacks().pop(), takingTurn);
     		}
     	}
     }

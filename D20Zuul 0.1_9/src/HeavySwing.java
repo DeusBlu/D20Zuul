@@ -1,7 +1,7 @@
 import java.util.Stack;
 /**
  * @author DeusBlu
- * @version 0.1_8
+ * @version 0.1_9
  *
  */
 public class HeavySwing extends SwordAbility 
@@ -47,11 +47,13 @@ public class HeavySwing extends SwordAbility
 	}
 
 	@Override
-	public int use(Stack<Integer> attacks, Player player, Entity target) 
+	public int use(Entity target, Encounter encounter) 
 	{
+		Player player = (Player)encounter.getCurrentTurn();
+		Stack<Integer> attacks = encounter.getAttacks();
 		int damage = player.getDamage() + getDmgMod();
 		int roll = die.roll(1, 20);
-		if(attacks.pop() + roll + getHitMod() > target.getArmor()){
+		if(attacks.peek() + roll + getHitMod() > target.getArmor()){
 			target.takeDamage(damage);
 		}
 		return damage;
@@ -59,7 +61,6 @@ public class HeavySwing extends SwordAbility
 
 	@Override
 	public void passive(Player player, Entity target) {
-		// TODO Auto-generated method stub
 		
 	}
 }

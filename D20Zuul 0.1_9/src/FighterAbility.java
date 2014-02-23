@@ -1,8 +1,7 @@
-import java.util.Stack;
 /**
  * Fighter ability objects
  * @author DeusBlu
- * @version 0.1_8
+ * @version 0.1_9
  *
  */
 public abstract class FighterAbility extends Ability 
@@ -49,8 +48,7 @@ public abstract class FighterAbility extends Ability
 	 * @param target
 	 * @return Stack<Integer> the remaining attacks of the player
 	 */
-	public abstract int use(Stack<Integer> attacks, 
-								Player player, Entity target);
+	public abstract int use(Entity target, Encounter encounter);
 	
 	/**
 	 * the passive effect of the skill

@@ -3,8 +3,8 @@ import java.util.Stack;
  * Used for the battle, loads 2 parties (player and monster) and uses a combat object to simulate
  * the actual battle
  * 
- * @author (DeusBlu) 
- * @version (0.1_7)
+ * @author DeusBlu 
+ * @version 0.1_9
  */
 public class Encounter
 {
@@ -107,6 +107,11 @@ public class Encounter
     public int getRoll()
     {
     	return combat.getRoll();
+    }
+    
+    public int setRoll()
+    {
+    	return combat.setRoll();
     }
     
     /**
