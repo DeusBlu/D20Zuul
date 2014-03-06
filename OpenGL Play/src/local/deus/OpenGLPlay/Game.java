@@ -1,7 +1,6 @@
 package local.deus.OpenGLPlay;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
@@ -10,10 +9,14 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
+import local.deus.OpenGLPlay.entity.mob.Player;
 import local.deus.OpenGLPlay.graphics.Screen;
 import local.deus.OpenGLPlay.input.Keyboard;
+import local.deus.OpenGLPlay.level.Level;
+import local.deus.OpenGLPlay.level.RandomLevel;
 
-public class Game extends Canvas implements Runnable {
+public class Game extends Canvas implements Runnable
+{
 	/**
 	 * 
 	 */
@@ -26,41 +29,49 @@ public class Game extends Canvas implements Runnable {
 	private Thread thread;
 	private JFrame frame;
 	private Keyboard key;
+	private Level level;
+	private Player player;
 	private boolean running = false;
 	private Screen screen;
 
 	private BufferedImage image = new BufferedImage(width, height,
 			BufferedImage.TYPE_INT_RGB);
-	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer())
-			.getData();
+	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 
-	public Game() {
+	public Game()
+	{
 		Dimension size = new Dimension(width * scale, height * scale);
 		setPreferredSize(size);
 
 		screen = new Screen(width, height);
 		frame = new JFrame();
 		key = new Keyboard();
+		level = new RandomLevel(64, 64);
+		player = new Player(key);
 
 		addKeyListener(key);
 	}
 
-	public synchronized void start() {
+	public synchronized void start()
+	{
 		running = true;
 		thread = new Thread(this, "Display");
 		thread.start();
 	}
 
-	public synchronized void stop() {
+	public synchronized void stop()
+	{
 		running = false;
 		try {
 			thread.join();
-		} catch (InterruptedException e) {
+		}
+		catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void run() {
+	public void run()
+	{
 		long lastTime = System.nanoTime();
 		long timer = System.currentTimeMillis();
 		final double ns = 1000000000.0 / 60.0;
@@ -82,8 +93,7 @@ public class Game extends Canvas implements Runnable {
 
 			if (System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-				frame.setTitle(title + "  |  " + updates + " ups, " + frames
-						+ " fps");
+				frame.setTitle(title + "  |  " + updates + " ups, " + frames + " fps");
 				frames = 0;
 				updates = 0;
 			}
@@ -91,40 +101,37 @@ public class Game extends Canvas implements Runnable {
 		stop();
 	}
 
-	int x = 0, y = 0;
-
-	public void update() {
+	public void update()
+	{
 		key.update();
-		if (key.up)
-			y++;
-		if (key.down)
-			y--;
-		if (key.left)
-			x++;
-		if (key.right)
-			x--;
+		player.update();
 	}
 
-	public void render() {
+	public void render()
+	{
 		BufferStrategy bs = getBufferStrategy();
 		if (bs == null) {
 			createBufferStrategy(3);
 			return;
 		}
 		screen.clear();
-		screen.render(x, y);
+		int xScroll = player.xPos-screen.width /2;
+		int yScroll = player.yPos-screen.height /2;
+		level.render(xScroll, yScroll, screen);
+		player.render(screen);
 
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
 		}
 
-		Graphics g = bs.getDrawGraphics();
-		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-		g.dispose();
+		Graphics graphics = bs.getDrawGraphics();
+		graphics.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+		graphics.dispose();
 		bs.show();
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		Game game = new Game();
 		game.frame.setResizable(false);
 		game.frame.setTitle(Game.title);

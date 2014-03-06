@@ -3,10 +3,10 @@ package local.deus.OpenGLPlay.level.tile;
 import local.deus.OpenGLPlay.graphics.Screen;
 import local.deus.OpenGLPlay.graphics.Sprite;
 
-public class GrassTile extends Tile
+public class VoidTile extends Tile
 {
 
-	public GrassTile(Sprite sprite)
+	public VoidTile(Sprite sprite)
 	{
 		super(sprite);
 	}
