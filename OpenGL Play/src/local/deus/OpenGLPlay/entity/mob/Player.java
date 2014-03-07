@@ -67,7 +67,17 @@ public class Player extends Mob
 				}
 			}
 		}
-		if (dir == 2) sprite = Sprite.player_down;
+		if (dir == 2) {
+			sprite = Sprite.player_down;
+			if (walking) {
+				if(animate % 20 > 10){
+					sprite = Sprite.player_down_1;
+				}
+				else{
+					sprite = Sprite.player_down_2;
+				}
+			}
+		}
 		if (dir == 3){
 			sprite = Sprite.player_right;
 			if (walking) {
