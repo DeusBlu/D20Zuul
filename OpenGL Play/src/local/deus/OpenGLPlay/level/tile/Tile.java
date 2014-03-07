@@ -5,7 +5,7 @@ import local.deus.OpenGLPlay.graphics.Sprite;
 
 public class Tile
 {
-
+	public static final int TILE_PX_SIZE = 16;
 	public int x, y;
 	public Sprite sprite;
 

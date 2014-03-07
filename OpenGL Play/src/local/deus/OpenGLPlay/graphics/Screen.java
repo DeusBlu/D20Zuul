@@ -59,14 +59,17 @@ public class Screen
 	{
 		xPos -= xOffset;
 		yPos -= yOffset;
-		for (int y = 0; y < 16; y++) {
+		for (int y = 0; y < Tile.TILE_PX_SIZE; y++) {
 			int ya = y + yPos;
-			for (int x = 0; x < 16; x++) {
+			int ySprite = y;
+			for (int x = 0; x < Tile.TILE_PX_SIZE; x++) {
 				int xa = x + xPos;
-				if (xa < -16 || xa >= width || ya < 0 || ya >= height) break;
+				int xSprite = 15 - x;
+				if (xa < -Tile.TILE_PX_SIZE || xa >= width || ya < 0 || ya >= height)
+					break;
 				if (xa < 0) xa = 0;
-				int col = sprite.pixels[x + y * 16];
-				if(col != 0xffff00ff) pixels[xa + ya * width] = col;
+				int color = sprite.pixels[xSprite + ySprite * Tile.TILE_PX_SIZE];
+				if (color != 0xffff00ff) pixels[xa + ya * width] = color;
 			}
 		}
 
