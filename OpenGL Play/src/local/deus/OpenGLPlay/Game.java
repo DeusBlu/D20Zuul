@@ -13,7 +13,7 @@ import local.deus.OpenGLPlay.entity.mob.Player;
 import local.deus.OpenGLPlay.graphics.Screen;
 import local.deus.OpenGLPlay.input.Keyboard;
 import local.deus.OpenGLPlay.level.Level;
-import local.deus.OpenGLPlay.level.RandomLevel;
+import local.deus.OpenGLPlay.level.SpawnLevel;
 
 public class Game extends Canvas implements Runnable
 {
@@ -46,7 +46,7 @@ public class Game extends Canvas implements Runnable
 		screen = new Screen(width, height);
 		frame = new JFrame();
 		key = new Keyboard();
-		level = new RandomLevel(64, 64);
+		level = new SpawnLevel("/textures/levels/spawnLevel.png");
 		player = new Player(key);
 
 		addKeyListener(key);
@@ -115,8 +115,8 @@ public class Game extends Canvas implements Runnable
 			return;
 		}
 		screen.clear();
-		int xScroll = player.xPos-screen.width /2;
-		int yScroll = player.yPos-screen.height /2;
+		int xScroll = player.xPos - screen.width / 2;
+		int yScroll = player.yPos - screen.height / 2;
 		level.render(xScroll, yScroll, screen);
 		player.render(screen);
 

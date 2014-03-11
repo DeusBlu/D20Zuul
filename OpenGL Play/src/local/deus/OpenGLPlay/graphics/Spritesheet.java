@@ -19,7 +19,8 @@ public class Spritesheet
 	public final int SIZE;
 	public int[] pixels;
 
-	public static Spritesheet tiles = new Spritesheet("/textures/spritesheet.png", 256);
+	public static Spritesheet tiles = new Spritesheet("/textures/spritesheet/spritesheet.png", 256);
+	public static Spritesheet spawnTiles = new Spritesheet("/textures/spritesheet/spawn_level/spawntiles.png", 48);
 
 	public Spritesheet(String path, int size)
 	{
