@@ -1,8 +1,10 @@
 package local.deus.OpenGLPlay.entity.mob;
 
+import local.deus.OpenGLPlay.Game;
 import local.deus.OpenGLPlay.graphics.Screen;
 import local.deus.OpenGLPlay.graphics.Sprite;
 import local.deus.OpenGLPlay.input.Keyboard;
+import local.deus.OpenGLPlay.input.Mouse;
 
 public class Player extends Mob
 {
@@ -33,13 +35,23 @@ public class Player extends Mob
 		if (keyInput.down) yChange++;
 		if (keyInput.left) xChange--;
 		if (keyInput.right) xChange++;
-
 		if (xChange != 0 || yChange != 0) {
 			move(xChange, yChange);
 			walking = true;
 		}
 		else {
 			walking = false;
+		}
+		updateShooting();
+	}
+
+	private void updateShooting()
+	{
+		if (Mouse.getButton() == 1) {
+			double dx = Mouse.getX() - Game.getWindowWidth() / 2;
+			double dy = Mouse.getY() - Game.getWindowHeight() / 2;
+			double dir = Math.atan2(dy, dx);
+			shoot(xPos, yPos, dir);
 		}
 	}
 
@@ -48,10 +60,10 @@ public class Player extends Mob
 		if (dir == 0) {
 			sprite = Sprite.player_up;
 			if (walking) {
-				if(animate % 20 > 10){
+				if (animate % 20 > 10) {
 					sprite = Sprite.player_forward_1;
 				}
-				else{
+				else {
 					sprite = Sprite.player_forward_2;
 				}
 			}
@@ -59,10 +71,10 @@ public class Player extends Mob
 		if (dir == 1) {
 			sprite = Sprite.player_left;
 			if (walking) {
-				if(animate % 20 > 10){
+				if (animate % 20 > 10) {
 					sprite = Sprite.player_left_1;
 				}
-				else{
+				else {
 					sprite = Sprite.player_left_2;
 				}
 			}
@@ -70,21 +82,21 @@ public class Player extends Mob
 		if (dir == 2) {
 			sprite = Sprite.player_down;
 			if (walking) {
-				if(animate % 20 > 10){
+				if (animate % 20 > 10) {
 					sprite = Sprite.player_down_1;
 				}
-				else{
+				else {
 					sprite = Sprite.player_down_2;
 				}
 			}
 		}
-		if (dir == 3){
+		if (dir == 3) {
 			sprite = Sprite.player_right;
 			if (walking) {
-				if(animate % 20 > 10){
+				if (animate % 20 > 10) {
 					sprite = Sprite.player_right_1;
 				}
-				else{
+				else {
 					sprite = Sprite.player_right_2;
 				}
 			}

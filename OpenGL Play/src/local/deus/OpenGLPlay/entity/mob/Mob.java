@@ -11,13 +11,18 @@ public abstract class Mob extends Entity
 
 	public void move(int xChange, int yChange)
 	{
+		if(xChange != 0 && yChange != 0){
+			move(xChange, 0);
+			move(0, yChange);
+			return;
+		}
 		if (xChange > 0) dir = 1;
 		if (xChange < 0) dir = 3;
 		if (yChange > 0) dir = 2;
 		if (yChange < 0) dir = 0;
 
 		// requires -1, 0 or 1
-		if (!collision()) {
+		if (!collision(xChange, yChange)) {
 			xPos += xChange;
 			yPos += yChange;
 		}
@@ -27,10 +32,21 @@ public abstract class Mob extends Entity
 	{
 
 	}
-
-	private boolean collision()
+	
+	protected void shoot(int xPos, int yPos, double dir)
 	{
-		return false;
+		dir *= 180 / Math.PI;
+	}
+
+	private boolean collision(int xChange, int yChange)
+	{
+		boolean solid = false;
+		for(int corner = 0; corner < 4; corner++){
+			int xt = ((xPos + xChange) + corner % 2 * 10 + 2) / 16;
+			int yt = ((yPos + yChange) + corner / 2 * 10 + 5) / 16;
+			if(level.getTile(xt, yt).solid()) solid = true;
+		}
+		return solid;
 	}
 
 	public void render()

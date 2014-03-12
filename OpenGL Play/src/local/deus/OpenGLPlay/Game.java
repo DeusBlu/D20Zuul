@@ -1,7 +1,9 @@
 package local.deus.OpenGLPlay;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -12,8 +14,9 @@ import javax.swing.JFrame;
 import local.deus.OpenGLPlay.entity.mob.Player;
 import local.deus.OpenGLPlay.graphics.Screen;
 import local.deus.OpenGLPlay.input.Keyboard;
+import local.deus.OpenGLPlay.input.Mouse;
 import local.deus.OpenGLPlay.level.Level;
-import local.deus.OpenGLPlay.level.SpawnLevel;
+import local.deus.OpenGLPlay.level.TileCoordinate;
 
 public class Game extends Canvas implements Runnable
 {
@@ -21,9 +24,9 @@ public class Game extends Canvas implements Runnable
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static int width = 300;
-	public static int height = width / 16 * 9;
-	public static int scale = 3;
+	private static int width = 300;
+	private static int height = width / 16 * 9;
+	private static int scale = 3;
 	public static String title = "The Game";
 
 	private Thread thread;
@@ -46,10 +49,25 @@ public class Game extends Canvas implements Runnable
 		screen = new Screen(width, height);
 		frame = new JFrame();
 		key = new Keyboard();
-		level = new SpawnLevel("/textures/levels/spawnLevel.png");
-		player = new Player(key);
-
+		level = Level.spawn;
+		TileCoordinate playerSpawn = new TileCoordinate(19, 71);
+		player = new Player(playerSpawn.getXPos(), playerSpawn.getYPos(), key);
+		player.init(level);
 		addKeyListener(key);
+		
+		Mouse mouse = new Mouse();
+		addMouseListener(mouse);
+		addMouseMotionListener(mouse);
+	}
+	
+	public static int getWindowWidth()
+	{
+		return width * scale;
+	}
+	
+	public static int getWindowHeight()
+	{
+		return height * scale;
 	}
 
 	public synchronized void start()
@@ -126,6 +144,10 @@ public class Game extends Canvas implements Runnable
 
 		Graphics graphics = bs.getDrawGraphics();
 		graphics.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+		graphics.setColor(Color.WHITE);
+		graphics.setFont(new Font("Verdana", 0, 50));
+		graphics.fillRect(Mouse.getX(), Mouse.getY(), 20, 20);
+		if(Mouse.getButton() != -1) graphics.drawString("Button: " + Mouse.getButton(), 80, 80);
 		graphics.dispose();
 		bs.show();
 	}
