@@ -14,6 +14,7 @@ public class Sprite
 
 	public final int SIZE;
 	private int x, y;
+	private int width, height;
 	public int[] pixels;
 	private Spritesheet sheet;
 
@@ -59,29 +60,58 @@ public class Sprite
 			Spritesheet.tiles);
 	public static Sprite player_left_2 = new Sprite(Tile.TILE_PX_SIZE, 3, 12,
 			Spritesheet.tiles);
+	
+	//Projectile Sprites
+	public static Sprite wizard_projectile = new Sprite(Tile.TILE_PX_SIZE, 0, 13, Spritesheet.tiles);
+	
+	//particles
+	public static Sprite particle_normal = new Sprite(3, 0xAAAAAA);
 
 	public Sprite(int size, int x, int y, Spritesheet sheet)
 	{
 		SIZE = size;
+		this.width = size;
+		this.height = size;
 		pixels = new int[SIZE * SIZE];
 		this.x = x * size;
 		this.y = y * size;
 		this.sheet = sheet;
 		load();
 	}
+	
+	public Sprite(int width, int height, int color)
+	{
+		SIZE = -1;
+		this.width = width;
+		this.height = height;
+		pixels = new int[height * width];
+		setColor(color);
+	}
 
 	public Sprite(int size, int color)
 	{
 		SIZE = size;
+		this.width = size;
+		this.height = size;
 		pixels = new int[SIZE * SIZE];
 		setColor(color);
 	}
 
 	private void setColor(int color)
 	{
-		for (int i = 0; i < SIZE * SIZE; i++) {
+		for (int i = 0; i < width * height; i++) {
 			pixels[i] = color;
 		}
+	}
+	
+	public int getWidth()
+	{
+		return width;
+	}
+	
+	public int getHeight()
+	{
+		return height;
 	}
 
 	private void load()

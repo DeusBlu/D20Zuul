@@ -5,6 +5,7 @@ package local.deus.OpenGLPlay.graphics;
 
 import java.util.Random;
 
+import local.deus.OpenGLPlay.entity.projectile.Projectile;
 import local.deus.OpenGLPlay.level.tile.Tile;
 
 /**
@@ -38,21 +39,57 @@ public class Screen
 			pixels[i] = 0;
 		}
 	}
+	
+	public void renderSprite(int xPos, int yPos, Sprite sprite, boolean fixed)
+	{
+		if(fixed) {
+			xPos -= xOffset;
+			yPos -= yOffset;
+		}
+		for(int y = 0; y < sprite.getHeight(); y++){
+			int ya = y + yPos;
+			for (int x = 0; x < sprite.getWidth(); x++){
+				int xa = x + xPos;
+				if(xa < 0 || xa >= width || ya < 0 || ya >= height) continue;
+				pixels[x + y * width] = sprite.pixels[x + y * sprite.getWidth()];
+			}
+		}
+	}
 
-	public void renderTile(int xPos, int yPos, Tile tile)
+	public void renderTile(int xPos, int yPos, Sprite sprite)
 	{
 		xPos -= xOffset;
 		yPos -= yOffset;
-		for (int y = 0; y < tile.sprite.SIZE; y++) {
+		for (int y = 0; y < sprite.SIZE; y++) {
 			int ya = y + yPos;
-			for (int x = 0; x < tile.sprite.SIZE; x++) {
+			for (int x = 0; x < sprite.SIZE; x++) {
 				int xa = x + xPos;
-				if (xa < -tile.sprite.SIZE || xa >= width || ya < 0 || ya >= height)
+				if (xa < -sprite.SIZE || xa >= width || ya < 0 || ya >= height)
 					break;
 				if (xa < 0) xa = 0;
-				pixels[xa + ya * width] = tile.sprite.pixels[x + y * tile.sprite.SIZE];
+				pixels[xa + ya * width] = sprite.pixels[x + y * sprite.SIZE];
 			}
 		}
+	}
+
+	public void renderProjectile(int xPos, int yPos, Projectile p)
+	{
+		xPos -= xOffset;
+		yPos -= yOffset;
+		for (int y = 0; y < p.getSpriteSize(); y++) {
+			int ya = y + yPos;
+			int ySprite = y;
+			for (int x = 0; x < p.getSpriteSize(); x++) {
+				int xa = x + xPos;
+				int xSprite = 15 - x;
+				if (xa < -p.getSpriteSize() || xa >= width || ya < 0 || ya >= height)
+					break;
+				if (xa < 0) xa = 0;
+				int color = p.getSprite().pixels[xSprite + ySprite * p.getSpriteSize()];
+				if (color != 0xffff00ff) pixels[xa + ya * width] = color;
+			}
+		}
+
 	}
 
 	public void renderPlayer(int xPos, int yPos, Sprite sprite)

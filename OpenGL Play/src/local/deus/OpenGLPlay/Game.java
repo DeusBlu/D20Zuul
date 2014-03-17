@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 
 import local.deus.OpenGLPlay.entity.mob.Player;
 import local.deus.OpenGLPlay.graphics.Screen;
+import local.deus.OpenGLPlay.graphics.Sprite;
 import local.deus.OpenGLPlay.input.Keyboard;
 import local.deus.OpenGLPlay.input.Mouse;
 import local.deus.OpenGLPlay.level.Level;
@@ -123,6 +124,7 @@ public class Game extends Canvas implements Runnable
 	{
 		key.update();
 		player.update();
+		level.update();
 	}
 
 	public void render()
@@ -137,7 +139,6 @@ public class Game extends Canvas implements Runnable
 		int yScroll = player.yPos - screen.height / 2;
 		level.render(xScroll, yScroll, screen);
 		player.render(screen);
-
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
 		}
@@ -146,8 +147,6 @@ public class Game extends Canvas implements Runnable
 		graphics.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		graphics.setColor(Color.WHITE);
 		graphics.setFont(new Font("Verdana", 0, 50));
-		graphics.fillRect(Mouse.getX(), Mouse.getY(), 20, 20);
-		if(Mouse.getButton() != -1) graphics.drawString("Button: " + Mouse.getButton(), 80, 80);
 		graphics.dispose();
 		bs.show();
 	}

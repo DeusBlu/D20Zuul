@@ -1,6 +1,8 @@
 package local.deus.OpenGLPlay.entity.mob;
 
 import local.deus.OpenGLPlay.Game;
+import local.deus.OpenGLPlay.entity.projectile.Projectile;
+import local.deus.OpenGLPlay.entity.projectile.WizardProjectile;
 import local.deus.OpenGLPlay.graphics.Screen;
 import local.deus.OpenGLPlay.graphics.Sprite;
 import local.deus.OpenGLPlay.input.Keyboard;
@@ -12,6 +14,8 @@ public class Player extends Mob
 	private Sprite sprite;
 	int animate = 0;
 	private boolean walking = false;
+	
+	private int fireRate = 0;
 
 	public Player(Keyboard keyInput)
 	{
@@ -24,10 +28,12 @@ public class Player extends Mob
 		this.yPos = yPos;
 		this.keyInput = keyInput;
 		sprite = Sprite.player_up;
+		fireRate = WizardProjectile.FIRE_RATE;
 	}
 
 	public void update()
 	{
+		if(fireRate > 0) fireRate --;
 		int xChange = 0, yChange = 0;
 		if (animate < Integer.MAX_VALUE) animate++;
 		else animate = 0;
@@ -42,16 +48,28 @@ public class Player extends Mob
 		else {
 			walking = false;
 		}
+		clear();
 		updateShooting();
+	}
+	
+	private void clear()
+	{
+		for(int i = 0; i < level.getProjectiles().size(); i++){
+			Projectile p = level.getProjectiles().get(i);
+			if(p.isRemoved()){
+				level.getProjectiles().remove(i);
+			}
+		}
 	}
 
 	private void updateShooting()
 	{
-		if (Mouse.getButton() == 1) {
+		if (Mouse.getButton() == 1 && fireRate <= 0) {
 			double dx = Mouse.getX() - Game.getWindowWidth() / 2;
 			double dy = Mouse.getY() - Game.getWindowHeight() / 2;
 			double dir = Math.atan2(dy, dx);
 			shoot(xPos, yPos, dir);
+			fireRate = WizardProjectile.FIRE_RATE;
 		}
 	}
 
